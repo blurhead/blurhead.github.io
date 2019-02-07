@@ -1,2 +1,544 @@
 <?xml version="1.0" encoding="utf-8"?>
-<?xml-stylesheet type="text/xsl" href="assets/xml/rss.xsl" media="all"?><rss version="2.0" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>blurhead's site</title><link>https://blurhead.github.io/</link><description>programming, data science</description><atom:link href="https://blurhead.github.io/rss.xml" rel="self" type="application/rss+xml"></atom:link><language>zh_cn</language><copyright>Contents © 2019 &lt;a href="mailto:blurflask@gmail.com"&gt;blurhead&lt;/a&gt; </copyright><lastBuildDate>Thu, 07 Feb 2019 08:49:18 GMT</lastBuildDate><generator>Nikola (getnikola.com)</generator><docs>http://blogs.law.harvard.edu/tech/rss</docs></channel></rss>
+<?xml-stylesheet type="text/xsl" href="assets/xml/rss.xsl" media="all"?><rss version="2.0" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>blurhead's site</title><link>https://blurhead.github.io/</link><description>programming, data science</description><atom:link href="https://blurhead.github.io/rss.xml" rel="self" type="application/rss+xml"></atom:link><language>zh_cn</language><copyright>Contents © 2019 &lt;a href="mailto:blurflask@gmail.com"&gt;blurhead&lt;/a&gt; </copyright><lastBuildDate>Thu, 07 Feb 2019 14:36:54 GMT</lastBuildDate><generator>Nikola (getnikola.com)</generator><docs>http://blogs.law.harvard.edu/tech/rss</docs><item><title>数据库入门指南</title><link>https://blurhead.github.io/posts/shujushu-ju-ku-ru-men-zhi-nan/</link><dc:creator>blurhead</dc:creator><description>&lt;div id="outline-container-orgdff5601" class="outline-2"&gt;
+&lt;h2 id="orgdff5601"&gt;基础知识&lt;/h2&gt;
+&lt;div class="outline-text-2" id="text-orgdff5601"&gt;
+&lt;/div&gt;
+&lt;div id="outline-container-orgcdf2216" class="outline-3"&gt;
+&lt;h3 id="orgcdf2216"&gt;范式&lt;/h3&gt;
+&lt;div class="outline-text-3" id="text-orgcdf2216"&gt;
+&lt;p&gt;
+数据库表设计的参考标准, 主要有三大范式
+&lt;/p&gt;
+
+&lt;p&gt;
+范式之间是层层递进的关系,满足更高一级的范式必定满足低一级的范式
+&lt;/p&gt;
+
+&lt;p&gt;
+其他的范式还有BCNF,4NF,5NF等, 一般来说设计的时候满足三范式就够了
+&lt;/p&gt;
+
+&lt;dl class="org-dl"&gt;
+&lt;dt&gt;1NF&lt;/dt&gt;&lt;dd&gt;数据库中的所有字段都是不可再分的基本数据项, 关系数据库的基础, 不满足1NF的数据库不是关系数据库&lt;/dd&gt;
+&lt;dt&gt;2NF&lt;/dt&gt;&lt;dd&gt;&lt;b&gt;非主属性&lt;/b&gt; &lt;sup&gt;&lt;a id="fnr.1" class="footref" href="https://blurhead.github.io/posts/shujushu-ju-ku-ru-men-zhi-nan/#fn.1"&gt;1&lt;/a&gt;&lt;/sup&gt; &lt;b&gt;完全函数依赖&lt;/b&gt; &lt;sup&gt;&lt;a id="fnr.2" class="footref" href="https://blurhead.github.io/posts/shujushu-ju-ku-ru-men-zhi-nan/#fn.2"&gt;2&lt;/a&gt;&lt;/sup&gt;于 &lt;b&gt;主码&lt;/b&gt; &lt;sup&gt;&lt;a id="fnr.3" class="footref" href="https://blurhead.github.io/posts/shujushu-ju-ku-ru-men-zhi-nan/#fn.3"&gt;3&lt;/a&gt;&lt;/sup&gt;, 不能 &lt;b&gt;部分函数依赖&lt;/b&gt; &lt;sup&gt;&lt;a id="fnr.4" class="footref" href="https://blurhead.github.io/posts/shujushu-ju-ku-ru-men-zhi-nan/#fn.4"&gt;4&lt;/a&gt;&lt;/sup&gt;于主码&lt;/dd&gt;
+&lt;dt&gt;3NF&lt;/dt&gt;&lt;dd&gt;&lt;b&gt;非主属性&lt;/b&gt; 都要与 &lt;b&gt;主码&lt;/b&gt; 直接相关, 而不是间接相关, 消除 &lt;b&gt;传递函数依赖&lt;/b&gt; &lt;sup&gt;&lt;a id="fnr.5" class="footref" href="https://blurhead.github.io/posts/shujushu-ju-ku-ru-men-zhi-nan/#fn.5"&gt;5&lt;/a&gt;&lt;/sup&gt;&lt;/dd&gt;
+&lt;/dl&gt;
+&lt;p&gt;
+注意事项:
+&lt;/p&gt;
+
+&lt;p&gt;
+第二范式和第三范式的区别在于有没有分出两张表
+&lt;/p&gt;
+
+&lt;p&gt;
+实际应用中一般只能满足1NF, 2NF, 为了性能很难满足3NF
+&lt;/p&gt;
+&lt;/div&gt;
+
+&lt;div id="outline-container-org80bcd21" class="outline-4"&gt;
+&lt;h4 id="org80bcd21"&gt;案例分析&lt;/h4&gt;
+&lt;div class="outline-text-4" id="text-org80bcd21"&gt;
+&lt;p&gt;
+下面介绍一下, 设计表的时候如何一步步演化到第三范式
+&lt;/p&gt;
+
+&lt;p&gt;
+下面是一张学生成绩表
+&lt;/p&gt;
+&lt;table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides"&gt;
+
+
+&lt;colgroup&gt;
+&lt;col class="org-left"&gt;
+
+&lt;col class="org-left"&gt;
+
+&lt;col class="org-left"&gt;
+
+&lt;col class="org-right"&gt;
+&lt;/colgroup&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td class="org-left"&gt;学生&lt;/td&gt;
+&lt;td class="org-left"&gt;系&lt;/td&gt;
+&lt;td class="org-left"&gt;课名&lt;/td&gt;
+&lt;td class="org-right"&gt;分数&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td class="org-left"&gt;1022211101 , 李晓明&lt;/td&gt;
+&lt;td class="org-left"&gt;经济系 , 王强&lt;/td&gt;
+&lt;td class="org-left"&gt;高等数学&lt;/td&gt;
+&lt;td class="org-right"&gt;95&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;p&gt;
+这张表明显不符合第一范式, 因为学生和系都是可以拆分的
+&lt;/p&gt;
+
+&lt;p&gt;
+拆分之后, 就满足第一范式了
+&lt;/p&gt;
+&lt;table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides"&gt;
+
+
+&lt;colgroup&gt;
+&lt;col class="org-right"&gt;
+
+&lt;col class="org-left"&gt;
+
+&lt;col class="org-left"&gt;
+
+&lt;col class="org-left"&gt;
+
+&lt;col class="org-left"&gt;
+
+&lt;col class="org-right"&gt;
+&lt;/colgroup&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td class="org-right"&gt;学号&lt;/td&gt;
+&lt;td class="org-left"&gt;姓名&lt;/td&gt;
+&lt;td class="org-left"&gt;系名&lt;/td&gt;
+&lt;td class="org-left"&gt;系主任&lt;/td&gt;
+&lt;td class="org-left"&gt;课名&lt;/td&gt;
+&lt;td class="org-right"&gt;分数&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td class="org-right"&gt;1022211101&lt;/td&gt;
+&lt;td class="org-left"&gt;李晓明&lt;/td&gt;
+&lt;td class="org-left"&gt;经济系&lt;/td&gt;
+&lt;td class="org-left"&gt;王强&lt;/td&gt;
+&lt;td class="org-left"&gt;高等数学&lt;/td&gt;
+&lt;td class="org-right"&gt;95&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td class="org-right"&gt;1022211101&lt;/td&gt;
+&lt;td class="org-left"&gt;李晓明&lt;/td&gt;
+&lt;td class="org-left"&gt;经济系&lt;/td&gt;
+&lt;td class="org-left"&gt;王强&lt;/td&gt;
+&lt;td class="org-left"&gt;大学英语&lt;/td&gt;
+&lt;td class="org-right"&gt;85&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td class="org-right"&gt;1022211101&lt;/td&gt;
+&lt;td class="org-left"&gt;李晓明&lt;/td&gt;
+&lt;td class="org-left"&gt;经济系&lt;/td&gt;
+&lt;td class="org-left"&gt;王强&lt;/td&gt;
+&lt;td class="org-left"&gt;普通化学&lt;/td&gt;
+&lt;td class="org-right"&gt;75&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td class="org-right"&gt;1022211102&lt;/td&gt;
+&lt;td class="org-left"&gt;张丽&lt;/td&gt;
+&lt;td class="org-left"&gt;经济系&lt;/td&gt;
+&lt;td class="org-left"&gt;王强&lt;/td&gt;
+&lt;td class="org-left"&gt;高等数学&lt;/td&gt;
+&lt;td class="org-right"&gt;80&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td class="org-right"&gt;1022211102&lt;/td&gt;
+&lt;td class="org-left"&gt;张丽&lt;/td&gt;
+&lt;td class="org-left"&gt;经济系&lt;/td&gt;
+&lt;td class="org-left"&gt;王强&lt;/td&gt;
+&lt;td class="org-left"&gt;大学英语&lt;/td&gt;
+&lt;td class="org-right"&gt;82&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td class="org-right"&gt;1022211102&lt;/td&gt;
+&lt;td class="org-left"&gt;张丽&lt;/td&gt;
+&lt;td class="org-left"&gt;经济系&lt;/td&gt;
+&lt;td class="org-left"&gt;王强&lt;/td&gt;
+&lt;td class="org-left"&gt;普通化学&lt;/td&gt;
+&lt;td class="org-right"&gt;82&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;p&gt;
+现在所有字段都是最小的数据项, 满足第一范式
+&lt;/p&gt;
+
+&lt;p&gt;
+这张表中主格是(学号, 课名), 非主属性为(姓名, 系名, 系主任, 分数)
+&lt;/p&gt;
+
+&lt;p&gt;
+系名和系主任只完全函数依赖于学号, 部分函数依赖于主格, 不满足2NF
+&lt;/p&gt;
+
+&lt;p&gt;
+现在存在的问题
+&lt;/p&gt;
+&lt;dl class="org-dl"&gt;
+&lt;dt&gt;数据冗余&lt;/dt&gt;&lt;dd&gt;每一个学生的姓名,系名,系主任这些数据重复多次&lt;/dd&gt;
+&lt;dt&gt;插入异常&lt;/dt&gt;&lt;dd&gt;一个系没有学生,则无法将系名与系主任的数据单独添加&lt;/dd&gt;
+&lt;dt&gt;删除异常&lt;/dt&gt;&lt;dd&gt;删除一个系中所有学生的数据,导致这个系也不存在了&lt;/dd&gt;
+&lt;dt&gt;修改异常&lt;/dt&gt;&lt;dd&gt;如果有学生需要转系,需要修改该学生所有数据中系与系主任的信息&lt;/dd&gt;
+&lt;/dl&gt;
+
+&lt;p&gt;
+为了解决这些问题,必须在第一范式的基础上拆分表来满足第二范式
+&lt;/p&gt;
+&lt;dl class="org-dl"&gt;
+&lt;dt&gt;成绩表&lt;/dt&gt;&lt;dd&gt;&lt;/dd&gt;
+&lt;/dl&gt;
+&lt;table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides"&gt;
+
+
+&lt;colgroup&gt;
+&lt;col class="org-right"&gt;
+
+&lt;col class="org-left"&gt;
+
+&lt;col class="org-right"&gt;
+&lt;/colgroup&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td class="org-right"&gt;学号&lt;/td&gt;
+&lt;td class="org-left"&gt;课名&lt;/td&gt;
+&lt;td class="org-right"&gt;分数&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td class="org-right"&gt;1022211101&lt;/td&gt;
+&lt;td class="org-left"&gt;高等数学&lt;/td&gt;
+&lt;td class="org-right"&gt;95&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td class="org-right"&gt;1022211101&lt;/td&gt;
+&lt;td class="org-left"&gt;大学英语&lt;/td&gt;
+&lt;td class="org-right"&gt;85&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td class="org-right"&gt;1022211101&lt;/td&gt;
+&lt;td class="org-left"&gt;普通化学&lt;/td&gt;
+&lt;td class="org-right"&gt;75&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td class="org-right"&gt;1022211102&lt;/td&gt;
+&lt;td class="org-left"&gt;高等数学&lt;/td&gt;
+&lt;td class="org-right"&gt;80&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td class="org-right"&gt;1022211102&lt;/td&gt;
+&lt;td class="org-left"&gt;大学英语&lt;/td&gt;
+&lt;td class="org-right"&gt;82&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td class="org-right"&gt;1022211102&lt;/td&gt;
+&lt;td class="org-left"&gt;普通化学&lt;/td&gt;
+&lt;td class="org-right"&gt;82&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;p&gt;
+主格:(学号, 课名), 非主属性(分数,), 满足3NF
+&lt;/p&gt;
+&lt;dl class="org-dl"&gt;
+&lt;dt&gt;学生表&lt;/dt&gt;&lt;dd&gt;&lt;/dd&gt;
+&lt;/dl&gt;
+&lt;table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides"&gt;
+
+
+&lt;colgroup&gt;
+&lt;col class="org-right"&gt;
+
+&lt;col class="org-left"&gt;
+
+&lt;col class="org-left"&gt;
+
+&lt;col class="org-left"&gt;
+&lt;/colgroup&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td class="org-right"&gt;学号&lt;/td&gt;
+&lt;td class="org-left"&gt;姓名&lt;/td&gt;
+&lt;td class="org-left"&gt;系名&lt;/td&gt;
+&lt;td class="org-left"&gt;系主任&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td class="org-right"&gt;1022211101&lt;/td&gt;
+&lt;td class="org-left"&gt;李晓明&lt;/td&gt;
+&lt;td class="org-left"&gt;经济系&lt;/td&gt;
+&lt;td class="org-left"&gt;王强&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td class="org-right"&gt;1022211102&lt;/td&gt;
+&lt;td class="org-left"&gt;张丽&lt;/td&gt;
+&lt;td class="org-left"&gt;经济系&lt;/td&gt;
+&lt;td class="org-left"&gt;王强&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;p&gt;
+主格:(学号), 非主属性(姓名, 系名, 系主任), 满足2NF
+&lt;/p&gt;
+
+&lt;p&gt;
+但是系主任完全函数依赖于系名, 系名完全函数依赖于学号, 存在传递函数依赖, 不满足3NF
+&lt;/p&gt;
+
+&lt;p&gt;
+现在数据冗余和修改异常的问题得到了改善, 但是插入异常和删除异常依然存在
+&lt;/p&gt;
+
+&lt;p&gt;
+这时候就需要继续提高标准, 对学生表继续拆分, 使学生表满足第三范式
+&lt;/p&gt;
+&lt;dl class="org-dl"&gt;
+&lt;dt&gt;学生表&lt;/dt&gt;&lt;dd&gt;&lt;/dd&gt;
+&lt;/dl&gt;
+&lt;table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides"&gt;
+
+
+&lt;colgroup&gt;
+&lt;col class="org-right"&gt;
+
+&lt;col class="org-left"&gt;
+
+&lt;col class="org-left"&gt;
+&lt;/colgroup&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td class="org-right"&gt;学号&lt;/td&gt;
+&lt;td class="org-left"&gt;姓名&lt;/td&gt;
+&lt;td class="org-left"&gt;系名&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td class="org-right"&gt;1022211101&lt;/td&gt;
+&lt;td class="org-left"&gt;李晓明&lt;/td&gt;
+&lt;td class="org-left"&gt;经济系&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td class="org-right"&gt;1022211102&lt;/td&gt;
+&lt;td class="org-left"&gt;张丽&lt;/td&gt;
+&lt;td class="org-left"&gt;经济系&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;p&gt;
+主格:(学号), 非主属性:(姓名, 系名), 满足3NF
+&lt;/p&gt;
+&lt;dl class="org-dl"&gt;
+&lt;dt&gt;院系表&lt;/dt&gt;&lt;dd&gt;&lt;/dd&gt;
+&lt;/dl&gt;
+&lt;table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides"&gt;
+
+
+&lt;colgroup&gt;
+&lt;col class="org-left"&gt;
+
+&lt;col class="org-left"&gt;
+&lt;/colgroup&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td class="org-left"&gt;系名&lt;/td&gt;
+&lt;td class="org-left"&gt;系主任&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td class="org-left"&gt;经济系&lt;/td&gt;
+&lt;td class="org-left"&gt;王强&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;p&gt;
+主格:(系名), 非主属性:(系主任), 满足3NF
+&lt;/p&gt;
+
+&lt;p&gt;
+这时候可以看到数据冗余减少到了最少, 同时删除,修改,插入异常都消除了
+&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+
+
+&lt;div id="outline-container-org44ab195" class="outline-3"&gt;
+&lt;h3 id="org44ab195"&gt;约束&lt;/h3&gt;
+&lt;div class="outline-text-3" id="text-org44ab195"&gt;
+&lt;dl class="org-dl"&gt;
+&lt;dt&gt;主键约束 (Primay Key Coustraint)&lt;/dt&gt;&lt;dd&gt;唯一性, 非空性&lt;/dd&gt;
+
+&lt;dt&gt;唯一约束 (Unique Constraint)&lt;/dt&gt;&lt;dd&gt;唯一性, 建议不为空&lt;/dd&gt;
+
+&lt;dt&gt;默认约束 (Default Constraint)&lt;/dt&gt;&lt;dd&gt;字段的默认值, 可以为null&lt;/dd&gt;
+
+&lt;dt&gt;外键约束 (Foreign Key Constraint)&lt;/dt&gt;&lt;dd&gt;两表间的关系约束.&lt;/dd&gt;
+
+&lt;dt&gt;非空约束 (Not Null Constraint)&lt;/dt&gt;&lt;dd&gt;字段不能为null&lt;/dd&gt;
+
+&lt;dt&gt;检查约束 (Check Constraint)&lt;/dt&gt;&lt;dd&gt;限制字段的值范围&lt;/dd&gt;
+&lt;/dl&gt;
+
+&lt;p&gt;
+主键一般是自增长的id, 唯一约束一般是业务上的唯一约束;
+&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+
+
+&lt;div id="outline-container-org688843c" class="outline-3"&gt;
+&lt;h3 id="org688843c"&gt;编码&lt;/h3&gt;
+&lt;div class="outline-text-3" id="text-org688843c"&gt;
+&lt;p&gt;
+字符编码(Character Set)和排序规则(Collation)
+&lt;/p&gt;
+
+&lt;p&gt;
+可以在服务器, 数据库, 表, 字段四个层面设置字符编码
+&lt;/p&gt;
+
+&lt;p&gt;
+优先级: 字段 &amp;gt; 表 &amp;gt; 数据库 &amp;gt; 服务器
+&lt;/p&gt;
+
+&lt;p&gt;
+一个Character Set对应多个Collation, 不同的Collation性能和准确性有差异
+&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+
+
+&lt;div id="outline-container-org21b1d50" class="outline-3"&gt;
+&lt;h3 id="org21b1d50"&gt;索引&lt;/h3&gt;
+&lt;/div&gt;
+
+
+
+&lt;div id="outline-container-org4b2e71a" class="outline-3"&gt;
+&lt;h3 id="org4b2e71a"&gt;锁&lt;/h3&gt;
+&lt;/div&gt;
+
+
+
+&lt;div id="outline-container-org6ae63fd" class="outline-3"&gt;
+&lt;h3 id="org6ae63fd"&gt;事务&lt;/h3&gt;
+&lt;/div&gt;
+
+
+&lt;div id="outline-container-org5d59251" class="outline-3"&gt;
+&lt;h3 id="org5d59251"&gt;规范&lt;/h3&gt;
+&lt;div class="outline-text-3" id="text-org5d59251"&gt;
+&lt;p&gt;
+以mysql举例说明, 参考了阿里云和腾讯云社区的文章
+&lt;/p&gt;
+&lt;/div&gt;
+
+&lt;div id="outline-container-orgbe25d18" class="outline-4"&gt;
+&lt;h4 id="orgbe25d18"&gt;命名&lt;/h4&gt;
+&lt;div class="outline-text-4" id="text-orgbe25d18"&gt;
+&lt;p&gt;
+主要包括字段和表的命名, 未作特殊说明的表示对于表和字段都适用
+&lt;/p&gt;
+&lt;ul class="org-ul"&gt;
+&lt;li&gt;采用26个字母以及下划线, 单词之间统一用下划线分割, 一般不用数字&lt;/li&gt;
+&lt;li&gt;字段名和表名全部小写, 禁止出现大写&lt;/li&gt;
+&lt;li&gt;慎用数据库关键字, 如name, 最好结合其他单词使用, 如user&lt;sub&gt;name&lt;/sub&gt;&lt;/li&gt;
+&lt;li&gt;名称要易于理解, 不宜过长, 最好不要超过三个单词&lt;/li&gt;
+&lt;li&gt;单数形式表示名词, 如employee, 而不是employees&lt;/li&gt;
+&lt;li&gt;必须有描述信息, 说明表和列的含义与用途&lt;/li&gt;
+&lt;li&gt;表名使用名词, 字段可以使用名词和动宾短语&lt;/li&gt;
+&lt;li&gt;尽量避免字段名中包含表名&lt;/li&gt;
+&lt;li&gt;字段的名称中不要包含数据类型&lt;/li&gt;
+&lt;li&gt;字段命名使用完整名词, 不要使用缩写&lt;/li&gt;
+&lt;li&gt;日期类型字段推荐以“&lt;sub&gt;DATE&lt;/sub&gt;”结尾的名字命名&lt;/li&gt;
+&lt;li&gt;时间类型的字段推荐以“&lt;sub&gt;TIME&lt;/sub&gt;”结尾的名字命名&lt;/li&gt;
+&lt;li&gt;明细表命名推荐使用主表加dtl(detail缩写)来表示&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+
+
+&lt;div id="outline-container-orgda231b1" class="outline-4"&gt;
+&lt;h4 id="orgda231b1"&gt;类型&lt;/h4&gt;
+&lt;div class="outline-text-4" id="text-orgda231b1"&gt;
+&lt;ul class="org-ul"&gt;
+&lt;li&gt;字段最好都要有默认值, 不要为null, null字段查询难以优化, null字段的复合索引无效&lt;/li&gt;
+&lt;li&gt;用尽量少的存储空间来存储, 优先级int&amp;gt; varchar, char, varchar(10) &amp;gt; varchar(100)&lt;/li&gt;
+&lt;li&gt;固定长度的字段使用char, 可变长度的字段使用varchar&lt;/li&gt;
+&lt;li&gt;主键使用int类型自增长的ID, int长度不能设置太短&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+
+
+&lt;div id="outline-container-org73e1993" class="outline-4"&gt;
+&lt;h4 id="org73e1993"&gt;编码&lt;/h4&gt;
+&lt;div class="outline-text-4" id="text-org73e1993"&gt;
+&lt;ul class="org-ul"&gt;
+&lt;li&gt;使用utf8字符集同时考虑是否大小写敏感&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+
+
+&lt;div id="outline-container-org90b2d02" class="outline-2"&gt;
+&lt;h2 id="org90b2d02"&gt;参考资料&lt;/h2&gt;
+&lt;div class="outline-text-2" id="text-org90b2d02"&gt;
+&lt;dl class="org-dl"&gt;
+&lt;dt&gt;函数依赖的定义&lt;/dt&gt;&lt;dd&gt;&lt;a href="https://blog.csdn.net/rl529014/article/details/48391465"&gt;https://blog.csdn.net/rl529014/article/details/48391465&lt;/a&gt;&lt;/dd&gt;
+&lt;dt&gt;三范式的描述&lt;/dt&gt;&lt;dd&gt;&lt;a href="https://www.zhihu.com/question/24696366"&gt;https://www.zhihu.com/question/24696366&lt;/a&gt;&lt;/dd&gt;
+&lt;dt&gt;数据库规范&lt;/dt&gt;&lt;dd&gt;&lt;p&gt;
+             &lt;a href="https://cloud.tencent.com/developer/article/1054482"&gt;https://cloud.tencent.com/developer/article/1054482&lt;/a&gt;
+&lt;/p&gt;
+
+&lt;p&gt;
+&lt;a href="https://blog.csdn.net/houseq/article/details/39478687"&gt;https://blog.csdn.net/houseq/article/details/39478687&lt;/a&gt;
+&lt;/p&gt;
+
+&lt;p&gt;
+&lt;a href="https://www.zhihu.com/question/26026443"&gt;https://www.zhihu.com/question/26026443&lt;/a&gt;
+&lt;/p&gt;
+
+&lt;p&gt;
+&lt;a href="https://bbs.aliyun.com/simple/t534385.html"&gt;https://bbs.aliyun.com/simple/t534385.html&lt;/a&gt;
+&lt;/p&gt;&lt;/dd&gt;
+&lt;/dl&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div id="footnotes"&gt;
+&lt;h2 class="footnotes"&gt;Footnotes: &lt;/h2&gt;
+&lt;div id="text-footnotes"&gt;
+
+&lt;div class="footdef"&gt;&lt;sup&gt;&lt;a id="fn.1" class="footnum" href="https://blurhead.github.io/posts/shujushu-ju-ku-ru-men-zhi-nan/#fnr.1"&gt;1&lt;/a&gt;&lt;/sup&gt; &lt;div class="footpara"&gt;&lt;p class="footpara"&gt;
+所有不属于主码的属性集合
+&lt;/p&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;div class="footdef"&gt;&lt;sup&gt;&lt;a id="fn.2" class="footnum" href="https://blurhead.github.io/posts/shujushu-ju-ku-ru-men-zhi-nan/#fnr.2"&gt;2&lt;/a&gt;&lt;/sup&gt; &lt;div class="footpara"&gt;&lt;p class="footpara"&gt;
+设X,Y是两组集合, 如果知道了X也就确定了Y, 同时对于X的任何一个真子集X'无法确定Y, 则Y完全函数依赖于X
+&lt;/p&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;div class="footdef"&gt;&lt;sup&gt;&lt;a id="fn.3" class="footnum" href="https://blurhead.github.io/posts/shujushu-ju-ku-ru-men-zhi-nan/#fnr.3"&gt;3&lt;/a&gt;&lt;/sup&gt; &lt;div class="footpara"&gt;&lt;p class="footpara"&gt;
+唯一标识一个实体的一个或者多个属性的集合, 可以完全决定所有的其他属性, 也叫主键, 主关键字
+&lt;/p&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;div class="footdef"&gt;&lt;sup&gt;&lt;a id="fn.4" class="footnum" href="https://blurhead.github.io/posts/shujushu-ju-ku-ru-men-zhi-nan/#fnr.4"&gt;4&lt;/a&gt;&lt;/sup&gt; &lt;div class="footpara"&gt;&lt;p class="footpara"&gt;
+设X,Y是两组集合, 如果知道了X也就确定了Y, 同时存在X的一个真子集X'可以确定Y, 则Y部分函数依赖于X
+&lt;/p&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;div class="footdef"&gt;&lt;sup&gt;&lt;a id="fn.5" class="footnum" href="https://blurhead.github.io/posts/shujushu-ju-ku-ru-men-zhi-nan/#fnr.5"&gt;5&lt;/a&gt;&lt;/sup&gt; &lt;div class="footpara"&gt;&lt;p class="footpara"&gt;
+设X,Y,Z是三组集合, 如果知道了X就可以确定Y, 知道了Y就确定Z, 则Z传递函数依赖于X&lt;/p&gt;&lt;/div&gt;&lt;/div&gt;
+
+
+&lt;/div&gt;
+&lt;/div&gt;</description><guid>https://blurhead.github.io/posts/shujushu-ju-ku-ru-men-zhi-nan/</guid><pubDate>Thu, 07 Feb 2019 14:29:19 GMT</pubDate></item></channel></rss>

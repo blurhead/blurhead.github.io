@@ -1,100 +1,667 @@
 <!DOCTYPE html>
-<html prefix="og: http://ogp.me/ns# article: http://ogp.me/ns/article# " lang="en">
+<html lang="en">
 <head>
 <meta charset="utf-8">
 <meta name="description" content="programming, data science">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>blurhead's site</title>
+<script src="../assets/js/pace.min.js"></script><link href="../assets/css/pace.css" rel="stylesheet">
 <link href="../assets/css/all-nocdn.css" rel="stylesheet" type="text/css">
-<link href="https://fonts.googleapis.com/css?family=Playfair+Display:700,900" rel="stylesheet">
-<meta name="theme-color" content="#5670d4">
-<meta name="generator" content="Nikola (getnikola.com)">
 <link rel="alternate" type="application/rss+xml" title="RSS (en)" href="rss.xml">
 <link rel="alternate" type="application/rss+xml" title="RSS (zh_cn)" href="../rss.xml">
 <link rel="canonical" href="https://blurhead.github.io/en/">
-<!--[if lt IE 9]><script src="../assets/js/html5.js"></script><![endif]-->
+<!--[if lt IE 9]>
+            <script src="../assets/js/html5shiv.min.js"></script>
+            <script src="../assets/js/respond.min.js"></script>
+        <![endif]-->
 </head>
 <body>
 <a href="#content" class="sr-only sr-only-focusable">Skip to main content</a>
 
-<!-- Header and menu bar -->
-<div class="container">
-      <header class="blog-header py-3"><div class="row nbb-header align-items-center">
-          <div class="col-md-3 col-xs-2 col-sm-2" style="width: auto;">
-            <button class="navbar-toggler navbar-light bg-light nbb-navbar-toggler" type="button" data-toggle="collapse" data-target=".bs-nav-collapsible" aria-controls="bs-navbar" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse bs-nav-collapsible bootblog4-search-form-holder">
-                
-            </div>
-        </div>
-          <div class="col-md-6 col-xs-10 col-sm-10 bootblog4-brand" style="width: auto;">
-            <a class="navbar-brand blog-header-logo text-dark" href="https://blurhead.github.io/en/">
+<!-- Menubar -->
 
-            <span id="blog-title">blurhead's site</span>
-        </a>
+<nav class="navbar navbar-default header-panel shadow-z-3" role="navigation"><div class="container-fluid">
+        <div class="row">
+          <div class="col-xs-3">
+            <h1 class="title-blog">
+                <a href="https://blurhead.github.io/en/">
+                        <span id="blog-title">blurhead's site</span>
+                    </a>
+            </h1>
           </div>
-            <div class="col-md-3 justify-content-end align-items-center bs-nav-collapsible collapse flex-collapse bootblog4-right-nav">
-            <nav class="navbar navbar-light bg-white"><ul class="navbar-nav bootblog4-right-nav">
-<li class="nav-item"><a href="https://blurhead.github.io/" rel="alternate" hreflang="zh_cn" class="nav-link">简体中文</a></li>
+          <div class="col-xs-9">
+            <a id="hamburger" class="btn btn-raised" href="javascript:void(0);" onclick="menuToggle();">☰</a>
+          </div>
+        </div>
+      </div>
+<!-- /.container-fluid -->
+</nav><div class="container-fluid main" id="content" role="main">
+        <div class="row">
+            <nav class="col-xs-12 col-sm-3 menu"><ul>
+<li class="withripple"><a href="archive.html">Archive</a></li>
+                <li class="withripple"><a href="categories/">Tags</a></li>
+                <li class="withripple"><a href="rss.xml">RSS feed</a></li>
 
                     
+                </ul>
+<ul>
+<li>            </li>
+<li><a href="https://blurhead.github.io/" rel="alternate" hreflang="zh_cn">简体中文</a></li>
+
                     
-                    
-            </ul></nav>
+                </ul></nav><div class="posts-material col-xs-12 col-sm-9">
+                <div class="col-xs-12 col-md-11 content-material">
+
+    <div class="postindex well post-material ">
+    
+        <article class="h-entry post-text"><header><h1 class="p-name entry-title header"><a href="posts/shujushu-ju-ku-ru-men-zhi-nan/" class="u-url">数据库入门指南</a></h1>
+            <div class="metadata">
+                <span class="byline author vcard">
+                        <img class="img-circle" src="../images/MrOK.jpg" alt="icon">
+                    blurhead
+                </span>
+                <span class="dateline"><a href="posts/shujushu-ju-ku-ru-men-zhi-nan/" rel="bookmark">
+                    <i class="mdi-device-access-time"></i><time class="published dt-published" datetime="2019-02-07T22:29:19+08:00" title="2019-02-07 22:29">2019-02-07 22:29</time></a></span>
+                    <span class="commentline">        
+</span>
+            </div>
+            <hr></header><div class="e-content entry-content">
+        <div id="outline-container-orgdff5601" class="outline-2">
+<h2 id="orgdff5601">基础知识</h2>
+<div class="outline-text-2" id="text-orgdff5601">
 </div>
-    </div>
-</header><nav class="navbar navbar-expand-md navbar-light bg-white static-top"><div class="collapse navbar-collapse bs-nav-collapsible" id="bs-navbar">
-            <ul class="navbar-nav nav-fill d-flex w-100">
-<li class="nav-item">
-<a href="archive.html" class="nav-link">Archive</a>
-                </li>
-<li class="nav-item">
-<a href="categories/" class="nav-link">Tags</a>
-                </li>
-<li class="nav-item">
-<a href="rss.xml" class="nav-link">RSS feed</a>
+<div id="outline-container-orgcdf2216" class="outline-3">
+<h3 id="orgcdf2216">范式</h3>
+<div class="outline-text-3" id="text-orgcdf2216">
+<p>
+数据库表设计的参考标准, 主要有三大范式
+</p>
 
-                
-            </li>
+<p>
+范式之间是层层递进的关系,满足更高一级的范式必定满足低一级的范式
+</p>
+
+<p>
+其他的范式还有BCNF,4NF,5NF等, 一般来说设计的时候满足三范式就够了
+</p>
+
+<dl class="org-dl">
+<dt>1NF</dt>
+<dd>数据库中的所有字段都是不可再分的基本数据项, 关系数据库的基础, 不满足1NF的数据库不是关系数据库</dd>
+<dt>2NF</dt>
+<dd>
+<b>非主属性</b> <sup><a id="fnr.1" class="footref" href="posts/shujushu-ju-ku-ru-men-zhi-nan/#fn.1">1</a></sup><b>完全函数依赖</b> <sup><a id="fnr.2" class="footref" href="posts/shujushu-ju-ku-ru-men-zhi-nan/#fn.2">2</a></sup>于 <b>主码</b> <sup><a id="fnr.3" class="footref" href="posts/shujushu-ju-ku-ru-men-zhi-nan/#fn.3">3</a></sup>, 不能 <b>部分函数依赖</b> <sup><a id="fnr.4" class="footref" href="posts/shujushu-ju-ku-ru-men-zhi-nan/#fn.4">4</a></sup>于主码</dd>
+<dt>3NF</dt>
+<dd>
+<b>非主属性</b> 都要与 <b>主码</b> 直接相关, 而不是间接相关, 消除 <b>传递函数依赖</b> <sup><a id="fnr.5" class="footref" href="posts/shujushu-ju-ku-ru-men-zhi-nan/#fn.5">5</a></sup>
+</dd>
+</dl>
+<p>
+注意事项:
+</p>
+
+<p>
+第二范式和第三范式的区别在于有没有分出两张表
+</p>
+
+<p>
+实际应用中一般只能满足1NF, 2NF, 为了性能很难满足3NF
+</p>
+</div>
+
+<div id="outline-container-org80bcd21" class="outline-4">
+<h4 id="org80bcd21">案例分析</h4>
+<div class="outline-text-4" id="text-org80bcd21">
+<p>
+下面介绍一下, 设计表的时候如何一步步演化到第三范式
+</p>
+
+<p>
+下面是一张学生成绩表
+</p>
+<table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+<colgroup>
+<col class="org-left">
+<col class="org-left">
+<col class="org-left">
+<col class="org-right">
+</colgroup>
+<tbody>
+<tr>
+<td class="org-left">学生</td>
+<td class="org-left">系</td>
+<td class="org-left">课名</td>
+<td class="org-right">分数</td>
+</tr>
+<tr>
+<td class="org-left">1022211101 , 李晓明</td>
+<td class="org-left">经济系 , 王强</td>
+<td class="org-left">高等数学</td>
+<td class="org-right">95</td>
+</tr>
+</tbody>
+</table>
+<p>
+这张表明显不符合第一范式, 因为学生和系都是可以拆分的
+</p>
+
+<p>
+拆分之后, 就满足第一范式了
+</p>
+<table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+<colgroup>
+<col class="org-right">
+<col class="org-left">
+<col class="org-left">
+<col class="org-left">
+<col class="org-left">
+<col class="org-right">
+</colgroup>
+<tbody>
+<tr>
+<td class="org-right">学号</td>
+<td class="org-left">姓名</td>
+<td class="org-left">系名</td>
+<td class="org-left">系主任</td>
+<td class="org-left">课名</td>
+<td class="org-right">分数</td>
+</tr>
+<tr>
+<td class="org-right">1022211101</td>
+<td class="org-left">李晓明</td>
+<td class="org-left">经济系</td>
+<td class="org-left">王强</td>
+<td class="org-left">高等数学</td>
+<td class="org-right">95</td>
+</tr>
+<tr>
+<td class="org-right">1022211101</td>
+<td class="org-left">李晓明</td>
+<td class="org-left">经济系</td>
+<td class="org-left">王强</td>
+<td class="org-left">大学英语</td>
+<td class="org-right">85</td>
+</tr>
+<tr>
+<td class="org-right">1022211101</td>
+<td class="org-left">李晓明</td>
+<td class="org-left">经济系</td>
+<td class="org-left">王强</td>
+<td class="org-left">普通化学</td>
+<td class="org-right">75</td>
+</tr>
+<tr>
+<td class="org-right">1022211102</td>
+<td class="org-left">张丽</td>
+<td class="org-left">经济系</td>
+<td class="org-left">王强</td>
+<td class="org-left">高等数学</td>
+<td class="org-right">80</td>
+</tr>
+<tr>
+<td class="org-right">1022211102</td>
+<td class="org-left">张丽</td>
+<td class="org-left">经济系</td>
+<td class="org-left">王强</td>
+<td class="org-left">大学英语</td>
+<td class="org-right">82</td>
+</tr>
+<tr>
+<td class="org-right">1022211102</td>
+<td class="org-left">张丽</td>
+<td class="org-left">经济系</td>
+<td class="org-left">王强</td>
+<td class="org-left">普通化学</td>
+<td class="org-right">82</td>
+</tr>
+</tbody>
+</table>
+<p>
+现在所有字段都是最小的数据项, 满足第一范式
+</p>
+
+<p>
+这张表中主格是(学号, 课名), 非主属性为(姓名, 系名, 系主任, 分数)
+</p>
+
+<p>
+系名和系主任只完全函数依赖于学号, 部分函数依赖于主格, 不满足2NF
+</p>
+
+<p>
+现在存在的问题
+</p>
+<dl class="org-dl">
+<dt>数据冗余</dt>
+<dd>每一个学生的姓名,系名,系主任这些数据重复多次</dd>
+<dt>插入异常</dt>
+<dd>一个系没有学生,则无法将系名与系主任的数据单独添加</dd>
+<dt>删除异常</dt>
+<dd>删除一个系中所有学生的数据,导致这个系也不存在了</dd>
+<dt>修改异常</dt>
+<dd>如果有学生需要转系,需要修改该学生所有数据中系与系主任的信息</dd>
+</dl>
+<p>
+为了解决这些问题,必须在第一范式的基础上拆分表来满足第二范式
+</p>
+<dl class="org-dl">
+<dt>成绩表</dt>
+<dd></dd>
+</dl>
+<table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+<colgroup>
+<col class="org-right">
+<col class="org-left">
+<col class="org-right">
+</colgroup>
+<tbody>
+<tr>
+<td class="org-right">学号</td>
+<td class="org-left">课名</td>
+<td class="org-right">分数</td>
+</tr>
+<tr>
+<td class="org-right">1022211101</td>
+<td class="org-left">高等数学</td>
+<td class="org-right">95</td>
+</tr>
+<tr>
+<td class="org-right">1022211101</td>
+<td class="org-left">大学英语</td>
+<td class="org-right">85</td>
+</tr>
+<tr>
+<td class="org-right">1022211101</td>
+<td class="org-left">普通化学</td>
+<td class="org-right">75</td>
+</tr>
+<tr>
+<td class="org-right">1022211102</td>
+<td class="org-left">高等数学</td>
+<td class="org-right">80</td>
+</tr>
+<tr>
+<td class="org-right">1022211102</td>
+<td class="org-left">大学英语</td>
+<td class="org-right">82</td>
+</tr>
+<tr>
+<td class="org-right">1022211102</td>
+<td class="org-left">普通化学</td>
+<td class="org-right">82</td>
+</tr>
+</tbody>
+</table>
+<p>
+主格:(学号, 课名), 非主属性(分数,), 满足3NF
+</p>
+<dl class="org-dl">
+<dt>学生表</dt>
+<dd></dd>
+</dl>
+<table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+<colgroup>
+<col class="org-right">
+<col class="org-left">
+<col class="org-left">
+<col class="org-left">
+</colgroup>
+<tbody>
+<tr>
+<td class="org-right">学号</td>
+<td class="org-left">姓名</td>
+<td class="org-left">系名</td>
+<td class="org-left">系主任</td>
+</tr>
+<tr>
+<td class="org-right">1022211101</td>
+<td class="org-left">李晓明</td>
+<td class="org-left">经济系</td>
+<td class="org-left">王强</td>
+</tr>
+<tr>
+<td class="org-right">1022211102</td>
+<td class="org-left">张丽</td>
+<td class="org-left">经济系</td>
+<td class="org-left">王强</td>
+</tr>
+</tbody>
+</table>
+<p>
+主格:(学号), 非主属性(姓名, 系名, 系主任), 满足2NF
+</p>
+
+<p>
+但是系主任完全函数依赖于系名, 系名完全函数依赖于学号, 存在传递函数依赖, 不满足3NF
+</p>
+
+<p>
+现在数据冗余和修改异常的问题得到了改善, 但是插入异常和删除异常依然存在
+</p>
+
+<p>
+这时候就需要继续提高标准, 对学生表继续拆分, 使学生表满足第三范式
+</p>
+<dl class="org-dl">
+<dt>学生表</dt>
+<dd></dd>
+</dl>
+<table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+<colgroup>
+<col class="org-right">
+<col class="org-left">
+<col class="org-left">
+</colgroup>
+<tbody>
+<tr>
+<td class="org-right">学号</td>
+<td class="org-left">姓名</td>
+<td class="org-left">系名</td>
+</tr>
+<tr>
+<td class="org-right">1022211101</td>
+<td class="org-left">李晓明</td>
+<td class="org-left">经济系</td>
+</tr>
+<tr>
+<td class="org-right">1022211102</td>
+<td class="org-left">张丽</td>
+<td class="org-left">经济系</td>
+</tr>
+</tbody>
+</table>
+<p>
+主格:(学号), 非主属性:(姓名, 系名), 满足3NF
+</p>
+<dl class="org-dl">
+<dt>院系表</dt>
+<dd></dd>
+</dl>
+<table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+<colgroup>
+<col class="org-left">
+<col class="org-left">
+</colgroup>
+<tbody>
+<tr>
+<td class="org-left">系名</td>
+<td class="org-left">系主任</td>
+</tr>
+<tr>
+<td class="org-left">经济系</td>
+<td class="org-left">王强</td>
+</tr>
+</tbody>
+</table>
+<p>
+主格:(系名), 非主属性:(系主任), 满足3NF
+</p>
+
+<p>
+这时候可以看到数据冗余减少到了最少, 同时删除,修改,插入异常都消除了
+</p>
+</div>
+</div>
+</div>
+
+
+<div id="outline-container-org44ab195" class="outline-3">
+<h3 id="org44ab195">约束</h3>
+<div class="outline-text-3" id="text-org44ab195">
+<dl class="org-dl">
+<dt>主键约束 (Primay Key Coustraint)</dt>
+<dd>唯一性, 非空性</dd>
+
+<dt>唯一约束 (Unique Constraint)</dt>
+<dd>唯一性, 建议不为空</dd>
+
+<dt>默认约束 (Default Constraint)</dt>
+<dd>字段的默认值, 可以为null</dd>
+
+<dt>外键约束 (Foreign Key Constraint)</dt>
+<dd>两表间的关系约束.</dd>
+
+<dt>非空约束 (Not Null Constraint)</dt>
+<dd>字段不能为null</dd>
+
+<dt>检查约束 (Check Constraint)</dt>
+<dd>限制字段的值范围</dd>
+</dl>
+<p>
+主键一般是自增长的id, 唯一约束一般是业务上的唯一约束;
+</p>
+</div>
+</div>
+
+
+<div id="outline-container-org688843c" class="outline-3">
+<h3 id="org688843c">编码</h3>
+<div class="outline-text-3" id="text-org688843c">
+<p>
+字符编码(Character Set)和排序规则(Collation)
+</p>
+
+<p>
+可以在服务器, 数据库, 表, 字段四个层面设置字符编码
+</p>
+
+<p>
+优先级: 字段 &gt; 表 &gt; 数据库 &gt; 服务器
+</p>
+
+<p>
+一个Character Set对应多个Collation, 不同的Collation性能和准确性有差异
+</p>
+</div>
+</div>
+
+
+<div id="outline-container-org21b1d50" class="outline-3">
+<h3 id="org21b1d50">索引</h3>
+</div>
+
+
+
+<div id="outline-container-org4b2e71a" class="outline-3">
+<h3 id="org4b2e71a">锁</h3>
+</div>
+
+
+
+<div id="outline-container-org6ae63fd" class="outline-3">
+<h3 id="org6ae63fd">事务</h3>
+</div>
+
+
+<div id="outline-container-org5d59251" class="outline-3">
+<h3 id="org5d59251">规范</h3>
+<div class="outline-text-3" id="text-org5d59251">
+<p>
+以mysql举例说明, 参考了阿里云和腾讯云社区的文章
+</p>
+</div>
+
+<div id="outline-container-orgbe25d18" class="outline-4">
+<h4 id="orgbe25d18">命名</h4>
+<div class="outline-text-4" id="text-orgbe25d18">
+<p>
+主要包括字段和表的命名, 未作特殊说明的表示对于表和字段都适用
+</p>
+<ul class="org-ul">
+<li>采用26个字母以及下划线, 单词之间统一用下划线分割, 一般不用数字</li>
+<li>字段名和表名全部小写, 禁止出现大写</li>
+<li>慎用数据库关键字, 如name, 最好结合其他单词使用, 如user<sub>name</sub>
+</li>
+<li>名称要易于理解, 不宜过长, 最好不要超过三个单词</li>
+<li>单数形式表示名词, 如employee, 而不是employees</li>
+<li>必须有描述信息, 说明表和列的含义与用途</li>
+<li>表名使用名词, 字段可以使用名词和动宾短语</li>
+<li>尽量避免字段名中包含表名</li>
+<li>字段的名称中不要包含数据类型</li>
+<li>字段命名使用完整名词, 不要使用缩写</li>
+<li>日期类型字段推荐以“<sub>DATE</sub>”结尾的名字命名</li>
+<li>时间类型的字段推荐以“<sub>TIME</sub>”结尾的名字命名</li>
+<li>明细表命名推荐使用主表加dtl(detail缩写)来表示</li>
 </ul>
 </div>
-<!-- /.navbar-collapse -->
-</nav>
 </div>
 
-<div class="container" id="content" role="main">
-    <div class="body-content">
-        <!--Body content-->
-        
-        
-    
-        
 
-    
-        
-    <div class="postindex">
-    </div>
-    
-
-    
-        
-
-
-    
-
-
-        <!--End of body content-->
-
-        <footer id="footer">
-            Contents © 2019         <a href="mailto:blurflask@gmail.com">blurhead</a> - Powered by         <a href="https://getnikola.com" rel="nofollow">Nikola</a>         
-            
-        </footer>
+<div id="outline-container-orgda231b1" class="outline-4">
+<h4 id="orgda231b1">类型</h4>
+<div class="outline-text-4" id="text-orgda231b1">
+<ul class="org-ul">
+<li>字段最好都要有默认值, 不要为null, null字段查询难以优化, null字段的复合索引无效</li>
+<li>用尽量少的存储空间来存储, 优先级int&gt; varchar, char, varchar(10) &gt; varchar(100)</li>
+<li>固定长度的字段使用char, 可变长度的字段使用varchar</li>
+<li>主键使用int类型自增长的ID, int长度不能设置太短</li>
+</ul>
 </div>
 </div>
 
 
-        <script src="../assets/js/all-nocdn.js"></script><!-- fancy dates --><script>
+<div id="outline-container-org73e1993" class="outline-4">
+<h4 id="org73e1993">编码</h4>
+<div class="outline-text-4" id="text-org73e1993">
+<ul class="org-ul">
+<li>使用utf8字符集同时考虑是否大小写敏感</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+
+
+<div id="outline-container-org90b2d02" class="outline-2">
+<h2 id="org90b2d02">参考资料</h2>
+<div class="outline-text-2" id="text-org90b2d02">
+<dl class="org-dl">
+<dt>函数依赖的定义</dt>
+<dd><a href="https://blog.csdn.net/rl529014/article/details/48391465">https://blog.csdn.net/rl529014/article/details/48391465</a></dd>
+<dt>三范式的描述</dt>
+<dd><a href="https://www.zhihu.com/question/24696366">https://www.zhihu.com/question/24696366</a></dd>
+<dt>数据库规范</dt>
+<dd>
+<p>
+             <a href="https://cloud.tencent.com/developer/article/1054482">https://cloud.tencent.com/developer/article/1054482</a>
+</p>
+
+<p>
+<a href="https://blog.csdn.net/houseq/article/details/39478687">https://blog.csdn.net/houseq/article/details/39478687</a>
+</p>
+
+<p>
+<a href="https://www.zhihu.com/question/26026443">https://www.zhihu.com/question/26026443</a>
+</p>
+
+<p>
+<a href="https://bbs.aliyun.com/simple/t534385.html">https://bbs.aliyun.com/simple/t534385.html</a>
+</p>
+</dd>
+</dl>
+</div>
+</div>
+<div id="footnotes">
+<h2 class="footnotes">Footnotes: </h2>
+<div id="text-footnotes">
+
+<div class="footdef">
+<sup><a id="fn.1" class="footnum" href="posts/shujushu-ju-ku-ru-men-zhi-nan/#fnr.1">1</a></sup><div class="footpara"><p class="footpara">
+所有不属于主码的属性集合
+</p></div>
+</div>
+
+<div class="footdef">
+<sup><a id="fn.2" class="footnum" href="posts/shujushu-ju-ku-ru-men-zhi-nan/#fnr.2">2</a></sup><div class="footpara"><p class="footpara">
+设X,Y是两组集合, 如果知道了X也就确定了Y, 同时对于X的任何一个真子集X'无法确定Y, 则Y完全函数依赖于X
+</p></div>
+</div>
+
+<div class="footdef">
+<sup><a id="fn.3" class="footnum" href="posts/shujushu-ju-ku-ru-men-zhi-nan/#fnr.3">3</a></sup><div class="footpara"><p class="footpara">
+唯一标识一个实体的一个或者多个属性的集合, 可以完全决定所有的其他属性, 也叫主键, 主关键字
+</p></div>
+</div>
+
+<div class="footdef">
+<sup><a id="fn.4" class="footnum" href="posts/shujushu-ju-ku-ru-men-zhi-nan/#fnr.4">4</a></sup><div class="footpara"><p class="footpara">
+设X,Y是两组集合, 如果知道了X也就确定了Y, 同时存在X的一个真子集X'可以确定Y, 则Y部分函数依赖于X
+</p></div>
+</div>
+
+<div class="footdef">
+<sup><a id="fn.5" class="footnum" href="posts/shujushu-ju-ku-ru-men-zhi-nan/#fnr.5">5</a></sup><div class="footpara"><p class="footpara">
+设X,Y,Z是三组集合, 如果知道了X就可以确定Y, 知道了Y就确定Z, 则Z传递函数依赖于X</p></div>
+</div>
+
+
+</div>
+</div>
+        </div>
+        </article>
+</div>
+
+        
+
+
+                </div>
+            </div>
+        </div>
+        <button class="btn btn-fab btn-raised btn-material-green btn-footer" data-toggle="modal" data-target="#footer-dialog">
+            <i class="mdi-communication-message"></i>
+        </button>
+        <div id="footer-dialog" class="modal fade" tabindex="-1">
+          <div class="modal-dialog">
+            <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                <h4 class="modal-title">blurhead</h4>
+                <div>
+                    
+<img class="img-circle" style="float:left;margin:10px 20px 10px 0px;max-height:200px;" src="../images/MrOK.jpg"><p>A big fan of Britian band blur, also a programmer who loves python and emacs.
+</p>
+
+                </div>
+                <hr>
+</div>
+              <div class="modal-body">
+                    Contents © 2019         <a href="mailto:blurflask@gmail.com">blurhead</a> - Powered by         <a href="https://getnikola.com" rel="nofollow">Nikola</a>         
+                    
+              </div>
+              <div class="modal-footer">
+                <button class="btn btn-primary" data-dismiss="modal">Ok</button>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="source-button">
+        </div>
+</div>
+
+
+            <script src="../assets/js/all-nocdn.js"></script><script>
+
+            $(document).ready(function() {
+                // This command is used to initialize some elements and make them work properly
+                $.material.init();
+            });
+
+            $(window).on("resize", function() {
+                if($(window).width() > 767) {
+                  $("html, body").height($(window).height());
+                  $(".main, .menu").height($(window).height() - $(".header-panel").outerHeight() - 76 );
+                  $(".posts-material").height($(window).height());
+                } else {
+                  $("html, body").css('height', '');
+                  $(".main, .menu").css('height', '');
+                  $(".posts-material").css('height', '');
+                }
+            }).trigger("resize");
+
+            function menuToggle() {
+                $("nav.menu, ul").toggleClass('responsive', '');
+            }
+        </script><!-- fancy dates --><script>
     moment.locale("en");
     fancydates(0, "YYYY-MM-DD HH:mm");
     </script><!-- end fancy dates --><script>
