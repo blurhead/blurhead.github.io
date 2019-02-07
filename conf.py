@@ -155,7 +155,7 @@ NAVIGATION_ALT_LINKS = {
 }
 
 # Name of the theme to use.
-THEME = "bootblog4"
+THEME = "material-theme"
 
 # Primary color of your theme. This will be used to customize your theme.
 # Must be a HEX value.
@@ -310,7 +310,7 @@ COMPILERS = {
 
 # Create by default posts in one file format?
 # Set to False for two-file posts, with separate metadata.
-# ONE_FILE_POSTS = True
+ONE_FILE_POSTS = False
 
 # Preferred metadata format for new posts
 # "Nikola": reST comments, wrapped in a HTML comment if needed (default)
@@ -1071,7 +1071,8 @@ PRETTY_URLS = True
 # Note: most Nikola-specific extensions are done via the Nikola plugin system,
 #       with the MarkdownExtension class and should not be added here.
 # The default is ['fenced_code', 'codehilite']
-MARKDOWN_EXTENSIONS = ['markdown.extensions.fenced_code', 'markdown.extensions.codehilite', 'markdown.extensions.extra']
+MARKDOWN_EXTENSIONS = ['markdown.extensions.fenced_code',
+                       'markdown.extensions.codehilite', 'markdown.extensions.extra']
 
 # Options to be passed to markdown extensions (See https://python-markdown.github.io/reference/)
 # Default is {} (no config at all)
@@ -1340,7 +1341,17 @@ WARN_ABOUT_TAG_METADATA = False
 
 # Put in global_context things you want available on all your templates.
 # It can be anything, data, functions, modules, etc.
-GLOBAL_CONTEXT = {}
+BIOGRAPHY = """
+<img class="img-circle" style="float:left;margin:10px 20px 10px 0px;max-height:200px;" src="/images/MrOK.jpg">
+<p>A big fan of Britian band blur, also a programmer who loves python and emacs.
+</p>
+"""
+GLOBAL_CONTEXT = {
+    'header_color': 'default',
+    'author_avatar': '/images/MrOK.jpg',
+    'use_pace': True,
+    "biography": BIOGRAPHY,
+}
 
 # Add functions here and they will be called with template
 # GLOBAL_CONTEXT as parameter when the template is about to be
