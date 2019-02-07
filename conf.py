@@ -1342,13 +1342,13 @@ WARN_ABOUT_TAG_METADATA = False
 # Put in global_context things you want available on all your templates.
 # It can be anything, data, functions, modules, etc.
 BIOGRAPHY = """
-<img class="img-circle" style="float:left;margin:10px 20px 10px 0px;max-height:200px;" src="/images/MrOK.jpg">
+<img class="img-circle" style="float:left;margin:10px 20px 10px 0px;max-height:200px;" src="/assets/images/MrOK.jpg">
 <p>A big fan of Britian band blur, also a programmer who loves python and emacs.
 </p>
 """
 GLOBAL_CONTEXT = {
     'header_color': 'default',
-    'author_avatar': '/images/MrOK.jpg',
+    'author_avatar': '/assets/images/MrOK.jpg',
     'use_pace': True,
     "biography": BIOGRAPHY,
 }
