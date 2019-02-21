@@ -1,5 +1,72 @@
 <?xml version="1.0" encoding="utf-8"?>
-<?xml-stylesheet type="text/xsl" href="../assets/xml/rss.xsl" media="all"?><rss version="2.0" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>blurhead's site</title><link>https://blurhead.github.io/</link><description>programming, data science</description><atom:link href="https://blurhead.github.io/en/rss.xml" rel="self" type="application/rss+xml"></atom:link><language>en</language><copyright>Contents © 2019 &lt;a href="mailto:blurflask@gmail.com"&gt;blurhead&lt;/a&gt; </copyright><lastBuildDate>Thu, 07 Feb 2019 14:36:54 GMT</lastBuildDate><generator>Nikola (getnikola.com)</generator><docs>http://blogs.law.harvard.edu/tech/rss</docs><item><title>数据库入门指南</title><link>https://blurhead.github.io/en/posts/shujushu-ju-ku-ru-men-zhi-nan/</link><dc:creator>blurhead</dc:creator><description>&lt;div id="outline-container-orgdff5601" class="outline-2"&gt;
+<?xml-stylesheet type="text/xsl" href="../assets/xml/rss.xsl" media="all"?><rss version="2.0" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>blurhead's site</title><link>https://blurhead.github.io/</link><description>programming, data science</description><atom:link href="https://blurhead.github.io/en/rss.xml" rel="self" type="application/rss+xml"></atom:link><language>en</language><copyright>Contents © 2019 &lt;a href="mailto:blurflask@gmail.com"&gt;blurhead&lt;/a&gt; </copyright><lastBuildDate>Thu, 21 Feb 2019 03:17:41 GMT</lastBuildDate><generator>Nikola (getnikola.com)</generator><docs>http://blogs.law.harvard.edu/tech/rss</docs><item><title>Learning Cython - Basics</title><link>https://blurhead.github.io/en/posts/learning-cython-basics/</link><dc:creator>blurhead</dc:creator><description>&lt;div&gt;&lt;div class="cell border-box-sizing text_cell rendered"&gt;&lt;div class="prompt input_prompt"&gt;
+&lt;/div&gt;&lt;div class="inner_cell"&gt;
+&lt;div class="text_cell_render border-box-sizing rendered_html"&gt;
+&lt;h2 id="在jupyter-notebook中学习cython"&gt;在jupyter notebook中学习cython&lt;a class="anchor-link" href="https://blurhead.github.io/en/posts/learning-cython-basics/#%E5%9C%A8jupyter-notebook%E4%B8%AD%E5%AD%A6%E4%B9%A0cython"&gt;¶&lt;/a&gt;&lt;/h2&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class="cell border-box-sizing code_cell rendered"&gt;
+&lt;div class="input"&gt;
+&lt;div class="prompt input_prompt"&gt;In [8]:&lt;/div&gt;
+&lt;div class="inner_cell"&gt;
+    &lt;div class="input_area"&gt;
+&lt;div class=" highlight hl-ipython3"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="c1"&gt;## 首先导入cython&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+    &lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;/div&gt;
+&lt;div class="cell border-box-sizing code_cell rendered"&gt;
+&lt;div class="input"&gt;
+&lt;div class="prompt input_prompt"&gt;In [9]:&lt;/div&gt;
+&lt;div class="inner_cell"&gt;
+    &lt;div class="input_area"&gt;
+&lt;div class=" highlight hl-ipython3"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="o"&gt;%&lt;/span&gt;&lt;span class="k"&gt;load_ext&lt;/span&gt; Cython
+&lt;/pre&gt;&lt;/div&gt;
+
+    &lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;/div&gt;
+&lt;div class="cell border-box-sizing code_cell rendered"&gt;
+&lt;div class="input"&gt;
+&lt;div class="prompt input_prompt"&gt;In [ ]:&lt;/div&gt;
+&lt;div class="inner_cell"&gt;
+    &lt;div class="input_area"&gt;
+&lt;div class=" highlight hl-ipython3"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt; 
+&lt;/pre&gt;&lt;/div&gt;
+
+    &lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;/div&gt;&lt;/div&gt;</description><guid>https://blurhead.github.io/en/posts/learning-cython-basics/</guid><pubDate>Thu, 21 Feb 2019 03:09:27 GMT</pubDate></item><item><title>ElasticSearch Guide</title><link>https://blurhead.github.io/en/posts/elasticsearch-guide/</link><dc:creator>blurhead</dc:creator><description>&lt;div id="outline-container-org8e50666" class="outline-2"&gt;
+&lt;h2 id="org8e50666"&gt;前言&lt;/h2&gt;
+&lt;div class="outline-text-2" id="text-org8e50666"&gt;
+&lt;p&gt;
+elasticsearch是一个java开发的企业级的实时的分布式全文搜索和分析引擎, 基于lucene, 可以快速搭建搜索引擎, 提供丰富的查询API,
+正好最近在搞搜索引擎, 总结了一些elastic使用和架构方面的知识.
+&lt;/p&gt;
+
+&lt;p&gt;
+主要分几个部分:
+&lt;/p&gt;
+&lt;ol class="org-ol"&gt;
+&lt;li&gt;基本概念, indice, document, shard, cluster&lt;/li&gt;
+&lt;li&gt;基础知识, 包括倒排索引, 分析器等&lt;/li&gt;
+&lt;li&gt;elaticsearch的结构, indices, shard,&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+
+
+&lt;div id="outline-container-orgd62d6e8" class="outline-2"&gt;
+&lt;h2 id="orgd62d6e8"&gt;基本概念&lt;/h2&gt;
+&lt;/div&gt;</description><guid>https://blurhead.github.io/en/posts/elasticsearch-guide/</guid><pubDate>Mon, 18 Feb 2019 07:38:01 GMT</pubDate></item><item><title>数据库入门指南</title><link>https://blurhead.github.io/en/posts/shujushu-ju-ku-ru-men-zhi-nan/</link><dc:creator>blurhead</dc:creator><description>&lt;div id="outline-container-orgdff5601" class="outline-2"&gt;
 &lt;h2 id="orgdff5601"&gt;基础知识&lt;/h2&gt;
 &lt;div class="outline-text-2" id="text-orgdff5601"&gt;
 &lt;/div&gt;

@@ -1,0 +1,14 @@
+#+Title: elastic学习总结
+
+* 前言
+  elasticsearch是一个java开发的企业级的实时的分布式全文搜索和分析引擎, 基于lucene, 可以快速搭建搜索引擎, 提供丰富的查询API,
+  正好最近在搞搜索引擎, 总结了一些elastic使用和架构方面的知识.
+  
+  主要分几个部分:
+  1) 基本概念, indice, document, shard, cluster
+  2) 基础知识, 包括倒排索引, 分析器等
+  3) elaticsearch的结构, indices, shard, 
+
+     
+* 基本概念
+  

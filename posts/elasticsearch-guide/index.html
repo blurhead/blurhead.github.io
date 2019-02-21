@@ -1,22 +1,23 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="zh_cn">
 <head>
 <meta charset="utf-8">
-<meta name="description" content="programming, data science">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Posts for year 2019 | blurhead's site</title>
+<title>ElasticSearch Guide | blurhead's site</title>
 <script src="../../assets/js/pace.min.js"></script><link href="../../assets/css/pace.css" rel="stylesheet">
 <link href="../../assets/css/all-nocdn.css" rel="stylesheet" type="text/css">
-<link rel="alternate" type="application/rss+xml" title="RSS (en)" href="../rss.xml">
+<link rel="alternate" type="application/rss+xml" title="RSS (en)" href="../../en/rss.xml">
 <link rel="alternate" type="application/rss+xml" title="RSS (zh_cn)" href="../../rss.xml">
-<link rel="canonical" href="https://blurhead.github.io/en/2019/">
+<link rel="canonical" href="https://blurhead.github.io/posts/elasticsearch-guide/">
 <!--[if lt IE 9]>
             <script src="../../assets/js/html5shiv.min.js"></script>
             <script src="../../assets/js/respond.min.js"></script>
-        <![endif]-->
+        <![endif]--><meta name="author" content="blurhead">
+<link rel="prev" href="../shujushu-ju-ku-ru-men-zhi-nan/" title="数据库入门指南" type="text/html">
+<link rel="next" href="../learning-cython-basics/" title="Learning Cython - Basics" type="text/html">
 </head>
 <body>
-<a href="#content" class="sr-only sr-only-focusable">Skip to main content</a>
+<a href="#content" class="sr-only sr-only-focusable">跳到主内容</a>
 
 <!-- Menubar -->
 
@@ -24,7 +25,7 @@
         <div class="row">
           <div class="col-xs-3">
             <h1 class="title-blog">
-                <a href="https://blurhead.github.io/en/">
+                <a href="https://blurhead.github.io/">
                         <span id="blog-title">blurhead's site</span>
                     </a>
             </h1>
@@ -38,68 +39,71 @@
 </nav><div class="container-fluid main" id="content" role="main">
         <div class="row">
             <nav class="col-xs-12 col-sm-3 menu"><ul>
-<li class="withripple"><a href="../archive.html">Archive</a></li>
-                <li class="withripple"><a href="../categories/">Tags</a></li>
-                <li class="withripple"><a href="../rss.xml">RSS feed</a></li>
+<li class="withripple"><a href="../../archive.html">文章归档</a></li>
+                <li class="withripple"><a href="../../categories/">标签</a></li>
+                <li class="withripple"><a href="../../rss.xml">RSS 源</a></li>
 
                     
                 </ul>
 <ul>
 <li>            </li>
-<li><a href="https://blurhead.github.io/" rel="alternate" hreflang="zh_cn">简体中文</a></li>
+<li><a href="https://blurhead.github.io/en/" rel="alternate" hreflang="en">English</a></li>
 
                     
                 </ul></nav><div class="posts-material col-xs-12 col-sm-9">
                 <div class="col-xs-12 col-md-11 content-material">
-<article class="listpage"><header><h1>Posts for year 2019</h1>
-    </header><div class="postlist list-group">
-        <div class="list-group-item">
-                <div class="row-action-primary">
-                    <i class="mdi-content-create"></i>
-                </div>
-                <div class="row-content">
-                    <div class="least-content">
-                            <time class="listdate" datetime="2019-02-21T11:09:27+08:00" title="2019-02-21 11:09">2019-02-21 11:09</time>
+<article class="post-text h-entry hentry postpage" itemscope="itemscope" itemtype="http://schema.org/Article"><header><h1 class="p-name entry-title" itemprop="headline name"><a href="." class="u-url">ElasticSearch Guide</a></h1>
+<hr>
+<div class="metadata">
+            <span class="byline author vcard">
+                <a href=".">
+                        <img class="img-circle" src="../../images/MrOK.jpg" alt="icon">
+                    blurhead
+                </a>
+            </span>
+            <span class="dateline">
+                <a href="." rel="bookmark"><i class="mdi-device-access-time"></i>
+                    <time class="published dt-published" datetime="2019-02-18T15:38:01+08:00" itemprop="datePublished" title="2019-02-18 15:38">2019-02-18 15:38</time></a>
+            </span>
+                <span class="commentline">        
+</span>
+        </div>
+        
+        <hr></header><div class="e-content entry-content" itemprop="articleBody text">
+    <div id="outline-container-org8e50666" class="outline-2">
+<h2 id="org8e50666">前言</h2>
+<div class="outline-text-2" id="text-org8e50666">
+<p>
+elasticsearch是一个java开发的企业级的实时的分布式全文搜索和分析引擎, 基于lucene, 可以快速搭建搜索引擎, 提供丰富的查询API,
+正好最近在搞搜索引擎, 总结了一些elastic使用和架构方面的知识.
+</p>
+
+<p>
+主要分几个部分:
+</p>
+<ol class="org-ol">
+<li>基本概念, indice, document, shard, cluster</li>
+<li>基础知识, 包括倒排索引, 分析器等</li>
+<li>elaticsearch的结构, indices, shard,</li>
+</ol>
 </div>
-                    <h4 class="list-group-item-heading">
-                            <a href="../posts/learning-cython-basics/" class="listtitle">Learning Cython - Basics</a>
-                    </h4>
-                    <p class="list-group-item-text"></p>
-                </div>
-            </div>
-            <div class="list-group-separator"></div>
-        <div class="list-group-item">
-                <div class="row-action-primary">
-                    <i class="mdi-content-create"></i>
-                </div>
-                <div class="row-content">
-                    <div class="least-content">
-                            <time class="listdate" datetime="2019-02-18T15:38:01+08:00" title="2019-02-18 15:38">2019-02-18 15:38</time>
 </div>
-                    <h4 class="list-group-item-heading">
-                            <a href="../posts/elasticsearch-guide/" class="listtitle">ElasticSearch Guide</a>
-                    </h4>
-                    <p class="list-group-item-text"></p>
-                </div>
-            </div>
-            <div class="list-group-separator"></div>
-        <div class="list-group-item">
-                <div class="row-action-primary">
-                    <i class="mdi-content-create"></i>
-                </div>
-                <div class="row-content">
-                    <div class="least-content">
-                            <time class="listdate" datetime="2019-02-07T22:29:19+08:00" title="2019-02-07 22:29">2019-02-07 22:29</time>
+
+
+<div id="outline-container-orgd62d6e8" class="outline-2">
+<h2 id="orgd62d6e8">基本概念</h2>
 </div>
-                    <h4 class="list-group-item-heading">
-                            <a href="../posts/shujushu-ju-ku-ru-men-zhi-nan/" class="listtitle">数据库入门指南</a>
-                    </h4>
-                    <p class="list-group-item-text"></p>
-                </div>
-            </div>
-            <div class="list-group-separator"></div>
     </div>
-</article>
+    <aside class="postpromonav"><nav><ul class="pager">
+<li class="previous">
+                <a href="../shujushu-ju-ku-ru-men-zhi-nan/" rel="prev" title="数据库入门指南">上一篇文章</a>
+            </li>
+            <li class="next">
+                <a href="../learning-cython-basics/" rel="next" title="Learning Cython - Basics">下一篇文章</a>
+            </li>
+        </ul></nav></aside><section class="comments"><h2>
+<i class="mdi-communication-forum"></i>评论</h2>
+        <hr></section></article>
 </div>
             </div>
         </div>
@@ -131,6 +135,10 @@
           </div>
         </div>
         <div class="source-button">
+    <a class="btn btn-fab btn-raised btn-material-indigo" target="_blank" href="index.org" title="资源">
+        <i class="mdi-file-cloud-download"></i>
+    </a>
+
         </div>
 </div>
 
@@ -158,7 +166,7 @@
                 $("nav.menu, ul").toggleClass('responsive', '');
             }
         </script><!-- fancy dates --><script>
-    moment.locale("en");
+    moment.locale("zh-cn");
     fancydates(0, "YYYY-MM-DD HH:mm");
     </script><!-- end fancy dates --><script>
     baguetteBox.run('div#content', {
