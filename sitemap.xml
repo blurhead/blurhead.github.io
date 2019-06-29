@@ -15,7 +15,7 @@
  </url>
  <url>
   <loc>https://blurhead.github.io/archive.html</loc>
-  <lastmod>2019-06-29T07:53:00Z</lastmod>
+  <lastmod>2019-06-29T07:58:00Z</lastmod>
  </url>
  <url>
   <loc>https://blurhead.github.io/categories/</loc>
@@ -31,7 +31,7 @@
  </url>
  <url>
   <loc>https://blurhead.github.io/en/archive.html</loc>
-  <lastmod>2019-06-29T07:53:00Z</lastmod>
+  <lastmod>2019-06-29T07:58:00Z</lastmod>
  </url>
  <url>
   <loc>https://blurhead.github.io/en/categories/</loc>
@@ -42,10 +42,6 @@
   <lastmod>2019-02-07T08:49:00Z</lastmod>
  </url>
  <url>
-  <loc>https://blurhead.github.io/en/posts/elasticji-suan-fang-fa/</loc>
-  <lastmod>2019-06-29T07:48:00Z</lastmod>
- </url>
- <url>
   <loc>https://blurhead.github.io/en/posts/elasticsearch-guide/</loc>
   <lastmod>2019-02-21T03:17:00Z</lastmod>
   <xhtml:link rel="alternate" hreflang="zh_cn" href="https://blurhead.github.io/posts/elasticsearch-guide/" />
@@ -54,6 +50,11 @@
   <loc>https://blurhead.github.io/en/posts/learning-cython-basics/</loc>
   <lastmod>2019-02-21T03:17:00Z</lastmod>
   <xhtml:link rel="alternate" hreflang="zh_cn" href="https://blurhead.github.io/posts/learning-cython-basics/" />
+ </url>
+ <url>
+  <loc>https://blurhead.github.io/en/posts/meta-programming-in-python/</loc>
+  <lastmod>2019-06-29T07:58:00Z</lastmod>
+  <xhtml:link rel="alternate" hreflang="zh_cn" href="https://blurhead.github.io/posts/meta-programming-in-python/" />
  </url>
  <url>
   <loc>https://blurhead.github.io/en/posts/shujushu-ju-ku-ru-men-zhi-nan/</loc>
@@ -69,16 +70,16 @@
   <lastmod>2019-02-07T08:49:00Z</lastmod>
  </url>
  <url>
-  <loc>https://blurhead.github.io/posts/elasticji-suan-fang-fa/</loc>
-  <lastmod>2019-06-29T07:48:00Z</lastmod>
- </url>
- <url>
   <loc>https://blurhead.github.io/posts/elasticsearch-guide/</loc>
   <lastmod>2019-02-21T03:17:00Z</lastmod>
  </url>
  <url>
   <loc>https://blurhead.github.io/posts/learning-cython-basics/</loc>
   <lastmod>2019-02-21T03:17:00Z</lastmod>
+ </url>
+ <url>
+  <loc>https://blurhead.github.io/posts/meta-programming-in-python/</loc>
+  <lastmod>2019-06-29T07:58:00Z</lastmod>
  </url>
  <url>
   <loc>https://blurhead.github.io/posts/shujushu-ju-ku-ru-men-zhi-nan/</loc>

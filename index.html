@@ -13,7 +13,7 @@
 <!--[if lt IE 9]>
             <script src="assets/js/html5shiv.min.js"></script>
             <script src="assets/js/respond.min.js"></script>
-        <![endif]--><link rel="prefetch" href="posts/learning-cython-basics/" type="text/html">
+        <![endif]--><link rel="prefetch" href="posts/meta-programming-in-python/" type="text/html">
 </head>
 <body>
 <a href="#content" class="sr-only sr-only-focusable">跳到主内容</a>
@@ -54,7 +54,298 @@
 
     <div class="postindex well post-material ">
     
-        <article class="h-entry post-text"><header><h1 class="p-name entry-title header"><a href="posts/learning-cython-basics/" class="u-url">Learning Cython - Basics</a></h1>
+        <article class="h-entry post-text"><header><h1 class="p-name entry-title header"><a href="posts/meta-programming-in-python/" class="u-url">Python元编程入门</a></h1>
+            <div class="metadata">
+                <span class="byline author vcard">
+                        <img class="img-circle" src="images/MrOK.jpg" alt="icon">
+                    blurhead
+                </span>
+                <span class="dateline"><a href="posts/meta-programming-in-python/" rel="bookmark">
+                    <i class="mdi-device-access-time"></i><time class="published dt-published" datetime="2019-06-29T11:23:39+08:00" title="2019-06-29 11:23">2019-06-29 11:23</time></a></span>
+                    <span class="commentline">        
+</span>
+            </div>
+            <hr></header><div class="e-content entry-content">
+        <div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Python元编程-入门">Python元编程-入门<a class="anchor-link" href="posts/meta-programming-in-python/#Python%E5%85%83%E7%BC%96%E7%A8%8B-%E5%85%A5%E9%97%A8">¶</a>
+</h2>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>最近准备着手阅读sqlalchemy的源码，一个ORM框架离不开元编程，因此整理了一下python中元编程的相关知识。话不多说，下面进入正题。<br>
+P.S. 文中代码都是基于python3.6环境</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="基本概念">基本概念<a class="anchor-link" href="posts/meta-programming-in-python/#%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5">¶</a>
+</h3>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>大家都知道python中的对象都是通过类的__new__方法创建，__init__方法进行初始化，<br>
+同时Python中一切皆对象， 类不用说也是一个对象，那么类又是如何创建的呢，这就引出了元类(metaclass)的概念。<br>
+我们使用type函数可以知道一个实例是通过哪个类实例化的，如果type的参数是一个类呢？</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In [10]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># example 1.1</span>
+<span class="nb">print</span><span class="p">(</span><span class="nb">type</span><span class="p">(</span><span class="nb">object</span><span class="p">))</span>
+<span class="c1"># using instance to verify</span>
+<span class="k">assert</span> <span class="nb">isinstance</span><span class="p">(</span><span class="nb">object</span><span class="p">,</span> <span class="nb">type</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>&lt;class 'type'&gt;
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>这里可以看出object的类型是type，也就是说type创建了object类，这里的type就是一个元类。<br>
+元类就是创建类的类，类实例化会创建一个实例，类似的，元类实例化就会创建一个类。</p>
+<p><strong>type是所有元类的基类，也是它自己的基类。</strong></p>
+<p>我们再来看一下<strong>type</strong>是如何创建类的。</p>
+<p>以下摘录自官方文档 <a href="https://docs.python.org/3.6/library/functions.html#type">https://docs.python.org/3.6/library/functions.html#type</a></p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>class type(name, bases, dict)<br>
+With one argument, return the type of an object. The return value is a type object and generally the same object as returned by object.__class__.</p>
+<p>...</p>
+<p>With three arguments, return a new type object. This is essentially a dynamic form of the class statement. The name string is the class name and becomes the __name__ attribute; the bases tuple itemizes the base classes and becomes the __bases__ attribute; and the dict dictionary is the namespace containing definitions for class body and is copied to a standard dictionary to become the __dict__ attribute. For example, the following two statements create identical type objects:</p>
+<p>简单来说，如果参数是三个的时候，参数和生成的类的属性有如下对应关系</p>
+<ul>
+<li>name   -&gt; __name__</li>
+<li>bases -&gt; __bases__</li>
+<li>dict      -&gt; __dict__</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In [1]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># example 1.2</span>
+<span class="nb">type</span><span class="p">(</span><span class="s1">'when using type with a single argument, it returns the class of argument'</span><span class="p">)</span>
+
+<span class="n">MyObject</span> <span class="o">=</span> <span class="nb">type</span><span class="p">(</span><span class="s1">'MyObject'</span><span class="p">,</span> <span class="p">(</span><span class="nb">object</span><span class="p">,),</span> <span class="p">{</span><span class="s1">'a'</span><span class="p">:</span> <span class="mi">1</span><span class="p">})</span>
+<span class="k">assert</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">MyObject</span><span class="p">,</span> <span class="nb">type</span><span class="p">)</span>
+<span class="n">MyObject</span><span class="o">.</span><span class="vm">__name__</span><span class="p">,</span> <span class="n">MyObject</span><span class="o">.</span><span class="vm">__bases__</span><span class="p">,</span> <span class="n">MyObject</span><span class="o">.</span><span class="vm">__dict__</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt output_prompt">Out[1]:</div>
+
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>('MyObject',
+ (object,),
+ mappingproxy({'a': 1,
+               '__module__': '__main__',
+               '__dict__': &lt;attribute '__dict__' of 'MyObject' objects&gt;,
+               '__weakref__': &lt;attribute '__weakref__' of 'MyObject' objects&gt;,
+               '__doc__': None}))</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="元类的继承">元类的继承<a class="anchor-link" href="posts/meta-programming-in-python/#%E5%85%83%E7%B1%BB%E7%9A%84%E7%BB%A7%E6%89%BF">¶</a>
+</h3>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In [19]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># example 2.1</span>
+
+<span class="c1"># 创建一个元类</span>
+<span class="k">class</span> <span class="nc">Meta</span><span class="p">(</span><span class="nb">type</span><span class="p">):</span>
+    <span class="n">c</span> <span class="o">=</span> <span class="mi">1</span>
+    <span class="k">def</span> <span class="nf">__new__</span><span class="p">(</span><span class="n">mcs</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">"I'm creating a class using metaclass </span><span class="si">{}</span><span class="s2">"</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">mcs</span><span class="o">.</span><span class="vm">__name__</span><span class="p">))</span>
+        <span class="bp">cls</span> <span class="o">=</span> <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__new__</span><span class="p">(</span><span class="n">mcs</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>       
+        <span class="nb">print</span><span class="p">(</span><span class="s1">'Now I got a class named </span><span class="si">{name}</span><span class="s1">'</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="bp">cls</span><span class="o">.</span><span class="vm">__name__</span><span class="p">))</span>
+        <span class="nb">print</span><span class="p">(</span><span class="bp">cls</span><span class="o">.</span><span class="n">a</span><span class="p">,</span> <span class="bp">cls</span><span class="o">.</span><span class="n">hello</span><span class="p">)</span>
+        <span class="k">return</span> <span class="bp">cls</span>
+    
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">"I'm initializing class </span><span class="si">{}</span><span class="s2"> in metaclass </span><span class="si">{}</span><span class="s2">"</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
+            <span class="bp">cls</span><span class="o">.</span><span class="vm">__name__</span><span class="p">,</span> <span class="nb">type</span><span class="p">(</span><span class="bp">cls</span><span class="p">)</span><span class="o">.</span><span class="vm">__name__</span><span class="p">))</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+        <span class="bp">cls</span><span class="o">.</span><span class="n">b</span> <span class="o">=</span> <span class="mi">2</span> <span class="c1"># 给类绑定变量</span>
+        <span class="nb">print</span><span class="p">(</span><span class="bp">cls</span><span class="o">.</span><span class="vm">__name__</span><span class="p">,</span> <span class="bp">cls</span><span class="o">.</span><span class="vm">__bases__</span><span class="p">,</span> <span class="bp">cls</span><span class="o">.</span><span class="vm">__dict__</span><span class="p">)</span>
+    
+    <span class="k">def</span> <span class="nf">assign_to_class</span><span class="p">(</span><span class="bp">cls</span><span class="p">):</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s1">'I got a method from metaclass'</span><span class="p">)</span>
+
+<span class="c1"># 用定义的元类构造一个类</span>
+<span class="k">class</span> <span class="nc">MyObject</span><span class="p">(</span><span class="nb">object</span><span class="p">,</span> <span class="n">metaclass</span><span class="o">=</span><span class="n">Meta</span><span class="p">):</span>
+    <span class="n">a</span> <span class="o">=</span> <span class="mi">1</span>
+    <span class="k">def</span> <span class="nf">__new__</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="bp">self</span> <span class="o">=</span> <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__new__</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>       
+        <span class="k">return</span> <span class="bp">self</span>
+    
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+        
+    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">name</span><span class="p">(</span><span class="bp">cls</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">cls</span><span class="o">.</span><span class="vm">__name__</span>
+    
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">hello</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="s1">'hello'</span>
+<span class="n">MyObject</span><span class="o">.</span><span class="n">a</span><span class="p">,</span> <span class="n">MyObject</span><span class="o">.</span><span class="n">b</span><span class="p">,</span> <span class="n">MyObject</span><span class="o">.</span><span class="n">c</span><span class="p">,</span> <span class="n">MyObject</span><span class="o">.</span><span class="n">assign_to_class</span><span class="p">(),</span> 
+    
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>I'm creating a class using metaclass Meta
+Now I got a class named MyObject
+1 &lt;property object at 0x10e82f958&gt;
+I'm initializing class MyObject in metaclass Meta
+MyObject (&lt;class 'object'&gt;,) {'__module__': '__main__', 'a': 1, '__new__': &lt;staticmethod object at 0x10e82b320&gt;, '__init__': &lt;function MyObject.__init__ at 0x10e80c1e0&gt;, 'name': &lt;classmethod object at 0x10e82b240&gt;, 'hello': &lt;property object at 0x10e82f958&gt;, '__dict__': &lt;attribute '__dict__' of 'MyObject' objects&gt;, '__weakref__': &lt;attribute '__weakref__' of 'MyObject' objects&gt;, '__doc__': None, 'b': 2}
+I got a method from metaclass
+</pre>
+</div>
+</div>
+
+<div class="output_area">
+
+    <div class="prompt output_prompt">Out[19]:</div>
+
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>(1, 2, 1, None)</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>通过以上示例可以看出，MyObject类生成的时候，先调用元类Meta的__new__，此时MyObject中的实例方法，类方法，类变量已经被绑定，然后是__init__，在元类的init方法中可以将类当做实例一样，可以给类绑定变量，方法等等。<br>
+MyObject是Meta的一个实例，因此像对象调用类定义的方法和属性一样，MyObject也可以调用Meta的属性和方法</p>
+<p>元类可以用来实现很多“黑魔法”，form表单验证，orm模型都可以用它来实现。因为元类拥有对类的生杀大权，所以很容易写出难以定位的bug，如果不是经验丰富的老司机，尽量要避免使用。</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>最后总结一下，元类是类的类，类是元类的实例，type函数是一切元类的基类，也是自己的基类。
+面向对象的本质就是给数据绑定方法，在python中完全可以不经过继承，直接通过type来创建类，同时为它绑定方法。</p>
+<p>后续在读sqlalchemy源码的过程中会继续深入讨论元编程的应用。</p>
+
+</div>
+</div>
+</div>
+</div>
+        </div>
+        </article><article class="h-entry post-text"><header><h1 class="p-name entry-title header"><a href="posts/learning-cython-basics/" class="u-url">Learning Cython - Basics</a></h1>
             <div class="metadata">
                 <span class="byline author vcard">
                         <img class="img-circle" src="images/MrOK.jpg" alt="icon">
