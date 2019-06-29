@@ -70,35 +70,29 @@
         
         <hr></header><div class="e-content entry-content" itemprop="articleBody text">
     <div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In [ ]:</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
 <div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># 在jupyter notebook中学习cython</span>
-</pre></div>
-
-    </div>
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="在jupyter-notebook中学习cython">在jupyter notebook中学习cython<a class="anchor-link" href="#%E5%9C%A8jupyter-notebook%E4%B8%AD%E5%AD%A6%E4%B9%A0cython">¶</a>
+</h2>
 </div>
 </div>
-
 </div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In [8]:</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
 <div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="c1">## 首先导入cython</span>
-</pre></div>
-
-    </div>
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="首先导入cython">首先导入cython<a class="anchor-link" href="#%E9%A6%96%E5%85%88%E5%AF%BC%E5%85%A5cython">¶</a>
+</h3>
 </div>
 </div>
-
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In [9]:</div>
+<div class="prompt input_prompt">In [1]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="o">%</span><span class="k">load_ext</span> Cython
@@ -111,10 +105,54 @@
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In [ ]:</div>
+<div class="prompt input_prompt">In [1]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span> 
+<div class=" highlight hl-ipython3"><pre><span></span><span class="o">%%</span><span class="n">cython</span>
+<span class="c"># distutils: language=c </span>
+
+<span class="k">def</span> <span class="nf">test</span><span class="p">(</span><span class="n">short</span> <span class="n">test</span><span class="p">,</span> <span class="n">char</span> <span class="n">arg</span><span class="p">[]):</span>
+    <span class="k">return</span> <span class="n">test</span><span class="p">,</span> <span class="n">arg</span>
+
+<span class="k">print</span><span class="p">(</span><span class="n">test</span><span class="p">(</span><span class="mf">1.1</span><span class="p">,</span> <span class="n">b</span><span class="s">'ab'</span><span class="p">))</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stderr output_text">
+<pre>UsageError: Cell magic `%%cython` not found.
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In [8]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="o">%%</span><span class="n">cython</span>
+<span class="c"># distutils: language=c</span>
+<span class="k">cdef</span> <span class="nf">test</span><span class="p">(</span><span class="n">short</span> <span class="n">test</span><span class="p">):</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mf">10</span><span class="p">):</span>
+        <span class="n">test</span> <span class="o">=</span> <span class="n">test</span> <span class="o">+</span> <span class="n">i</span>
+    <span class="k">return</span> <span class="n">test</span>
+    
+<span class="k">print</span><span class="p">(</span><span class="n">test</span><span class="p">(</span><span class="mf">12</span><span class="p">))</span>
 </pre></div>
 
     </div>

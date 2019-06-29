@@ -15,7 +15,7 @@
  </url>
  <url>
   <loc>https://blurhead.github.io/archive.html</loc>
-  <lastmod>2019-02-21T03:17:00Z</lastmod>
+  <lastmod>2019-06-29T07:53:00Z</lastmod>
  </url>
  <url>
   <loc>https://blurhead.github.io/categories/</loc>
@@ -31,7 +31,7 @@
  </url>
  <url>
   <loc>https://blurhead.github.io/en/archive.html</loc>
-  <lastmod>2019-02-21T03:17:00Z</lastmod>
+  <lastmod>2019-06-29T07:53:00Z</lastmod>
  </url>
  <url>
   <loc>https://blurhead.github.io/en/categories/</loc>
@@ -40,6 +40,10 @@
  <url>
   <loc>https://blurhead.github.io/en/galleries/</loc>
   <lastmod>2019-02-07T08:49:00Z</lastmod>
+ </url>
+ <url>
+  <loc>https://blurhead.github.io/en/posts/elasticji-suan-fang-fa/</loc>
+  <lastmod>2019-06-29T07:48:00Z</lastmod>
  </url>
  <url>
   <loc>https://blurhead.github.io/en/posts/elasticsearch-guide/</loc>
@@ -63,6 +67,10 @@
  <url>
   <loc>https://blurhead.github.io/listings/</loc>
   <lastmod>2019-02-07T08:49:00Z</lastmod>
+ </url>
+ <url>
+  <loc>https://blurhead.github.io/posts/elasticji-suan-fang-fa/</loc>
+  <lastmod>2019-06-29T07:48:00Z</lastmod>
  </url>
  <url>
   <loc>https://blurhead.github.io/posts/elasticsearch-guide/</loc>
