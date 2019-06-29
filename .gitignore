@@ -4,3 +4,6 @@ cache
 output
 .doit.db
 .python-version
+.idea/
+.vscode/
+.ipynb_checkpoints/
