@@ -486,7 +486,7 @@ elasticsearch是一个java开发的企业级的实时的分布式全文搜索和
 <h2 id="orgd62d6e8">基本概念</h2>
 </div>
         </div>
-        </article><article class="h-entry post-text"><header><h1 class="p-name entry-title header"><a href="posts/shujushu-ju-ku-ru-men-zhi-nan/" class="u-url">数据库入门指南</a></h1>
+        </article><article class="h-entry post-text"><header><h1 class="p-name entry-title header"><a href="posts/shujushu-ju-ku-ru-men-zhi-nan/" class="u-url">数据库入门--关系模型与三范式</a></h1>
             <div class="metadata">
                 <span class="byline author vcard">
                         <img class="img-circle" src="../images/MrOK.jpg" alt="icon">
@@ -498,13 +498,13 @@ elasticsearch是一个java开发的企业级的实时的分布式全文搜索和
 </span>
             </div>
             <hr></header><div class="e-content entry-content">
-        <div id="outline-container-orgdff5601" class="outline-2">
-<h2 id="orgdff5601">基础知识</h2>
-<div class="outline-text-2" id="text-orgdff5601">
+        <div id="outline-container-org48c9bfe" class="outline-2">
+<h2 id="org48c9bfe">基础知识</h2>
+<div class="outline-text-2" id="text-org48c9bfe">
 </div>
-<div id="outline-container-orgcdf2216" class="outline-3">
-<h3 id="orgcdf2216">范式</h3>
-<div class="outline-text-3" id="text-orgcdf2216">
+<div id="outline-container-org28caddb" class="outline-3">
+<h3 id="org28caddb">范式</h3>
+<div class="outline-text-3" id="text-org28caddb">
 <p>
 数据库表设计的参考标准, 主要有三大范式
 </p>
@@ -541,9 +541,9 @@ elasticsearch是一个java开发的企业级的实时的分布式全文搜索和
 </p>
 </div>
 
-<div id="outline-container-org80bcd21" class="outline-4">
-<h4 id="org80bcd21">案例分析</h4>
-<div class="outline-text-4" id="text-org80bcd21">
+<div id="outline-container-org5856e96" class="outline-4">
+<h4 id="org5856e96">案例分析</h4>
+<div class="outline-text-4" id="text-org5856e96">
 <p>
 下面介绍一下, 设计表的时候如何一步步演化到第三范式
 </p>
@@ -837,9 +837,9 @@ elasticsearch是一个java开发的企业级的实时的分布式全文搜索和
 </div>
 
 
-<div id="outline-container-org44ab195" class="outline-3">
-<h3 id="org44ab195">约束</h3>
-<div class="outline-text-3" id="text-org44ab195">
+<div id="outline-container-org8f5bb70" class="outline-3">
+<h3 id="org8f5bb70">约束</h3>
+<div class="outline-text-3" id="text-org8f5bb70">
 <dl class="org-dl">
 <dt>主键约束 (Primay Key Coustraint)</dt>
 <dd>唯一性, 非空性</dd>
@@ -866,9 +866,9 @@ elasticsearch是一个java开发的企业级的实时的分布式全文搜索和
 </div>
 
 
-<div id="outline-container-org688843c" class="outline-3">
-<h3 id="org688843c">编码</h3>
-<div class="outline-text-3" id="text-org688843c">
+<div id="outline-container-orgd033618" class="outline-3">
+<h3 id="orgd033618">编码</h3>
+<div class="outline-text-3" id="text-orgd033618">
 <p>
 字符编码(Character Set)和排序规则(Collation)
 </p>
@@ -888,34 +888,34 @@ elasticsearch是一个java开发的企业级的实时的分布式全文搜索和
 </div>
 
 
-<div id="outline-container-org21b1d50" class="outline-3">
-<h3 id="org21b1d50">索引</h3>
+<div id="outline-container-orgeefccb6" class="outline-3">
+<h3 id="orgeefccb6">索引</h3>
 </div>
 
 
 
-<div id="outline-container-org4b2e71a" class="outline-3">
-<h3 id="org4b2e71a">锁</h3>
+<div id="outline-container-org334e1ec" class="outline-3">
+<h3 id="org334e1ec">锁</h3>
 </div>
 
 
 
-<div id="outline-container-org6ae63fd" class="outline-3">
-<h3 id="org6ae63fd">事务</h3>
+<div id="outline-container-org79b74dd" class="outline-3">
+<h3 id="org79b74dd">事务</h3>
 </div>
 
 
-<div id="outline-container-org5d59251" class="outline-3">
-<h3 id="org5d59251">规范</h3>
-<div class="outline-text-3" id="text-org5d59251">
+<div id="outline-container-org5b70e39" class="outline-3">
+<h3 id="org5b70e39">规范</h3>
+<div class="outline-text-3" id="text-org5b70e39">
 <p>
 以mysql举例说明, 参考了阿里云和腾讯云社区的文章
 </p>
 </div>
 
-<div id="outline-container-orgbe25d18" class="outline-4">
-<h4 id="orgbe25d18">命名</h4>
-<div class="outline-text-4" id="text-orgbe25d18">
+<div id="outline-container-orgfae3196" class="outline-4">
+<h4 id="orgfae3196">命名</h4>
+<div class="outline-text-4" id="text-orgfae3196">
 <p>
 主要包括字段和表的命名, 未作特殊说明的表示对于表和字段都适用
 </p>
@@ -939,9 +939,9 @@ elasticsearch是一个java开发的企业级的实时的分布式全文搜索和
 </div>
 
 
-<div id="outline-container-orgda231b1" class="outline-4">
-<h4 id="orgda231b1">类型</h4>
-<div class="outline-text-4" id="text-orgda231b1">
+<div id="outline-container-orgcd74663" class="outline-4">
+<h4 id="orgcd74663">类型</h4>
+<div class="outline-text-4" id="text-orgcd74663">
 <ul class="org-ul">
 <li>字段最好都要有默认值, 不要为null, null字段查询难以优化, null字段的复合索引无效</li>
 <li>用尽量少的存储空间来存储, 优先级int&gt; varchar, char, varchar(10) &gt; varchar(100)</li>
@@ -952,9 +952,9 @@ elasticsearch是一个java开发的企业级的实时的分布式全文搜索和
 </div>
 
 
-<div id="outline-container-org73e1993" class="outline-4">
-<h4 id="org73e1993">编码</h4>
-<div class="outline-text-4" id="text-org73e1993">
+<div id="outline-container-org8251161" class="outline-4">
+<h4 id="org8251161">编码</h4>
+<div class="outline-text-4" id="text-org8251161">
 <ul class="org-ul">
 <li>使用utf8字符集同时考虑是否大小写敏感</li>
 </ul>
@@ -964,9 +964,9 @@ elasticsearch是一个java开发的企业级的实时的分布式全文搜索和
 </div>
 
 
-<div id="outline-container-org90b2d02" class="outline-2">
-<h2 id="org90b2d02">参考资料</h2>
-<div class="outline-text-2" id="text-org90b2d02">
+<div id="outline-container-orgc4a459e" class="outline-2">
+<h2 id="orgc4a459e">参考资料</h2>
+<div class="outline-text-2" id="text-orgc4a459e">
 <dl class="org-dl">
 <dt>函数依赖的定义</dt>
 <dd><a href="https://blog.csdn.net/rl529014/article/details/48391465">https://blog.csdn.net/rl529014/article/details/48391465</a></dd>
@@ -1023,7 +1023,8 @@ elasticsearch是一个java开发的企业级的实时的分布式全文搜索和
 
 <div class="footdef">
 <sup><a id="fn.5" class="footnum" href="posts/shujushu-ju-ku-ru-men-zhi-nan/#fnr.5">5</a></sup><div class="footpara"><p class="footpara">
-设X,Y,Z是三组集合, 如果知道了X就可以确定Y, 知道了Y就确定Z, 则Z传递函数依赖于X</p></div>
+设X,Y,Z是三组集合, 如果知道了X就可以确定Y, 知道了Y就确定Z, 则Z传递函数依赖于X
+</p></div>
 </div>
 
 
