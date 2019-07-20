@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<?xml-stylesheet type="text/xsl" href="assets/xml/rss.xsl" media="all"?><rss version="2.0" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>blurhead's site</title><link>https://blurhead.github.io/</link><description>programming, data science</description><atom:link href="https://blurhead.github.io/rss.xml" rel="self" type="application/rss+xml"></atom:link><language>zh_cn</language><copyright>Contents © 2019 &lt;a href="mailto:blurflask@gmail.com"&gt;blurhead&lt;/a&gt; </copyright><lastBuildDate>Sat, 20 Jul 2019 10:21:03 GMT</lastBuildDate><generator>Nikola (getnikola.com)</generator><docs>http://blogs.law.harvard.edu/tech/rss</docs><item><title>教女朋友学点python-IO篇</title><link>https://blurhead.github.io/posts/teach-girl-friend-a-little-python/</link><dc:creator>blurhead</dc:creator><description>&lt;div&gt;&lt;div class="cell border-box-sizing text_cell rendered"&gt;&lt;div class="prompt input_prompt"&gt;
+<?xml-stylesheet type="text/xsl" href="assets/xml/rss.xsl" media="all"?><rss version="2.0" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>blurhead's site</title><link>https://blurhead.github.io/</link><description>programming, data science</description><atom:link href="https://blurhead.github.io/rss.xml" rel="self" type="application/rss+xml"></atom:link><language>zh_cn</language><copyright>Contents © 2019 &lt;a href="mailto:blurflask@gmail.com"&gt;blurhead&lt;/a&gt; </copyright><lastBuildDate>Sat, 20 Jul 2019 10:30:33 GMT</lastBuildDate><generator>Nikola (getnikola.com)</generator><docs>http://blogs.law.harvard.edu/tech/rss</docs><item><title>教女朋友学点python-IO篇</title><link>https://blurhead.github.io/posts/teach-girl-friend-a-little-python/</link><dc:creator>blurhead</dc:creator><description>&lt;div&gt;&lt;div class="cell border-box-sizing text_cell rendered"&gt;&lt;div class="prompt input_prompt"&gt;
 &lt;/div&gt;&lt;div class="inner_cell"&gt;
 &lt;div class="text_cell_render border-box-sizing rendered_html"&gt;
 &lt;p&gt;python 中有三种I/O, 分别是text I/O, binary I/O, raw I/O,&lt;br&gt;
@@ -12,8 +12,8 @@
 &lt;/div&gt;&lt;div class="inner_cell"&gt;
 &lt;div class="text_cell_render border-box-sizing rendered_html"&gt;
 &lt;p&gt;创建一个file object的通用方法是用open函数, 可以用来创建text I/O和binary I/O.&lt;br&gt;
-open函数的参数mode代表对文件操作的类型,
-按照文件内容有二进制和纯文本, 按照操作类型可以分为以下几种, 以下摘自官方文档&lt;/p&gt;
+open函数的参数mode代表对文件操作的类型, 按照文件内容有二进制和纯文本,&lt;br&gt;
+按照操作类型可以分为以下几种, 摘自官方文档&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;'r'    open for reading (default)  &lt;/li&gt;
 &lt;li&gt;'w'    open for writing, truncating the file first  &lt;/li&gt;
@@ -21,8 +21,7 @@ open函数的参数mode代表对文件操作的类型,
 &lt;li&gt;'a'    open for writing, appending to the end of the file if it exists  &lt;/li&gt;
 &lt;li&gt;'b'    binary mode  &lt;/li&gt;
 &lt;li&gt;'t'    text mode (default)  &lt;/li&gt;
-&lt;li&gt;'+'    open a disk file for updating (reading and writing)  &lt;/li&gt;
-&lt;li&gt;'U'    universal newline mode (deprecated)  &lt;/li&gt;
+&lt;li&gt;'+'    open a disk file for updating (reading and writing)&lt;/li&gt;
 &lt;/ul&gt;
 
 &lt;/div&gt;
@@ -96,20 +95,21 @@ open函数的参数mode代表对文件操作的类型,
 &lt;p&gt;text stream对象的基类是TextIOBase, 我们重点关注以下几个方法&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;&lt;p&gt;read(size=-1)
-  按照size读取文本内容, 到达文件末尾时停止, size为负数或None时读取全部内容&lt;/p&gt;
+按照size读取文本内容, 到达文件末尾时停止, size为负数或None时读取全部内容&lt;/p&gt;
 &lt;/li&gt;
 &lt;li&gt;&lt;p&gt;readline(size=-1)
-  按照size读取文本内容, 遇到换行符时或到达文件末尾时停止, size为负数或None或者读取一行全部内容, 如果已经在文件末尾, 返回空字符串&lt;/p&gt;
+按照size读取文本内容, 遇到换行符时或到达文件末尾时停止,&lt;br&gt;
+size为负数或None或者读取一行全部内容, 如果已经在文件末尾, 返回空字符串&lt;/p&gt;
 &lt;/li&gt;
 &lt;li&gt;&lt;p&gt;seek(offset, whence=SEEK_SET)
-  改变文件指针的位置, 默认从0开始移动, offset是移动的偏移量, offest是指字节的大小, 一个中文字符是三个字节.
-  whence可以是0, 1, 2代表从开始位置, 当前位置, 结束位置, 只有whence=0的时候, offset才可以有0以外的值&lt;/p&gt;
+改变文件指针的位置, 默认从0开始移动, offset是移动的偏移量, offest是指字节的大小, 一个中文字符是三个字节.&lt;br&gt;
+whence可以是0, 1, 2代表从开始位置, 当前位置, 结束位置, 只有whence=0的时候, offset才可以有0以外的值&lt;/p&gt;
 &lt;/li&gt;
 &lt;li&gt;&lt;p&gt;tell()
-  返回当前的文件指针位置&lt;/p&gt;
+返回当前的文件指针位置&lt;/p&gt;
 &lt;/li&gt;
 &lt;li&gt;&lt;p&gt;write(s)
-  写入文本&lt;/p&gt;
+写入文本&lt;/p&gt;
 &lt;/li&gt;
 &lt;/ul&gt;
 
@@ -129,7 +129,7 @@ open函数的参数mode代表对文件操作的类型,
 &lt;span class="nb"&gt;print&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s2"&gt;"现在文件指针位置在&lt;/span&gt;&lt;span class="si"&gt;%d&lt;/span&gt;&lt;span class="s2"&gt;"&lt;/span&gt; &lt;span class="o"&gt;%&lt;/span&gt; &lt;span class="n"&gt;f&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;tell&lt;/span&gt;&lt;span class="p"&gt;())&lt;/span&gt;
 &lt;span class="nb"&gt;print&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s2"&gt;"最后从位置&lt;/span&gt;&lt;span class="si"&gt;%d&lt;/span&gt;&lt;span class="s2"&gt;读取一行, size为&lt;/span&gt;&lt;span class="si"&gt;%d&lt;/span&gt;&lt;span class="s2"&gt;: '&lt;/span&gt;&lt;span class="si"&gt;%s&lt;/span&gt;&lt;span class="s2"&gt;'"&lt;/span&gt; &lt;span class="o"&gt;%&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;f&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;tell&lt;/span&gt;&lt;span class="p"&gt;(),&lt;/span&gt; &lt;span class="mi"&gt;10&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;f&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;readline&lt;/span&gt;&lt;span class="p"&gt;()))&lt;/span&gt;
 &lt;span class="nb"&gt;print&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s2"&gt;"现在文件指针位置在&lt;/span&gt;&lt;span class="si"&gt;%d&lt;/span&gt;&lt;span class="s2"&gt;"&lt;/span&gt; &lt;span class="o"&gt;%&lt;/span&gt; &lt;span class="n"&gt;f&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;tell&lt;/span&gt;&lt;span class="p"&gt;())&lt;/span&gt;
-&lt;span class="nb"&gt;print&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s2"&gt;"看看现在还剩下什么, '&lt;/span&gt;&lt;span class="si"&gt;%s&lt;/span&gt;&lt;span class="s2"&gt;'"&lt;/span&gt; &lt;span class="o"&gt;%&lt;/span&gt; &lt;span class="n"&gt;f&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;read&lt;/span&gt;&lt;span class="p"&gt;())&lt;/span&gt;
+&lt;span class="nb"&gt;print&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s2"&gt;"看看现在还剩下什么: '&lt;/span&gt;&lt;span class="si"&gt;%s&lt;/span&gt;&lt;span class="s2"&gt;'"&lt;/span&gt; &lt;span class="o"&gt;%&lt;/span&gt; &lt;span class="n"&gt;f&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;read&lt;/span&gt;&lt;span class="p"&gt;())&lt;/span&gt;
 &lt;span class="n"&gt;f&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;close&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt;
 &lt;/pre&gt;&lt;/div&gt;
 
@@ -174,7 +174,7 @@ hel'
 &lt;li&gt;f.read()或者f.readline() 每次都是从文件指针的位置开始向后读取size大小的字符&lt;/li&gt;
 &lt;li&gt;f.read(size) size指的是字符的大小, 而不是每个字所占的字节的大小&lt;/li&gt;
 &lt;li&gt;f.tell() 返回的位置是按照字节大小来计算的, 一个中文占三个字节, 一个字母占一个字节&lt;/li&gt;
-&lt;li&gt;换行符也算一个字符, f.readline(size) 返回的行文本是包含了行尾的换行符&lt;/li&gt;
+&lt;li&gt;换行符也算一个字符, readline和read 返回的行文本包含了行尾的换行符&lt;/li&gt;
 &lt;li&gt;因为文件指针一直在移动, 所以无法再读取已经读取过的内容, 除非手动移动指针的位置&lt;/li&gt;
 &lt;/ul&gt;
 &lt;p&gt;下面来试试seek方法&lt;/p&gt;
