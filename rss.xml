@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<?xml-stylesheet type="text/xsl" href="assets/xml/rss.xsl" media="all"?><rss version="2.0" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>blurhead's site</title><link>https://blurhead.github.io/</link><description>programming, data science</description><atom:link href="https://blurhead.github.io/rss.xml" rel="self" type="application/rss+xml"></atom:link><language>zh_cn</language><copyright>Contents © 2019 &lt;a href="mailto:blurflask@gmail.com"&gt;blurhead&lt;/a&gt; </copyright><lastBuildDate>Sat, 20 Jul 2019 10:30:33 GMT</lastBuildDate><generator>Nikola (getnikola.com)</generator><docs>http://blogs.law.harvard.edu/tech/rss</docs><item><title>教女朋友学点python-IO篇</title><link>https://blurhead.github.io/posts/teach-girl-friend-a-little-python/</link><dc:creator>blurhead</dc:creator><description>&lt;div&gt;&lt;div class="cell border-box-sizing text_cell rendered"&gt;&lt;div class="prompt input_prompt"&gt;
+<?xml-stylesheet type="text/xsl" href="assets/xml/rss.xsl" media="all"?><rss version="2.0" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>blurhead's site</title><link>https://blurhead.github.io/</link><description>programming, data science</description><atom:link href="https://blurhead.github.io/rss.xml" rel="self" type="application/rss+xml"></atom:link><language>zh_cn</language><copyright>Contents © 2019 &lt;a href="mailto:blurflask@gmail.com"&gt;blurhead&lt;/a&gt; </copyright><lastBuildDate>Sat, 20 Jul 2019 10:42:44 GMT</lastBuildDate><generator>Nikola (getnikola.com)</generator><docs>http://blogs.law.harvard.edu/tech/rss</docs><item><title>教女朋友学点python-IO篇</title><link>https://blurhead.github.io/posts/teach-girl-friend-a-little-python/</link><dc:creator>blurhead</dc:creator><description>&lt;div&gt;&lt;div class="cell border-box-sizing text_cell rendered"&gt;&lt;div class="prompt input_prompt"&gt;
 &lt;/div&gt;&lt;div class="inner_cell"&gt;
 &lt;div class="text_cell_render border-box-sizing rendered_html"&gt;
 &lt;p&gt;python 中有三种I/O, 分别是text I/O, binary I/O, raw I/O,&lt;br&gt;
@@ -94,21 +94,21 @@ open函数的参数mode代表对文件操作的类型, 按照文件内容有二�
 &lt;div class="text_cell_render border-box-sizing rendered_html"&gt;
 &lt;p&gt;text stream对象的基类是TextIOBase, 我们重点关注以下几个方法&lt;/p&gt;
 &lt;ul&gt;
-&lt;li&gt;&lt;p&gt;read(size=-1)
+&lt;li&gt;&lt;p&gt;read(size=-1)&lt;br&gt;
 按照size读取文本内容, 到达文件末尾时停止, size为负数或None时读取全部内容&lt;/p&gt;
 &lt;/li&gt;
-&lt;li&gt;&lt;p&gt;readline(size=-1)
+&lt;li&gt;&lt;p&gt;readline(size=-1)&lt;br&gt;
 按照size读取文本内容, 遇到换行符时或到达文件末尾时停止,&lt;br&gt;
 size为负数或None或者读取一行全部内容, 如果已经在文件末尾, 返回空字符串&lt;/p&gt;
 &lt;/li&gt;
-&lt;li&gt;&lt;p&gt;seek(offset, whence=SEEK_SET)
+&lt;li&gt;&lt;p&gt;seek(offset, whence=SEEK_SET)&lt;br&gt;
 改变文件指针的位置, 默认从0开始移动, offset是移动的偏移量, offest是指字节的大小, 一个中文字符是三个字节.&lt;br&gt;
 whence可以是0, 1, 2代表从开始位置, 当前位置, 结束位置, 只有whence=0的时候, offset才可以有0以外的值&lt;/p&gt;
 &lt;/li&gt;
-&lt;li&gt;&lt;p&gt;tell()
+&lt;li&gt;&lt;p&gt;tell()&lt;br&gt;
 返回当前的文件指针位置&lt;/p&gt;
 &lt;/li&gt;
-&lt;li&gt;&lt;p&gt;write(s)
+&lt;li&gt;&lt;p&gt;write(s)&lt;br&gt;
 写入文本&lt;/p&gt;
 &lt;/li&gt;
 &lt;/ul&gt;

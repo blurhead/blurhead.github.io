@@ -175,25 +175,25 @@ open函数的参数mode代表对文件操作的类型, 按照文件内容有二�
 <p>text stream对象的基类是TextIOBase, 我们重点关注以下几个方法</p>
 <ul>
 <li>
-<p>read(size=-1)
+<p>read(size=-1)<br>
 按照size读取文本内容, 到达文件末尾时停止, size为负数或None时读取全部内容</p>
 </li>
 <li>
-<p>readline(size=-1)
+<p>readline(size=-1)<br>
 按照size读取文本内容, 遇到换行符时或到达文件末尾时停止,<br>
 size为负数或None或者读取一行全部内容, 如果已经在文件末尾, 返回空字符串</p>
 </li>
 <li>
-<p>seek(offset, whence=SEEK_SET)
+<p>seek(offset, whence=SEEK_SET)<br>
 改变文件指针的位置, 默认从0开始移动, offset是移动的偏移量, offest是指字节的大小, 一个中文字符是三个字节.<br>
 whence可以是0, 1, 2代表从开始位置, 当前位置, 结束位置, 只有whence=0的时候, offset才可以有0以外的值</p>
 </li>
 <li>
-<p>tell()
+<p>tell()<br>
 返回当前的文件指针位置</p>
 </li>
 <li>
-<p>write(s)
+<p>write(s)<br>
 写入文本</p>
 </li>
 </ul>
