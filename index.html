@@ -66,9 +66,9 @@
 </span>
             </div>
             <hr></header><div class="e-content entry-content">
-        <div id="outline-container-orgaab1238" class="outline-2">
-<h2 id="orgaab1238">基础知识</h2>
-<div class="outline-text-2" id="text-orgaab1238">
+        <div id="outline-container-orgc10a096" class="outline-2">
+<h2 id="orgc10a096">基础知识</h2>
+<div class="outline-text-2" id="text-orgc10a096">
 <p>
 HTTP协议在 <b>rfc1867</b> 的提议中添加了在提交表单时上传文件的功能. 
 </p>
@@ -138,9 +138,9 @@ report
 </div>
 </div>
 
-<div id="outline-container-orgb484984" class="outline-2">
-<h2 id="orgb484984">在PyCharm中使用http-request上传文件</h2>
-<div class="outline-text-2" id="text-orgb484984">
+<div id="outline-container-org7c03a30" class="outline-2">
+<h2 id="org7c03a30">在PyCharm中使用http-request上传文件</h2>
+<div class="outline-text-2" id="text-org7c03a30">
 <p>
 新建一个.http后缀的文件, 内容如下: 
 </p>
@@ -161,9 +161,9 @@ Content-Disposition: form-data; name="file"; filename="text.txt"
 </div>
 </div>
 
-<div id="outline-container-org0eb1f01" class="outline-2">
-<h2 id="org0eb1f01">在Tornado中解析上传文件的请求</h2>
-<div class="outline-text-2" id="text-org0eb1f01">
+<div id="outline-container-orga413a09" class="outline-2">
+<h2 id="orga413a09">在Tornado中解析上传文件的请求</h2>
+<div class="outline-text-2" id="text-orga413a09">
 <div class="highlight"><pre><span></span>  <span class="kn">import</span> <span class="nn">tornado.ioloop</span>
   <span class="kn">import</span> <span class="nn">tornado.web</span>
 
@@ -184,7 +184,16 @@ Content-Disposition: form-data; name="file"; filename="text.txt"
 </pre></div>
 <p class="verse">
 在tornado的handler中, self.request.files表示的就是multipart格式的请求体中,<br>
-用boundry分割的多个文件, 没有指定filename的不会追加到files中, 而是会添加到self.request的body<sub>arguments中</sub><br></p>
+用boundry分割的多个文件, 没有指定filename的不会追加到files中, 而是会添加到self.request的body_arguments中<br></p>
+</div>
+</div>
+
+<div id="outline-container-org5ba0507" class="outline-2">
+<h2 id="org5ba0507">参考文档</h2>
+<div class="outline-text-2" id="text-org5ba0507">
+<ul class="org-ul">
+<li><a href="https://developer.mozilla.org/zh-CN/docs/Web/HTTP/Headers/Content-Disposition">https://developer.mozilla.org/zh-CN/docs/Web/HTTP/Headers/Content-Disposition</a></li>
+</ul>
 </div>
 </div>
         </div>

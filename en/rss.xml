@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<?xml-stylesheet type="text/xsl" href="../assets/xml/rss.xsl" media="all"?><rss version="2.0" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>blurhead's site</title><link>https://blurhead.github.io/</link><description>programming, data science</description><atom:link href="https://blurhead.github.io/en/rss.xml" rel="self" type="application/rss+xml"></atom:link><language>en</language><copyright>Contents © 2019 &lt;a href="mailto:blurflask@gmail.com"&gt;blurhead&lt;/a&gt; </copyright><lastBuildDate>Sat, 28 Dec 2019 07:48:13 GMT</lastBuildDate><generator>Nikola (getnikola.com)</generator><docs>http://blogs.law.harvard.edu/tech/rss</docs><item><title>在pycharm中使用http request的方式上传文件</title><link>https://blurhead.github.io/en/posts/zai-pycharmzhong-shi-yong-http-requestde-fang-shi-shang-chuan-wen-jian/</link><dc:creator>blurhead</dc:creator><description>&lt;div id="outline-container-orgaab1238" class="outline-2"&gt;
-&lt;h2 id="orgaab1238"&gt;基础知识&lt;/h2&gt;
-&lt;div class="outline-text-2" id="text-orgaab1238"&gt;
+<?xml-stylesheet type="text/xsl" href="../assets/xml/rss.xsl" media="all"?><rss version="2.0" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>blurhead's site</title><link>https://blurhead.github.io/</link><description>programming, data science</description><atom:link href="https://blurhead.github.io/en/rss.xml" rel="self" type="application/rss+xml"></atom:link><language>en</language><copyright>Contents © 2019 &lt;a href="mailto:blurflask@gmail.com"&gt;blurhead&lt;/a&gt; </copyright><lastBuildDate>Sat, 28 Dec 2019 07:56:10 GMT</lastBuildDate><generator>Nikola (getnikola.com)</generator><docs>http://blogs.law.harvard.edu/tech/rss</docs><item><title>在pycharm中使用http request的方式上传文件</title><link>https://blurhead.github.io/en/posts/zai-pycharmzhong-shi-yong-http-requestde-fang-shi-shang-chuan-wen-jian/</link><dc:creator>blurhead</dc:creator><description>&lt;div id="outline-container-orgc10a096" class="outline-2"&gt;
+&lt;h2 id="orgc10a096"&gt;基础知识&lt;/h2&gt;
+&lt;div class="outline-text-2" id="text-orgc10a096"&gt;
 &lt;p&gt;
 HTTP协议在 &lt;b&gt;rfc1867&lt;/b&gt; 的提议中添加了在提交表单时上传文件的功能. 
 &lt;/p&gt;
@@ -70,9 +70,9 @@ report
 &lt;/div&gt;
 &lt;/div&gt;
 
-&lt;div id="outline-container-orgb484984" class="outline-2"&gt;
-&lt;h2 id="orgb484984"&gt;在PyCharm中使用http-request上传文件&lt;/h2&gt;
-&lt;div class="outline-text-2" id="text-orgb484984"&gt;
+&lt;div id="outline-container-org7c03a30" class="outline-2"&gt;
+&lt;h2 id="org7c03a30"&gt;在PyCharm中使用http-request上传文件&lt;/h2&gt;
+&lt;div class="outline-text-2" id="text-org7c03a30"&gt;
 &lt;p&gt;
 新建一个.http后缀的文件, 内容如下: 
 &lt;/p&gt;
@@ -93,9 +93,9 @@ Content-Disposition: form-data; name="file"; filename="text.txt"
 &lt;/div&gt;
 &lt;/div&gt;
 
-&lt;div id="outline-container-org0eb1f01" class="outline-2"&gt;
-&lt;h2 id="org0eb1f01"&gt;在Tornado中解析上传文件的请求&lt;/h2&gt;
-&lt;div class="outline-text-2" id="text-org0eb1f01"&gt;
+&lt;div id="outline-container-orga413a09" class="outline-2"&gt;
+&lt;h2 id="orga413a09"&gt;在Tornado中解析上传文件的请求&lt;/h2&gt;
+&lt;div class="outline-text-2" id="text-orga413a09"&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;  &lt;span class="kn"&gt;import&lt;/span&gt; &lt;span class="nn"&gt;tornado.ioloop&lt;/span&gt;
   &lt;span class="kn"&gt;import&lt;/span&gt; &lt;span class="nn"&gt;tornado.web&lt;/span&gt;
 
@@ -116,8 +116,17 @@ Content-Disposition: form-data; name="file"; filename="text.txt"
 &lt;/pre&gt;&lt;/div&gt;
 &lt;p class="verse"&gt;
 在tornado的handler中, self.request.files表示的就是multipart格式的请求体中,&lt;br&gt;
-用boundry分割的多个文件, 没有指定filename的不会追加到files中, 而是会添加到self.request的body&lt;sub&gt;arguments中&lt;/sub&gt;&lt;br&gt;
+用boundry分割的多个文件, 没有指定filename的不会追加到files中, 而是会添加到self.request的body_arguments中&lt;br&gt;
 &lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;div id="outline-container-org5ba0507" class="outline-2"&gt;
+&lt;h2 id="org5ba0507"&gt;参考文档&lt;/h2&gt;
+&lt;div class="outline-text-2" id="text-org5ba0507"&gt;
+&lt;ul class="org-ul"&gt;
+&lt;li&gt;&lt;a href="https://developer.mozilla.org/zh-CN/docs/Web/HTTP/Headers/Content-Disposition"&gt;https://developer.mozilla.org/zh-CN/docs/Web/HTTP/Headers/Content-Disposition&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
 &lt;/div&gt;
 &lt;/div&gt;</description><guid>https://blurhead.github.io/en/posts/zai-pycharmzhong-shi-yong-http-requestde-fang-shi-shang-chuan-wen-jian/</guid><pubDate>Sun, 22 Dec 2019 09:58:22 GMT</pubDate></item><item><title>python中的文件IO之一</title><link>https://blurhead.github.io/en/posts/teach-girl-friend-a-little-python/</link><dc:creator>blurhead</dc:creator><description>&lt;div&gt;&lt;div class="cell border-box-sizing text_cell rendered"&gt;&lt;div class="prompt input_prompt"&gt;
 &lt;/div&gt;&lt;div class="inner_cell"&gt;
