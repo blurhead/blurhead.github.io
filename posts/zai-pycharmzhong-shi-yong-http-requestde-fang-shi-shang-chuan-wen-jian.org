@@ -1,3 +1,5 @@
+#+OPTIONS: ^:nil
+
 * 基础知识
 HTTP协议在 *rfc1867* 的提议中添加了在提交表单时上传文件的功能. 
 
@@ -90,3 +92,6 @@ HTTP协议在 *rfc1867* 的提议中添加了在提交表单时上传文件的�
   在tornado的handler中, self.request.files表示的就是multipart格式的请求体中,
   用boundry分割的多个文件, 没有指定filename的不会追加到files中, 而是会添加到self.request的body_arguments中
   #+end_verse
+
+* 参考文档
+ - https://developer.mozilla.org/zh-CN/docs/Web/HTTP/Headers/Content-Disposition
