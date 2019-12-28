@@ -1,0 +1,92 @@
+* 基础知识
+HTTP协议在 *rfc1867* 的提议中添加了在提交表单时上传文件的功能. 
+
+要通过http实现文件上传功能, 需要满足以下几个条件:
+1. 设置Content-Type
+   #+begin_verse
+   *Content-Type: multipart/form-data; boundary="Boundary";*
+   boundary是一段标识码, 用来在body中分割不同的数据, multipart在这里表示body中可以有多种类型的数据
+   #+end_verse
+2. 设置Request Body
+   #+begin_verse
+   body中按照 *--Boundary* 来区分不同的数据, Bounday就是前面指定的标示码, 比如要添加一个txt文件: 
+   #+end_verse
+   #+begin_example
+   --Boundary
+   Content-Disposition: form-data; name="file"; filename="test.pdf"
+   
+   this is just a text file for test
+   --Boundary
+   Content-Disposition: form-data; name="type"; 
+   
+   report
+   --Boundary
+   ...
+   --Boundary
+   
+   #+end_example
+   ```
+   #+begin_verse
+   *Content-Disposition* 在请求中用来在multipart消息体的子部分中给出相应字段的信息,
+   HTTP协议中, 使用multipart时, 只支持form-data, 以及可选的name和filename三个参数
+   第一个参数是固定的form-data, 附加的参数之间用 =;= 分割
+   #+end_verse
+
+   一个完整的请求如下:
+   #+begin_example
+   POST /api/v1/files
+   Host: http://localhost:8088
+   Content-Type: multipart/form-data; boundary=WebAppBoundary; charset=UTF-8
+
+   --WebAppBoundary
+   Content-Disposition: form-data; name="file"; filename="test.txt"
+   
+   this is just a text file for test
+   --WebAppBoundary
+   Content-Disposition: form-data; name="type"; 
+   
+   report
+   --WebAppBoundary
+   ...
+   --WebAppBoundary
+   #+end_example
+
+* 在PyCharm中使用http-request上传文件
+  新建一个.http后缀的文件, 内容如下: 
+  #+begin_example
+  POST /api/v1/files
+  Host: http://localhost:8088
+  Content-Type: multipart/form-data; boundary=WebAppBoundary; charset=UTF-8
+
+  --WebAppBoundary
+  Content-Disposition: form-data; name="file"; filename="text.txt"
+
+  < ./test.txt
+  --WebAppBoundary
+  #+end_example
+  区别只是在将文件的内容替换成指定文件路径, 使用 *<* 来将指定文件的内容追加到请求体中
+
+* 在Tornado中解析上传文件的请求
+  #+BEGIN_SRC python
+  import tornado.ioloop
+  import tornado.web
+  
+  class MainHandler(tornado.web.RequestHandler):
+      def get(self):
+          print(self.request.files)
+          self.write("success")
+  
+  def make_app():
+      return tornado.web.Application([
+          (r"/api/v1/files", MainHandler),
+      ])
+  
+  if __name__ == "__main__":
+      app = make_app()
+      app.listen(8088)
+      tornado.ioloop.IOLoop.current().start() 
+  #+END_SRC
+  #+begin_verse
+  在tornado的handler中, self.request.files表示的就是multipart格式的请求体中,
+  用boundry分割的多个文件, 没有指定filename的不会追加到files中, 而是会添加到self.request的body_arguments中
+  #+end_verse

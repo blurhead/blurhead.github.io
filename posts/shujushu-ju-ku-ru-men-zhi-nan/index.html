@@ -69,13 +69,13 @@
         </div>
         
         <hr></header><div class="e-content entry-content" itemprop="articleBody text">
-    <div id="outline-container-org48c9bfe" class="outline-2">
-<h2 id="org48c9bfe">基础知识</h2>
-<div class="outline-text-2" id="text-org48c9bfe">
+    <div id="outline-container-org1269e06" class="outline-2">
+<h2 id="org1269e06">基础知识</h2>
+<div class="outline-text-2" id="text-org1269e06">
 </div>
-<div id="outline-container-org28caddb" class="outline-3">
-<h3 id="org28caddb">范式</h3>
-<div class="outline-text-3" id="text-org28caddb">
+<div id="outline-container-org00e0582" class="outline-3">
+<h3 id="org00e0582">范式</h3>
+<div class="outline-text-3" id="text-org00e0582">
 <p>
 数据库表设计的参考标准, 主要有三大范式
 </p>
@@ -112,9 +112,9 @@
 </p>
 </div>
 
-<div id="outline-container-org5856e96" class="outline-4">
-<h4 id="org5856e96">案例分析</h4>
-<div class="outline-text-4" id="text-org5856e96">
+<div id="outline-container-org5530b44" class="outline-4">
+<h4 id="org5530b44">案例分析</h4>
+<div class="outline-text-4" id="text-org5530b44">
 <p>
 下面介绍一下, 设计表的时候如何一步步演化到第三范式
 </p>
@@ -408,9 +408,9 @@
 </div>
 
 
-<div id="outline-container-org8f5bb70" class="outline-3">
-<h3 id="org8f5bb70">约束</h3>
-<div class="outline-text-3" id="text-org8f5bb70">
+<div id="outline-container-orga802d21" class="outline-3">
+<h3 id="orga802d21">约束</h3>
+<div class="outline-text-3" id="text-orga802d21">
 <dl class="org-dl">
 <dt>主键约束 (Primay Key Coustraint)</dt>
 <dd>唯一性, 非空性</dd>
@@ -437,9 +437,9 @@
 </div>
 
 
-<div id="outline-container-orgd033618" class="outline-3">
-<h3 id="orgd033618">编码</h3>
-<div class="outline-text-3" id="text-orgd033618">
+<div id="outline-container-org9db7594" class="outline-3">
+<h3 id="org9db7594">编码</h3>
+<div class="outline-text-3" id="text-org9db7594">
 <p>
 字符编码(Character Set)和排序规则(Collation)
 </p>
@@ -459,34 +459,34 @@
 </div>
 
 
-<div id="outline-container-orgeefccb6" class="outline-3">
-<h3 id="orgeefccb6">索引</h3>
+<div id="outline-container-orgaea4916" class="outline-3">
+<h3 id="orgaea4916">索引</h3>
 </div>
 
 
 
-<div id="outline-container-org334e1ec" class="outline-3">
-<h3 id="org334e1ec">锁</h3>
+<div id="outline-container-orgf5cada1" class="outline-3">
+<h3 id="orgf5cada1">锁</h3>
 </div>
 
 
 
-<div id="outline-container-org79b74dd" class="outline-3">
-<h3 id="org79b74dd">事务</h3>
+<div id="outline-container-org0dffda9" class="outline-3">
+<h3 id="org0dffda9">事务</h3>
 </div>
 
 
-<div id="outline-container-org5b70e39" class="outline-3">
-<h3 id="org5b70e39">规范</h3>
-<div class="outline-text-3" id="text-org5b70e39">
+<div id="outline-container-orgc0ce11d" class="outline-3">
+<h3 id="orgc0ce11d">规范</h3>
+<div class="outline-text-3" id="text-orgc0ce11d">
 <p>
 以mysql举例说明, 参考了阿里云和腾讯云社区的文章
 </p>
 </div>
 
-<div id="outline-container-orgfae3196" class="outline-4">
-<h4 id="orgfae3196">命名</h4>
-<div class="outline-text-4" id="text-orgfae3196">
+<div id="outline-container-org745c44e" class="outline-4">
+<h4 id="org745c44e">命名</h4>
+<div class="outline-text-4" id="text-org745c44e">
 <p>
 主要包括字段和表的命名, 未作特殊说明的表示对于表和字段都适用
 </p>
@@ -510,9 +510,9 @@
 </div>
 
 
-<div id="outline-container-orgcd74663" class="outline-4">
-<h4 id="orgcd74663">类型</h4>
-<div class="outline-text-4" id="text-orgcd74663">
+<div id="outline-container-org30ba051" class="outline-4">
+<h4 id="org30ba051">类型</h4>
+<div class="outline-text-4" id="text-org30ba051">
 <ul class="org-ul">
 <li>字段最好都要有默认值, 不要为null, null字段查询难以优化, null字段的复合索引无效</li>
 <li>用尽量少的存储空间来存储, 优先级int&gt; varchar, char, varchar(10) &gt; varchar(100)</li>
@@ -523,9 +523,9 @@
 </div>
 
 
-<div id="outline-container-org8251161" class="outline-4">
-<h4 id="org8251161">编码</h4>
-<div class="outline-text-4" id="text-org8251161">
+<div id="outline-container-org7b1b9a7" class="outline-4">
+<h4 id="org7b1b9a7">编码</h4>
+<div class="outline-text-4" id="text-org7b1b9a7">
 <ul class="org-ul">
 <li>使用utf8字符集同时考虑是否大小写敏感</li>
 </ul>
@@ -535,9 +535,9 @@
 </div>
 
 
-<div id="outline-container-orgc4a459e" class="outline-2">
-<h2 id="orgc4a459e">参考资料</h2>
-<div class="outline-text-2" id="text-orgc4a459e">
+<div id="outline-container-orgd71fff6" class="outline-2">
+<h2 id="orgd71fff6">参考资料</h2>
+<div class="outline-text-2" id="text-orgd71fff6">
 <dl class="org-dl">
 <dt>函数依赖的定义</dt>
 <dd><a href="https://blog.csdn.net/rl529014/article/details/48391465">https://blog.csdn.net/rl529014/article/details/48391465</a></dd>
@@ -640,7 +640,7 @@
           </div>
         </div>
         <div class="source-button">
-    <a class="btn btn-fab btn-raised btn-material-indigo" target="_blank" href="index.org" title="资源">
+    <a class="btn btn-fab btn-raised btn-material-indigo" target="_blank" href="index.org" title="源文件">
         <i class="mdi-file-cloud-download"></i>
     </a>
 

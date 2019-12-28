@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="zh_cn">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>在pycharm中使用http request的方式上传文件 | blurhead's site</title>
+<script src="../../assets/js/pace.min.js"></script><link href="../../assets/css/pace.css" rel="stylesheet">
+<link href="../../assets/css/all-nocdn.css" rel="stylesheet" type="text/css">
+<link rel="alternate" type="application/rss+xml" title="RSS (en)" href="../../en/rss.xml">
+<link rel="alternate" type="application/rss+xml" title="RSS (zh_cn)" href="../../rss.xml">
+<link rel="canonical" href="https://blurhead.github.io/posts/zai-pycharmzhong-shi-yong-http-requestde-fang-shi-shang-chuan-wen-jian/">
+<!--[if lt IE 9]>
+            <script src="../../assets/js/html5shiv.min.js"></script>
+            <script src="../../assets/js/respond.min.js"></script>
+        <![endif]--><meta name="author" content="blurhead">
+<link rel="prev" href="../teach-girl-friend-a-little-python/" title="python中的文件IO之一" type="text/html">
+</head>
+<body>
+<a href="#content" class="sr-only sr-only-focusable">跳到主内容</a>
+
+<!-- Menubar -->
+
+<nav class="navbar navbar-default header-panel shadow-z-3" role="navigation"><div class="container-fluid">
+        <div class="row">
+          <div class="col-xs-3">
+            <h1 class="title-blog">
+                <a href="https://blurhead.github.io/">
+                        <span id="blog-title">blurhead's site</span>
+                    </a>
+            </h1>
+          </div>
+          <div class="col-xs-9">
+            <a id="hamburger" class="btn btn-raised" href="javascript:void(0);" onclick="menuToggle();">☰</a>
+          </div>
+        </div>
+      </div>
+<!-- /.container-fluid -->
+</nav><div class="container-fluid main" id="content" role="main">
+        <div class="row">
+            <nav class="col-xs-12 col-sm-3 menu"><ul>
+<li class="withripple"><a href="../../archive.html">文章归档</a></li>
+                <li class="withripple"><a href="../../categories/">标签</a></li>
+                <li class="withripple"><a href="../../rss.xml">RSS 源</a></li>
+
+                    
+                </ul>
+<ul>
+<li>            </li>
+<li><a href="https://blurhead.github.io/en/" rel="alternate" hreflang="en">English</a></li>
+
+                    
+                </ul></nav><div class="posts-material col-xs-12 col-sm-9">
+                <div class="col-xs-12 col-md-11 content-material">
+<article class="post-text h-entry hentry postpage" itemscope="itemscope" itemtype="http://schema.org/Article"><header><h1 class="p-name entry-title" itemprop="headline name"><a href="." class="u-url">在pycharm中使用http request的方式上传文件</a></h1>
+<hr>
+<div class="metadata">
+            <span class="byline author vcard">
+                <a href=".">
+                        <img class="img-circle" src="../../images/MrOK.jpg" alt="icon">
+                    blurhead
+                </a>
+            </span>
+            <span class="dateline">
+                <a href="." rel="bookmark"><i class="mdi-device-access-time"></i>
+                    <time class="published dt-published" datetime="2019-12-22T17:58:22+08:00" itemprop="datePublished" title="2019-12-22 17:58">2019-12-22 17:58</time></a>
+            </span>
+                <span class="commentline">        
+</span>
+        </div>
+        
+        <hr></header><div class="e-content entry-content" itemprop="articleBody text">
+    <div id="outline-container-orgaab1238" class="outline-2">
+<h2 id="orgaab1238">基础知识</h2>
+<div class="outline-text-2" id="text-orgaab1238">
+<p>
+HTTP协议在 <b>rfc1867</b> 的提议中添加了在提交表单时上传文件的功能. 
+</p>
+
+<p>
+要通过http实现文件上传功能, 需要满足以下几个条件:
+</p>
+<ol class="org-ol">
+<li>
+<p>
+设置Content-Type
+</p>
+<p class="verse">
+<b>Content-Type: multipart/form-data; boundary="Boundary";</b><br>
+boundary是一段标识码, 用来在body中分割不同的数据, multipart在这里表示body中可以有多种类型的数据<br></p>
+</li>
+<li>
+<p>
+设置Request Body
+</p>
+<p class="verse">
+body中按照 <b>–Boundary</b> 来区分不同的数据, Bounday就是前面指定的标示码, 比如要添加一个txt文件:<br></p>
+<pre class="example">
+--Boundary
+Content-Disposition: form-data; name="file"; filename="test.pdf"
+
+this is just a text file for test
+--Boundary
+Content-Disposition: form-data; name="type"; 
+
+report
+--Boundary
+...
+--Boundary
+
+</pre>
+<p>
+```
+</p>
+<p class="verse">
+<b>Content-Disposition</b> 在请求中用来在multipart消息体的子部分中给出相应字段的信息,<br>
+HTTP协议中, 使用multipart时, 只支持form-data, 以及可选的name和filename三个参数<br>
+第一个参数是固定的form-data, 附加的参数之间用 <code>;</code> 分割<br></p>
+
+<p>
+一个完整的请求如下:
+</p>
+<pre class="example">
+POST /api/v1/files
+Host: http://localhost:8088
+Content-Type: multipart/form-data; boundary=WebAppBoundary; charset=UTF-8
+
+--WebAppBoundary
+Content-Disposition: form-data; name="file"; filename="test.txt"
+
+this is just a text file for test
+--WebAppBoundary
+Content-Disposition: form-data; name="type"; 
+
+report
+--WebAppBoundary
+...
+--WebAppBoundary
+</pre>
+</li>
+</ol>
+</div>
+</div>
+
+<div id="outline-container-orgb484984" class="outline-2">
+<h2 id="orgb484984">在PyCharm中使用http-request上传文件</h2>
+<div class="outline-text-2" id="text-orgb484984">
+<p>
+新建一个.http后缀的文件, 内容如下: 
+</p>
+<pre class="example">
+POST /api/v1/files
+Host: http://localhost:8088
+Content-Type: multipart/form-data; boundary=WebAppBoundary; charset=UTF-8
+
+--WebAppBoundary
+Content-Disposition: form-data; name="file"; filename="text.txt"
+
+&lt; ./test.txt
+--WebAppBoundary
+</pre>
+<p>
+区别只是在将文件的内容替换成指定文件路径, 使用 <b>&lt;</b> 来将指定文件的内容追加到请求体中
+</p>
+</div>
+</div>
+
+<div id="outline-container-org0eb1f01" class="outline-2">
+<h2 id="org0eb1f01">在Tornado中解析上传文件的请求</h2>
+<div class="outline-text-2" id="text-org0eb1f01">
+<div class="highlight"><pre><span></span>  <span class="kn">import</span> <span class="nn">tornado.ioloop</span>
+  <span class="kn">import</span> <span class="nn">tornado.web</span>
+
+  <span class="k">class</span> <span class="nc">MainHandler</span><span class="p">(</span><span class="n">tornado</span><span class="o">.</span><span class="n">web</span><span class="o">.</span><span class="n">RequestHandler</span><span class="p">):</span>
+      <span class="k">def</span> <span class="nf">get</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+	  <span class="nb">print</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">request</span><span class="o">.</span><span class="n">files</span><span class="p">)</span>
+	  <span class="bp">self</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s2">"success"</span><span class="p">)</span>
+
+  <span class="k">def</span> <span class="nf">make_app</span><span class="p">():</span>
+      <span class="k">return</span> <span class="n">tornado</span><span class="o">.</span><span class="n">web</span><span class="o">.</span><span class="n">Application</span><span class="p">([</span>
+	  <span class="p">(</span><span class="sa">r</span><span class="s2">"/api/v1/files"</span><span class="p">,</span> <span class="n">MainHandler</span><span class="p">),</span>
+      <span class="p">])</span>
+
+  <span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">"__main__"</span><span class="p">:</span>
+      <span class="n">app</span> <span class="o">=</span> <span class="n">make_app</span><span class="p">()</span>
+      <span class="n">app</span><span class="o">.</span><span class="n">listen</span><span class="p">(</span><span class="mi">8088</span><span class="p">)</span>
+      <span class="n">tornado</span><span class="o">.</span><span class="n">ioloop</span><span class="o">.</span><span class="n">IOLoop</span><span class="o">.</span><span class="n">current</span><span class="p">()</span><span class="o">.</span><span class="n">start</span><span class="p">()</span> 
+</pre></div>
+<p class="verse">
+在tornado的handler中, self.request.files表示的就是multipart格式的请求体中,<br>
+用boundry分割的多个文件, 没有指定filename的不会追加到files中, 而是会添加到self.request的body<sub>arguments中</sub><br></p>
+</div>
+</div>
+    </div>
+    <aside class="postpromonav"><nav><ul class="pager">
+<li class="previous">
+                <a href="../teach-girl-friend-a-little-python/" rel="prev" title="python中的文件IO之一">上一篇文章</a>
+            </li>
+        </ul></nav></aside><section class="comments"><h2>
+<i class="mdi-communication-forum"></i>评论</h2>
+        <hr></section></article>
+</div>
+            </div>
+        </div>
+        <button class="btn btn-fab btn-raised btn-material-green btn-footer" data-toggle="modal" data-target="#footer-dialog">
+            <i class="mdi-communication-message"></i>
+        </button>
+        <div id="footer-dialog" class="modal fade" tabindex="-1">
+          <div class="modal-dialog">
+            <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                <h4 class="modal-title">blurhead</h4>
+                <div>
+                    
+<img class="img-circle" style="float:left;margin:10px 20px 10px 0px;max-height:200px;" src="../../images/MrOK.jpg"><p>A big fan of Britian band blur, also a programmer who loves python and emacs.
+</p>
+
+                </div>
+                <hr>
+</div>
+              <div class="modal-body">
+                    Contents © 2019         <a href="mailto:blurflask@gmail.com">blurhead</a> - Powered by         <a href="https://getnikola.com" rel="nofollow">Nikola</a>         
+                    
+              </div>
+              <div class="modal-footer">
+                <button class="btn btn-primary" data-dismiss="modal">Ok</button>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="source-button">
+    <a class="btn btn-fab btn-raised btn-material-indigo" target="_blank" href="index.org" title="源文件">
+        <i class="mdi-file-cloud-download"></i>
+    </a>
+
+        </div>
+</div>
+
+
+            <script src="../../assets/js/all-nocdn.js"></script><script>
+
+            $(document).ready(function() {
+                // This command is used to initialize some elements and make them work properly
+                $.material.init();
+            });
+
+            $(window).on("resize", function() {
+                if($(window).width() > 767) {
+                  $("html, body").height($(window).height());
+                  $(".main, .menu").height($(window).height() - $(".header-panel").outerHeight() - 76 );
+                  $(".posts-material").height($(window).height());
+                } else {
+                  $("html, body").css('height', '');
+                  $(".main, .menu").css('height', '');
+                  $(".posts-material").css('height', '');
+                }
+            }).trigger("resize");
+
+            function menuToggle() {
+                $("nav.menu, ul").toggleClass('responsive', '');
+            }
+        </script><!-- fancy dates --><script>
+    moment.locale("zh-cn");
+    fancydates(0, "YYYY-MM-DD HH:mm");
+    </script><!-- end fancy dates --><script>
+    baguetteBox.run('div#content', {
+        ignoreClass: 'islink',
+        captions: function(element) {
+            return element.getElementsByTagName('img')[0].alt;
+    }});
+    </script>
+</body>
+</html>

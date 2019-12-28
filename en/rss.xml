@@ -1,5 +1,125 @@
 <?xml version="1.0" encoding="utf-8"?>
-<?xml-stylesheet type="text/xsl" href="../assets/xml/rss.xsl" media="all"?><rss version="2.0" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>blurhead's site</title><link>https://blurhead.github.io/</link><description>programming, data science</description><atom:link href="https://blurhead.github.io/en/rss.xml" rel="self" type="application/rss+xml"></atom:link><language>en</language><copyright>Contents © 2019 &lt;a href="mailto:blurflask@gmail.com"&gt;blurhead&lt;/a&gt; </copyright><lastBuildDate>Sat, 20 Jul 2019 10:42:44 GMT</lastBuildDate><generator>Nikola (getnikola.com)</generator><docs>http://blogs.law.harvard.edu/tech/rss</docs><item><title>教女朋友学点python-IO篇</title><link>https://blurhead.github.io/en/posts/teach-girl-friend-a-little-python/</link><dc:creator>blurhead</dc:creator><description>&lt;div&gt;&lt;div class="cell border-box-sizing text_cell rendered"&gt;&lt;div class="prompt input_prompt"&gt;
+<?xml-stylesheet type="text/xsl" href="../assets/xml/rss.xsl" media="all"?><rss version="2.0" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>blurhead's site</title><link>https://blurhead.github.io/</link><description>programming, data science</description><atom:link href="https://blurhead.github.io/en/rss.xml" rel="self" type="application/rss+xml"></atom:link><language>en</language><copyright>Contents © 2019 &lt;a href="mailto:blurflask@gmail.com"&gt;blurhead&lt;/a&gt; </copyright><lastBuildDate>Sat, 28 Dec 2019 07:48:13 GMT</lastBuildDate><generator>Nikola (getnikola.com)</generator><docs>http://blogs.law.harvard.edu/tech/rss</docs><item><title>在pycharm中使用http request的方式上传文件</title><link>https://blurhead.github.io/en/posts/zai-pycharmzhong-shi-yong-http-requestde-fang-shi-shang-chuan-wen-jian/</link><dc:creator>blurhead</dc:creator><description>&lt;div id="outline-container-orgaab1238" class="outline-2"&gt;
+&lt;h2 id="orgaab1238"&gt;基础知识&lt;/h2&gt;
+&lt;div class="outline-text-2" id="text-orgaab1238"&gt;
+&lt;p&gt;
+HTTP协议在 &lt;b&gt;rfc1867&lt;/b&gt; 的提议中添加了在提交表单时上传文件的功能. 
+&lt;/p&gt;
+
+&lt;p&gt;
+要通过http实现文件上传功能, 需要满足以下几个条件:
+&lt;/p&gt;
+&lt;ol class="org-ol"&gt;
+&lt;li&gt;&lt;p&gt;
+设置Content-Type
+&lt;/p&gt;
+&lt;p class="verse"&gt;
+&lt;b&gt;Content-Type: multipart/form-data; boundary="Boundary";&lt;/b&gt;&lt;br&gt;
+boundary是一段标识码, 用来在body中分割不同的数据, multipart在这里表示body中可以有多种类型的数据&lt;br&gt;
+&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;
+设置Request Body
+&lt;/p&gt;
+&lt;p class="verse"&gt;
+body中按照 &lt;b&gt;–Boundary&lt;/b&gt; 来区分不同的数据, Bounday就是前面指定的标示码, 比如要添加一个txt文件:&lt;br&gt;
+&lt;/p&gt;
+&lt;pre class="example"&gt;
+--Boundary
+Content-Disposition: form-data; name="file"; filename="test.pdf"
+
+this is just a text file for test
+--Boundary
+Content-Disposition: form-data; name="type"; 
+
+report
+--Boundary
+...
+--Boundary
+
+&lt;/pre&gt;
+&lt;p&gt;
+```
+&lt;/p&gt;
+&lt;p class="verse"&gt;
+&lt;b&gt;Content-Disposition&lt;/b&gt; 在请求中用来在multipart消息体的子部分中给出相应字段的信息,&lt;br&gt;
+HTTP协议中, 使用multipart时, 只支持form-data, 以及可选的name和filename三个参数&lt;br&gt;
+第一个参数是固定的form-data, 附加的参数之间用 &lt;code&gt;;&lt;/code&gt; 分割&lt;br&gt;
+&lt;/p&gt;
+
+&lt;p&gt;
+一个完整的请求如下:
+&lt;/p&gt;
+&lt;pre class="example"&gt;
+POST /api/v1/files
+Host: http://localhost:8088
+Content-Type: multipart/form-data; boundary=WebAppBoundary; charset=UTF-8
+
+--WebAppBoundary
+Content-Disposition: form-data; name="file"; filename="test.txt"
+
+this is just a text file for test
+--WebAppBoundary
+Content-Disposition: form-data; name="type"; 
+
+report
+--WebAppBoundary
+...
+--WebAppBoundary
+&lt;/pre&gt;&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;div id="outline-container-orgb484984" class="outline-2"&gt;
+&lt;h2 id="orgb484984"&gt;在PyCharm中使用http-request上传文件&lt;/h2&gt;
+&lt;div class="outline-text-2" id="text-orgb484984"&gt;
+&lt;p&gt;
+新建一个.http后缀的文件, 内容如下: 
+&lt;/p&gt;
+&lt;pre class="example"&gt;
+POST /api/v1/files
+Host: http://localhost:8088
+Content-Type: multipart/form-data; boundary=WebAppBoundary; charset=UTF-8
+
+--WebAppBoundary
+Content-Disposition: form-data; name="file"; filename="text.txt"
+
+&amp;lt; ./test.txt
+--WebAppBoundary
+&lt;/pre&gt;
+&lt;p&gt;
+区别只是在将文件的内容替换成指定文件路径, 使用 &lt;b&gt;&amp;lt;&lt;/b&gt; 来将指定文件的内容追加到请求体中
+&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;div id="outline-container-org0eb1f01" class="outline-2"&gt;
+&lt;h2 id="org0eb1f01"&gt;在Tornado中解析上传文件的请求&lt;/h2&gt;
+&lt;div class="outline-text-2" id="text-org0eb1f01"&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;  &lt;span class="kn"&gt;import&lt;/span&gt; &lt;span class="nn"&gt;tornado.ioloop&lt;/span&gt;
+  &lt;span class="kn"&gt;import&lt;/span&gt; &lt;span class="nn"&gt;tornado.web&lt;/span&gt;
+
+  &lt;span class="k"&gt;class&lt;/span&gt; &lt;span class="nc"&gt;MainHandler&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;tornado&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;web&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;RequestHandler&lt;/span&gt;&lt;span class="p"&gt;):&lt;/span&gt;
+      &lt;span class="k"&gt;def&lt;/span&gt; &lt;span class="nf"&gt;get&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="bp"&gt;self&lt;/span&gt;&lt;span class="p"&gt;):&lt;/span&gt;
+	  &lt;span class="nb"&gt;print&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="bp"&gt;self&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;request&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;files&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+	  &lt;span class="bp"&gt;self&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;write&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s2"&gt;"success"&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+
+  &lt;span class="k"&gt;def&lt;/span&gt; &lt;span class="nf"&gt;make_app&lt;/span&gt;&lt;span class="p"&gt;():&lt;/span&gt;
+      &lt;span class="k"&gt;return&lt;/span&gt; &lt;span class="n"&gt;tornado&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;web&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;Application&lt;/span&gt;&lt;span class="p"&gt;([&lt;/span&gt;
+	  &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="sa"&gt;r&lt;/span&gt;&lt;span class="s2"&gt;"/api/v1/files"&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;MainHandler&lt;/span&gt;&lt;span class="p"&gt;),&lt;/span&gt;
+      &lt;span class="p"&gt;])&lt;/span&gt;
+
+  &lt;span class="k"&gt;if&lt;/span&gt; &lt;span class="vm"&gt;__name__&lt;/span&gt; &lt;span class="o"&gt;==&lt;/span&gt; &lt;span class="s2"&gt;"__main__"&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;
+      &lt;span class="n"&gt;app&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;make_app&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt;
+      &lt;span class="n"&gt;app&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;listen&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="mi"&gt;8088&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+      &lt;span class="n"&gt;tornado&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;ioloop&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;IOLoop&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;current&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;start&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt; 
+&lt;/pre&gt;&lt;/div&gt;
+&lt;p class="verse"&gt;
+在tornado的handler中, self.request.files表示的就是multipart格式的请求体中,&lt;br&gt;
+用boundry分割的多个文件, 没有指定filename的不会追加到files中, 而是会添加到self.request的body&lt;sub&gt;arguments中&lt;/sub&gt;&lt;br&gt;
+&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;</description><guid>https://blurhead.github.io/en/posts/zai-pycharmzhong-shi-yong-http-requestde-fang-shi-shang-chuan-wen-jian/</guid><pubDate>Sun, 22 Dec 2019 09:58:22 GMT</pubDate></item><item><title>python中的文件IO之一</title><link>https://blurhead.github.io/en/posts/teach-girl-friend-a-little-python/</link><dc:creator>blurhead</dc:creator><description>&lt;div&gt;&lt;div class="cell border-box-sizing text_cell rendered"&gt;&lt;div class="prompt input_prompt"&gt;
 &lt;/div&gt;&lt;div class="inner_cell"&gt;
 &lt;div class="text_cell_render border-box-sizing rendered_html"&gt;
 &lt;p&gt;python 中有三种I/O, 分别是text I/O, binary I/O, raw I/O,&lt;br&gt;
@@ -40,8 +160,8 @@ open函数的参数mode代表对文件操作的类型, 按照文件内容有二�
 &lt;div class="inner_cell"&gt;
     &lt;div class="input_area"&gt;
 &lt;div class=" highlight hl-ipython3"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="o"&gt;%%writefile&lt;/span&gt; myfile.txt
-&lt;span class="n"&gt;这是一个测试的文本文件&lt;/span&gt;
-&lt;span class="n"&gt;hello&lt;/span&gt; &lt;span class="n"&gt;can&lt;/span&gt; &lt;span class="n"&gt;you&lt;/span&gt; &lt;span class="n"&gt;hear&lt;/span&gt; &lt;span class="n"&gt;me&lt;/span&gt;
+&lt;span class="s2"&gt;"这是一个测试的文本文件"&lt;/span&gt;
+&lt;span class="s2"&gt;"hello can you hear me"&lt;/span&gt;
 &lt;/pre&gt;&lt;/div&gt;
 
     &lt;/div&gt;
@@ -102,7 +222,7 @@ open函数的参数mode代表对文件操作的类型, 按照文件内容有二�
 size为负数或None或者读取一行全部内容, 如果已经在文件末尾, 返回空字符串&lt;/p&gt;
 &lt;/li&gt;
 &lt;li&gt;&lt;p&gt;seek(offset, whence=SEEK_SET)&lt;br&gt;
-改变文件指针的位置, 默认从0开始移动, offset是移动的偏移量, offest是指字节的大小, 一个中文字符是三个字节.&lt;br&gt;
+改变文件指针的位置, 默认从0开始移动, offset是移动的偏移量, offset是指字节的大小, 一个中文字符是三个字节.&lt;br&gt;
 whence可以是0, 1, 2代表从开始位置, 当前位置, 结束位置, 只有whence=0的时候, offset才可以有0以外的值&lt;/p&gt;
 &lt;/li&gt;
 &lt;li&gt;&lt;p&gt;tell()&lt;br&gt;
@@ -415,14 +535,14 @@ With one argument, return the type of an object. The return value is a type obje
 &lt;span class="c1"&gt;# 创建一个元类&lt;/span&gt;
 &lt;span class="k"&gt;class&lt;/span&gt; &lt;span class="nc"&gt;Meta&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nb"&gt;type&lt;/span&gt;&lt;span class="p"&gt;):&lt;/span&gt;
     &lt;span class="n"&gt;c&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="mi"&gt;1&lt;/span&gt;
-    &lt;span class="k"&gt;def&lt;/span&gt; &lt;span class="nf"&gt;__new__&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;mcs&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="o"&gt;*&lt;/span&gt;&lt;span class="n"&gt;args&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="o"&gt;**&lt;/span&gt;&lt;span class="n"&gt;kwargs&lt;/span&gt;&lt;span class="p"&gt;):&lt;/span&gt;
+    &lt;span class="k"&gt;def&lt;/span&gt; &lt;span class="fm"&gt;__new__&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;mcs&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="o"&gt;*&lt;/span&gt;&lt;span class="n"&gt;args&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="o"&gt;**&lt;/span&gt;&lt;span class="n"&gt;kwargs&lt;/span&gt;&lt;span class="p"&gt;):&lt;/span&gt;
         &lt;span class="nb"&gt;print&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s2"&gt;"I'm creating a class using metaclass &lt;/span&gt;&lt;span class="si"&gt;{}&lt;/span&gt;&lt;span class="s2"&gt;"&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;format&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;mcs&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="vm"&gt;__name__&lt;/span&gt;&lt;span class="p"&gt;))&lt;/span&gt;
         &lt;span class="bp"&gt;cls&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="nb"&gt;super&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="fm"&gt;__new__&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;mcs&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="o"&gt;*&lt;/span&gt;&lt;span class="n"&gt;args&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="o"&gt;**&lt;/span&gt;&lt;span class="n"&gt;kwargs&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;       
         &lt;span class="nb"&gt;print&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s1"&gt;'Now I got a class named &lt;/span&gt;&lt;span class="si"&gt;{name}&lt;/span&gt;&lt;span class="s1"&gt;'&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;format&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;name&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="bp"&gt;cls&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="vm"&gt;__name__&lt;/span&gt;&lt;span class="p"&gt;))&lt;/span&gt;
         &lt;span class="nb"&gt;print&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="bp"&gt;cls&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;a&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="bp"&gt;cls&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;hello&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
         &lt;span class="k"&gt;return&lt;/span&gt; &lt;span class="bp"&gt;cls&lt;/span&gt;
     
-    &lt;span class="k"&gt;def&lt;/span&gt; &lt;span class="nf"&gt;__init__&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="bp"&gt;cls&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="o"&gt;*&lt;/span&gt;&lt;span class="n"&gt;args&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="o"&gt;**&lt;/span&gt;&lt;span class="n"&gt;kwargs&lt;/span&gt;&lt;span class="p"&gt;):&lt;/span&gt;
+    &lt;span class="k"&gt;def&lt;/span&gt; &lt;span class="fm"&gt;__init__&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="bp"&gt;cls&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="o"&gt;*&lt;/span&gt;&lt;span class="n"&gt;args&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="o"&gt;**&lt;/span&gt;&lt;span class="n"&gt;kwargs&lt;/span&gt;&lt;span class="p"&gt;):&lt;/span&gt;
         &lt;span class="nb"&gt;print&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s2"&gt;"I'm initializing class &lt;/span&gt;&lt;span class="si"&gt;{}&lt;/span&gt;&lt;span class="s2"&gt; in metaclass &lt;/span&gt;&lt;span class="si"&gt;{}&lt;/span&gt;&lt;span class="s2"&gt;"&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;format&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;
             &lt;span class="bp"&gt;cls&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="vm"&gt;__name__&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="nb"&gt;type&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="bp"&gt;cls&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="vm"&gt;__name__&lt;/span&gt;&lt;span class="p"&gt;))&lt;/span&gt;
         &lt;span class="nb"&gt;super&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="fm"&gt;__init__&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="o"&gt;*&lt;/span&gt;&lt;span class="n"&gt;args&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="o"&gt;**&lt;/span&gt;&lt;span class="n"&gt;kwargs&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
@@ -435,11 +555,11 @@ With one argument, return the type of an object. The return value is a type obje
 &lt;span class="c1"&gt;# 用定义的元类构造一个类&lt;/span&gt;
 &lt;span class="k"&gt;class&lt;/span&gt; &lt;span class="nc"&gt;MyObject&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nb"&gt;object&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;metaclass&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="n"&gt;Meta&lt;/span&gt;&lt;span class="p"&gt;):&lt;/span&gt;
     &lt;span class="n"&gt;a&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="mi"&gt;1&lt;/span&gt;
-    &lt;span class="k"&gt;def&lt;/span&gt; &lt;span class="nf"&gt;__new__&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="bp"&gt;cls&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="o"&gt;*&lt;/span&gt;&lt;span class="n"&gt;args&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="o"&gt;**&lt;/span&gt;&lt;span class="n"&gt;kwargs&lt;/span&gt;&lt;span class="p"&gt;):&lt;/span&gt;
+    &lt;span class="k"&gt;def&lt;/span&gt; &lt;span class="fm"&gt;__new__&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="bp"&gt;cls&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="o"&gt;*&lt;/span&gt;&lt;span class="n"&gt;args&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="o"&gt;**&lt;/span&gt;&lt;span class="n"&gt;kwargs&lt;/span&gt;&lt;span class="p"&gt;):&lt;/span&gt;
         &lt;span class="bp"&gt;self&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="nb"&gt;super&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="fm"&gt;__new__&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="bp"&gt;cls&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="o"&gt;*&lt;/span&gt;&lt;span class="n"&gt;args&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="o"&gt;**&lt;/span&gt;&lt;span class="n"&gt;kwargs&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;       
         &lt;span class="k"&gt;return&lt;/span&gt; &lt;span class="bp"&gt;self&lt;/span&gt;
     
-    &lt;span class="k"&gt;def&lt;/span&gt; &lt;span class="nf"&gt;__init__&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="bp"&gt;self&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="o"&gt;*&lt;/span&gt;&lt;span class="n"&gt;args&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="o"&gt;**&lt;/span&gt;&lt;span class="n"&gt;kwargs&lt;/span&gt;&lt;span class="p"&gt;):&lt;/span&gt;
+    &lt;span class="k"&gt;def&lt;/span&gt; &lt;span class="fm"&gt;__init__&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="bp"&gt;self&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="o"&gt;*&lt;/span&gt;&lt;span class="n"&gt;args&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="o"&gt;**&lt;/span&gt;&lt;span class="n"&gt;kwargs&lt;/span&gt;&lt;span class="p"&gt;):&lt;/span&gt;
         &lt;span class="nb"&gt;super&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="fm"&gt;__init__&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="o"&gt;*&lt;/span&gt;&lt;span class="n"&gt;args&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="o"&gt;**&lt;/span&gt;&lt;span class="n"&gt;kwargs&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
         
     &lt;span class="nd"&gt;@classmethod&lt;/span&gt;
@@ -596,9 +716,9 @@ MyObject是Meta的一个实例，因此像对象调用类定义的方法和属�
 &lt;/div&gt;
 &lt;/div&gt;
 
-&lt;/div&gt;&lt;/div&gt;</description><guid>https://blurhead.github.io/en/posts/learning-cython-basics/</guid><pubDate>Thu, 21 Feb 2019 03:09:27 GMT</pubDate></item><item><title>ElasticSearch Guide</title><link>https://blurhead.github.io/en/posts/elasticsearch-guide/</link><dc:creator>blurhead</dc:creator><description>&lt;div id="outline-container-org8e50666" class="outline-2"&gt;
-&lt;h2 id="org8e50666"&gt;前言&lt;/h2&gt;
-&lt;div class="outline-text-2" id="text-org8e50666"&gt;
+&lt;/div&gt;&lt;/div&gt;</description><guid>https://blurhead.github.io/en/posts/learning-cython-basics/</guid><pubDate>Thu, 21 Feb 2019 03:09:27 GMT</pubDate></item><item><title>ElasticSearch Guide</title><link>https://blurhead.github.io/en/posts/elasticsearch-guide/</link><dc:creator>blurhead</dc:creator><description>&lt;div id="outline-container-org082beed" class="outline-2"&gt;
+&lt;h2 id="org082beed"&gt;前言&lt;/h2&gt;
+&lt;div class="outline-text-2" id="text-org082beed"&gt;
 &lt;p&gt;
 elasticsearch是一个java开发的企业级的实时的分布式全文搜索和分析引擎, 基于lucene, 可以快速搭建搜索引擎, 提供丰富的查询API,
 正好最近在搞搜索引擎, 总结了一些elastic使用和架构方面的知识.
@@ -616,15 +736,15 @@ elasticsearch是一个java开发的企业级的实时的分布式全文搜索和
 &lt;/div&gt;
 
 
-&lt;div id="outline-container-orgd62d6e8" class="outline-2"&gt;
-&lt;h2 id="orgd62d6e8"&gt;基本概念&lt;/h2&gt;
-&lt;/div&gt;</description><guid>https://blurhead.github.io/en/posts/elasticsearch-guide/</guid><pubDate>Mon, 18 Feb 2019 07:38:01 GMT</pubDate></item><item><title>数据库入门--关系模型与三范式</title><link>https://blurhead.github.io/en/posts/shujushu-ju-ku-ru-men-zhi-nan/</link><dc:creator>blurhead</dc:creator><description>&lt;div id="outline-container-org48c9bfe" class="outline-2"&gt;
-&lt;h2 id="org48c9bfe"&gt;基础知识&lt;/h2&gt;
-&lt;div class="outline-text-2" id="text-org48c9bfe"&gt;
+&lt;div id="outline-container-org7734417" class="outline-2"&gt;
+&lt;h2 id="org7734417"&gt;基本概念&lt;/h2&gt;
+&lt;/div&gt;</description><guid>https://blurhead.github.io/en/posts/elasticsearch-guide/</guid><pubDate>Mon, 18 Feb 2019 07:38:01 GMT</pubDate></item><item><title>数据库入门--关系模型与三范式</title><link>https://blurhead.github.io/en/posts/shujushu-ju-ku-ru-men-zhi-nan/</link><dc:creator>blurhead</dc:creator><description>&lt;div id="outline-container-org1269e06" class="outline-2"&gt;
+&lt;h2 id="org1269e06"&gt;基础知识&lt;/h2&gt;
+&lt;div class="outline-text-2" id="text-org1269e06"&gt;
 &lt;/div&gt;
-&lt;div id="outline-container-org28caddb" class="outline-3"&gt;
-&lt;h3 id="org28caddb"&gt;范式&lt;/h3&gt;
-&lt;div class="outline-text-3" id="text-org28caddb"&gt;
+&lt;div id="outline-container-org00e0582" class="outline-3"&gt;
+&lt;h3 id="org00e0582"&gt;范式&lt;/h3&gt;
+&lt;div class="outline-text-3" id="text-org00e0582"&gt;
 &lt;p&gt;
 数据库表设计的参考标准, 主要有三大范式
 &lt;/p&gt;
@@ -655,9 +775,9 @@ elasticsearch是一个java开发的企业级的实时的分布式全文搜索和
 &lt;/p&gt;
 &lt;/div&gt;
 
-&lt;div id="outline-container-org5856e96" class="outline-4"&gt;
-&lt;h4 id="org5856e96"&gt;案例分析&lt;/h4&gt;
-&lt;div class="outline-text-4" id="text-org5856e96"&gt;
+&lt;div id="outline-container-org5530b44" class="outline-4"&gt;
+&lt;h4 id="org5530b44"&gt;案例分析&lt;/h4&gt;
+&lt;div class="outline-text-4" id="text-org5530b44"&gt;
 &lt;p&gt;
 下面介绍一下, 设计表的时候如何一步步演化到第三范式
 &lt;/p&gt;
@@ -990,9 +1110,9 @@ elasticsearch是一个java开发的企业级的实时的分布式全文搜索和
 &lt;/div&gt;
 
 
-&lt;div id="outline-container-org8f5bb70" class="outline-3"&gt;
-&lt;h3 id="org8f5bb70"&gt;约束&lt;/h3&gt;
-&lt;div class="outline-text-3" id="text-org8f5bb70"&gt;
+&lt;div id="outline-container-orga802d21" class="outline-3"&gt;
+&lt;h3 id="orga802d21"&gt;约束&lt;/h3&gt;
+&lt;div class="outline-text-3" id="text-orga802d21"&gt;
 &lt;dl class="org-dl"&gt;
 &lt;dt&gt;主键约束 (Primay Key Coustraint)&lt;/dt&gt;&lt;dd&gt;唯一性, 非空性&lt;/dd&gt;
 
@@ -1014,9 +1134,9 @@ elasticsearch是一个java开发的企业级的实时的分布式全文搜索和
 &lt;/div&gt;
 
 
-&lt;div id="outline-container-orgd033618" class="outline-3"&gt;
-&lt;h3 id="orgd033618"&gt;编码&lt;/h3&gt;
-&lt;div class="outline-text-3" id="text-orgd033618"&gt;
+&lt;div id="outline-container-org9db7594" class="outline-3"&gt;
+&lt;h3 id="org9db7594"&gt;编码&lt;/h3&gt;
+&lt;div class="outline-text-3" id="text-org9db7594"&gt;
 &lt;p&gt;
 字符编码(Character Set)和排序规则(Collation)
 &lt;/p&gt;
@@ -1036,34 +1156,34 @@ elasticsearch是一个java开发的企业级的实时的分布式全文搜索和
 &lt;/div&gt;
 
 
-&lt;div id="outline-container-orgeefccb6" class="outline-3"&gt;
-&lt;h3 id="orgeefccb6"&gt;索引&lt;/h3&gt;
+&lt;div id="outline-container-orgaea4916" class="outline-3"&gt;
+&lt;h3 id="orgaea4916"&gt;索引&lt;/h3&gt;
 &lt;/div&gt;
 
 
 
-&lt;div id="outline-container-org334e1ec" class="outline-3"&gt;
-&lt;h3 id="org334e1ec"&gt;锁&lt;/h3&gt;
+&lt;div id="outline-container-orgf5cada1" class="outline-3"&gt;
+&lt;h3 id="orgf5cada1"&gt;锁&lt;/h3&gt;
 &lt;/div&gt;
 
 
 
-&lt;div id="outline-container-org79b74dd" class="outline-3"&gt;
-&lt;h3 id="org79b74dd"&gt;事务&lt;/h3&gt;
+&lt;div id="outline-container-org0dffda9" class="outline-3"&gt;
+&lt;h3 id="org0dffda9"&gt;事务&lt;/h3&gt;
 &lt;/div&gt;
 
 
-&lt;div id="outline-container-org5b70e39" class="outline-3"&gt;
-&lt;h3 id="org5b70e39"&gt;规范&lt;/h3&gt;
-&lt;div class="outline-text-3" id="text-org5b70e39"&gt;
+&lt;div id="outline-container-orgc0ce11d" class="outline-3"&gt;
+&lt;h3 id="orgc0ce11d"&gt;规范&lt;/h3&gt;
+&lt;div class="outline-text-3" id="text-orgc0ce11d"&gt;
 &lt;p&gt;
 以mysql举例说明, 参考了阿里云和腾讯云社区的文章
 &lt;/p&gt;
 &lt;/div&gt;
 
-&lt;div id="outline-container-orgfae3196" class="outline-4"&gt;
-&lt;h4 id="orgfae3196"&gt;命名&lt;/h4&gt;
-&lt;div class="outline-text-4" id="text-orgfae3196"&gt;
+&lt;div id="outline-container-org745c44e" class="outline-4"&gt;
+&lt;h4 id="org745c44e"&gt;命名&lt;/h4&gt;
+&lt;div class="outline-text-4" id="text-org745c44e"&gt;
 &lt;p&gt;
 主要包括字段和表的命名, 未作特殊说明的表示对于表和字段都适用
 &lt;/p&gt;
@@ -1086,9 +1206,9 @@ elasticsearch是一个java开发的企业级的实时的分布式全文搜索和
 &lt;/div&gt;
 
 
-&lt;div id="outline-container-orgcd74663" class="outline-4"&gt;
-&lt;h4 id="orgcd74663"&gt;类型&lt;/h4&gt;
-&lt;div class="outline-text-4" id="text-orgcd74663"&gt;
+&lt;div id="outline-container-org30ba051" class="outline-4"&gt;
+&lt;h4 id="org30ba051"&gt;类型&lt;/h4&gt;
+&lt;div class="outline-text-4" id="text-org30ba051"&gt;
 &lt;ul class="org-ul"&gt;
 &lt;li&gt;字段最好都要有默认值, 不要为null, null字段查询难以优化, null字段的复合索引无效&lt;/li&gt;
 &lt;li&gt;用尽量少的存储空间来存储, 优先级int&amp;gt; varchar, char, varchar(10) &amp;gt; varchar(100)&lt;/li&gt;
@@ -1099,9 +1219,9 @@ elasticsearch是一个java开发的企业级的实时的分布式全文搜索和
 &lt;/div&gt;
 
 
-&lt;div id="outline-container-org8251161" class="outline-4"&gt;
-&lt;h4 id="org8251161"&gt;编码&lt;/h4&gt;
-&lt;div class="outline-text-4" id="text-org8251161"&gt;
+&lt;div id="outline-container-org7b1b9a7" class="outline-4"&gt;
+&lt;h4 id="org7b1b9a7"&gt;编码&lt;/h4&gt;
+&lt;div class="outline-text-4" id="text-org7b1b9a7"&gt;
 &lt;ul class="org-ul"&gt;
 &lt;li&gt;使用utf8字符集同时考虑是否大小写敏感&lt;/li&gt;
 &lt;/ul&gt;
@@ -1111,9 +1231,9 @@ elasticsearch是一个java开发的企业级的实时的分布式全文搜索和
 &lt;/div&gt;
 
 
-&lt;div id="outline-container-orgc4a459e" class="outline-2"&gt;
-&lt;h2 id="orgc4a459e"&gt;参考资料&lt;/h2&gt;
-&lt;div class="outline-text-2" id="text-orgc4a459e"&gt;
+&lt;div id="outline-container-orgd71fff6" class="outline-2"&gt;
+&lt;h2 id="orgd71fff6"&gt;参考资料&lt;/h2&gt;
+&lt;div class="outline-text-2" id="text-orgd71fff6"&gt;
 &lt;dl class="org-dl"&gt;
 &lt;dt&gt;函数依赖的定义&lt;/dt&gt;&lt;dd&gt;&lt;a href="https://blog.csdn.net/rl529014/article/details/48391465"&gt;https://blog.csdn.net/rl529014/article/details/48391465&lt;/a&gt;&lt;/dd&gt;
 &lt;dt&gt;三范式的描述&lt;/dt&gt;&lt;dd&gt;&lt;a href="https://www.zhihu.com/question/24696366"&gt;https://www.zhihu.com/question/24696366&lt;/a&gt;&lt;/dd&gt;

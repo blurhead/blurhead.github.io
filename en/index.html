@@ -54,7 +54,141 @@
 
     <div class="postindex well post-material ">
     
-        <article class="h-entry post-text"><header><h1 class="p-name entry-title header"><a href="posts/teach-girl-friend-a-little-python/" class="u-url">教女朋友学点python-IO篇</a></h1>
+        <article class="h-entry post-text"><header><h1 class="p-name entry-title header"><a href="posts/zai-pycharmzhong-shi-yong-http-requestde-fang-shi-shang-chuan-wen-jian/" class="u-url">在pycharm中使用http request的方式上传文件</a></h1>
+            <div class="metadata">
+                <span class="byline author vcard">
+                        <img class="img-circle" src="../images/MrOK.jpg" alt="icon">
+                    blurhead
+                </span>
+                <span class="dateline"><a href="posts/zai-pycharmzhong-shi-yong-http-requestde-fang-shi-shang-chuan-wen-jian/" rel="bookmark">
+                    <i class="mdi-device-access-time"></i><time class="published dt-published" datetime="2019-12-22T17:58:22+08:00" title="2019-12-22 17:58">2019-12-22 17:58</time></a></span>
+                    <span class="commentline">        
+</span>
+            </div>
+            <hr></header><div class="e-content entry-content">
+        <div id="outline-container-orgaab1238" class="outline-2">
+<h2 id="orgaab1238">基础知识</h2>
+<div class="outline-text-2" id="text-orgaab1238">
+<p>
+HTTP协议在 <b>rfc1867</b> 的提议中添加了在提交表单时上传文件的功能. 
+</p>
+
+<p>
+要通过http实现文件上传功能, 需要满足以下几个条件:
+</p>
+<ol class="org-ol">
+<li>
+<p>
+设置Content-Type
+</p>
+<p class="verse">
+<b>Content-Type: multipart/form-data; boundary="Boundary";</b><br>
+boundary是一段标识码, 用来在body中分割不同的数据, multipart在这里表示body中可以有多种类型的数据<br></p>
+</li>
+<li>
+<p>
+设置Request Body
+</p>
+<p class="verse">
+body中按照 <b>–Boundary</b> 来区分不同的数据, Bounday就是前面指定的标示码, 比如要添加一个txt文件:<br></p>
+<pre class="example">
+--Boundary
+Content-Disposition: form-data; name="file"; filename="test.pdf"
+
+this is just a text file for test
+--Boundary
+Content-Disposition: form-data; name="type"; 
+
+report
+--Boundary
+...
+--Boundary
+
+</pre>
+<p>
+```
+</p>
+<p class="verse">
+<b>Content-Disposition</b> 在请求中用来在multipart消息体的子部分中给出相应字段的信息,<br>
+HTTP协议中, 使用multipart时, 只支持form-data, 以及可选的name和filename三个参数<br>
+第一个参数是固定的form-data, 附加的参数之间用 <code>;</code> 分割<br></p>
+
+<p>
+一个完整的请求如下:
+</p>
+<pre class="example">
+POST /api/v1/files
+Host: http://localhost:8088
+Content-Type: multipart/form-data; boundary=WebAppBoundary; charset=UTF-8
+
+--WebAppBoundary
+Content-Disposition: form-data; name="file"; filename="test.txt"
+
+this is just a text file for test
+--WebAppBoundary
+Content-Disposition: form-data; name="type"; 
+
+report
+--WebAppBoundary
+...
+--WebAppBoundary
+</pre>
+</li>
+</ol>
+</div>
+</div>
+
+<div id="outline-container-orgb484984" class="outline-2">
+<h2 id="orgb484984">在PyCharm中使用http-request上传文件</h2>
+<div class="outline-text-2" id="text-orgb484984">
+<p>
+新建一个.http后缀的文件, 内容如下: 
+</p>
+<pre class="example">
+POST /api/v1/files
+Host: http://localhost:8088
+Content-Type: multipart/form-data; boundary=WebAppBoundary; charset=UTF-8
+
+--WebAppBoundary
+Content-Disposition: form-data; name="file"; filename="text.txt"
+
+&lt; ./test.txt
+--WebAppBoundary
+</pre>
+<p>
+区别只是在将文件的内容替换成指定文件路径, 使用 <b>&lt;</b> 来将指定文件的内容追加到请求体中
+</p>
+</div>
+</div>
+
+<div id="outline-container-org0eb1f01" class="outline-2">
+<h2 id="org0eb1f01">在Tornado中解析上传文件的请求</h2>
+<div class="outline-text-2" id="text-org0eb1f01">
+<div class="highlight"><pre><span></span>  <span class="kn">import</span> <span class="nn">tornado.ioloop</span>
+  <span class="kn">import</span> <span class="nn">tornado.web</span>
+
+  <span class="k">class</span> <span class="nc">MainHandler</span><span class="p">(</span><span class="n">tornado</span><span class="o">.</span><span class="n">web</span><span class="o">.</span><span class="n">RequestHandler</span><span class="p">):</span>
+      <span class="k">def</span> <span class="nf">get</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+	  <span class="nb">print</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">request</span><span class="o">.</span><span class="n">files</span><span class="p">)</span>
+	  <span class="bp">self</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s2">"success"</span><span class="p">)</span>
+
+  <span class="k">def</span> <span class="nf">make_app</span><span class="p">():</span>
+      <span class="k">return</span> <span class="n">tornado</span><span class="o">.</span><span class="n">web</span><span class="o">.</span><span class="n">Application</span><span class="p">([</span>
+	  <span class="p">(</span><span class="sa">r</span><span class="s2">"/api/v1/files"</span><span class="p">,</span> <span class="n">MainHandler</span><span class="p">),</span>
+      <span class="p">])</span>
+
+  <span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">"__main__"</span><span class="p">:</span>
+      <span class="n">app</span> <span class="o">=</span> <span class="n">make_app</span><span class="p">()</span>
+      <span class="n">app</span><span class="o">.</span><span class="n">listen</span><span class="p">(</span><span class="mi">8088</span><span class="p">)</span>
+      <span class="n">tornado</span><span class="o">.</span><span class="n">ioloop</span><span class="o">.</span><span class="n">IOLoop</span><span class="o">.</span><span class="n">current</span><span class="p">()</span><span class="o">.</span><span class="n">start</span><span class="p">()</span> 
+</pre></div>
+<p class="verse">
+在tornado的handler中, self.request.files表示的就是multipart格式的请求体中,<br>
+用boundry分割的多个文件, 没有指定filename的不会追加到files中, 而是会添加到self.request的body<sub>arguments中</sub><br></p>
+</div>
+</div>
+        </div>
+        </article><article class="h-entry post-text"><header><h1 class="p-name entry-title header"><a href="posts/teach-girl-friend-a-little-python/" class="u-url">python中的文件IO之一</a></h1>
             <div class="metadata">
                 <span class="byline author vcard">
                         <img class="img-circle" src="../images/MrOK.jpg" alt="icon">
@@ -114,8 +248,8 @@ open函数的参数mode代表对文件操作的类型, 按照文件内容有二�
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="o">%%writefile</span> myfile.txt
-<span class="n">这是一个测试的文本文件</span>
-<span class="n">hello</span> <span class="n">can</span> <span class="n">you</span> <span class="n">hear</span> <span class="n">me</span>
+<span class="s2">"这是一个测试的文本文件"</span>
+<span class="s2">"hello can you hear me"</span>
 </pre></div>
 
     </div>
@@ -181,7 +315,7 @@ size为负数或None或者读取一行全部内容, 如果已经在文件末尾,
 </li>
 <li>
 <p>seek(offset, whence=SEEK_SET)<br>
-改变文件指针的位置, 默认从0开始移动, offset是移动的偏移量, offest是指字节的大小, 一个中文字符是三个字节.<br>
+改变文件指针的位置, 默认从0开始移动, offset是移动的偏移量, offset是指字节的大小, 一个中文字符是三个字节.<br>
 whence可以是0, 1, 2代表从开始位置, 当前位置, 结束位置, 只有whence=0的时候, offset才可以有0以外的值</p>
 </li>
 <li>
@@ -532,14 +666,14 @@ With one argument, return the type of an object. The return value is a type obje
 <span class="c1"># 创建一个元类</span>
 <span class="k">class</span> <span class="nc">Meta</span><span class="p">(</span><span class="nb">type</span><span class="p">):</span>
     <span class="n">c</span> <span class="o">=</span> <span class="mi">1</span>
-    <span class="k">def</span> <span class="nf">__new__</span><span class="p">(</span><span class="n">mcs</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__new__</span><span class="p">(</span><span class="n">mcs</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
         <span class="nb">print</span><span class="p">(</span><span class="s2">"I'm creating a class using metaclass </span><span class="si">{}</span><span class="s2">"</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">mcs</span><span class="o">.</span><span class="vm">__name__</span><span class="p">))</span>
         <span class="bp">cls</span> <span class="o">=</span> <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__new__</span><span class="p">(</span><span class="n">mcs</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>       
         <span class="nb">print</span><span class="p">(</span><span class="s1">'Now I got a class named </span><span class="si">{name}</span><span class="s1">'</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="bp">cls</span><span class="o">.</span><span class="vm">__name__</span><span class="p">))</span>
         <span class="nb">print</span><span class="p">(</span><span class="bp">cls</span><span class="o">.</span><span class="n">a</span><span class="p">,</span> <span class="bp">cls</span><span class="o">.</span><span class="n">hello</span><span class="p">)</span>
         <span class="k">return</span> <span class="bp">cls</span>
     
-    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
         <span class="nb">print</span><span class="p">(</span><span class="s2">"I'm initializing class </span><span class="si">{}</span><span class="s2"> in metaclass </span><span class="si">{}</span><span class="s2">"</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
             <span class="bp">cls</span><span class="o">.</span><span class="vm">__name__</span><span class="p">,</span> <span class="nb">type</span><span class="p">(</span><span class="bp">cls</span><span class="p">)</span><span class="o">.</span><span class="vm">__name__</span><span class="p">))</span>
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
@@ -552,11 +686,11 @@ With one argument, return the type of an object. The return value is a type obje
 <span class="c1"># 用定义的元类构造一个类</span>
 <span class="k">class</span> <span class="nc">MyObject</span><span class="p">(</span><span class="nb">object</span><span class="p">,</span> <span class="n">metaclass</span><span class="o">=</span><span class="n">Meta</span><span class="p">):</span>
     <span class="n">a</span> <span class="o">=</span> <span class="mi">1</span>
-    <span class="k">def</span> <span class="nf">__new__</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__new__</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
         <span class="bp">self</span> <span class="o">=</span> <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__new__</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>       
         <span class="k">return</span> <span class="bp">self</span>
     
-    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
         
     <span class="nd">@classmethod</span>
@@ -754,9 +888,9 @@ MyObject是Meta的一个实例，因此像对象调用类定义的方法和属�
 </span>
             </div>
             <hr></header><div class="e-content entry-content">
-        <div id="outline-container-org8e50666" class="outline-2">
-<h2 id="org8e50666">前言</h2>
-<div class="outline-text-2" id="text-org8e50666">
+        <div id="outline-container-org082beed" class="outline-2">
+<h2 id="org082beed">前言</h2>
+<div class="outline-text-2" id="text-org082beed">
 <p>
 elasticsearch是一个java开发的企业级的实时的分布式全文搜索和分析引擎, 基于lucene, 可以快速搭建搜索引擎, 提供丰富的查询API,
 正好最近在搞搜索引擎, 总结了一些elastic使用和架构方面的知识.
@@ -774,8 +908,8 @@ elasticsearch是一个java开发的企业级的实时的分布式全文搜索和
 </div>
 
 
-<div id="outline-container-orgd62d6e8" class="outline-2">
-<h2 id="orgd62d6e8">基本概念</h2>
+<div id="outline-container-org7734417" class="outline-2">
+<h2 id="org7734417">基本概念</h2>
 </div>
         </div>
         </article><article class="h-entry post-text"><header><h1 class="p-name entry-title header"><a href="posts/shujushu-ju-ku-ru-men-zhi-nan/" class="u-url">数据库入门--关系模型与三范式</a></h1>
@@ -790,13 +924,13 @@ elasticsearch是一个java开发的企业级的实时的分布式全文搜索和
 </span>
             </div>
             <hr></header><div class="e-content entry-content">
-        <div id="outline-container-org48c9bfe" class="outline-2">
-<h2 id="org48c9bfe">基础知识</h2>
-<div class="outline-text-2" id="text-org48c9bfe">
+        <div id="outline-container-org1269e06" class="outline-2">
+<h2 id="org1269e06">基础知识</h2>
+<div class="outline-text-2" id="text-org1269e06">
 </div>
-<div id="outline-container-org28caddb" class="outline-3">
-<h3 id="org28caddb">范式</h3>
-<div class="outline-text-3" id="text-org28caddb">
+<div id="outline-container-org00e0582" class="outline-3">
+<h3 id="org00e0582">范式</h3>
+<div class="outline-text-3" id="text-org00e0582">
 <p>
 数据库表设计的参考标准, 主要有三大范式
 </p>
@@ -833,9 +967,9 @@ elasticsearch是一个java开发的企业级的实时的分布式全文搜索和
 </p>
 </div>
 
-<div id="outline-container-org5856e96" class="outline-4">
-<h4 id="org5856e96">案例分析</h4>
-<div class="outline-text-4" id="text-org5856e96">
+<div id="outline-container-org5530b44" class="outline-4">
+<h4 id="org5530b44">案例分析</h4>
+<div class="outline-text-4" id="text-org5530b44">
 <p>
 下面介绍一下, 设计表的时候如何一步步演化到第三范式
 </p>
@@ -1129,9 +1263,9 @@ elasticsearch是一个java开发的企业级的实时的分布式全文搜索和
 </div>
 
 
-<div id="outline-container-org8f5bb70" class="outline-3">
-<h3 id="org8f5bb70">约束</h3>
-<div class="outline-text-3" id="text-org8f5bb70">
+<div id="outline-container-orga802d21" class="outline-3">
+<h3 id="orga802d21">约束</h3>
+<div class="outline-text-3" id="text-orga802d21">
 <dl class="org-dl">
 <dt>主键约束 (Primay Key Coustraint)</dt>
 <dd>唯一性, 非空性</dd>
@@ -1158,9 +1292,9 @@ elasticsearch是一个java开发的企业级的实时的分布式全文搜索和
 </div>
 
 
-<div id="outline-container-orgd033618" class="outline-3">
-<h3 id="orgd033618">编码</h3>
-<div class="outline-text-3" id="text-orgd033618">
+<div id="outline-container-org9db7594" class="outline-3">
+<h3 id="org9db7594">编码</h3>
+<div class="outline-text-3" id="text-org9db7594">
 <p>
 字符编码(Character Set)和排序规则(Collation)
 </p>
@@ -1180,34 +1314,34 @@ elasticsearch是一个java开发的企业级的实时的分布式全文搜索和
 </div>
 
 
-<div id="outline-container-orgeefccb6" class="outline-3">
-<h3 id="orgeefccb6">索引</h3>
+<div id="outline-container-orgaea4916" class="outline-3">
+<h3 id="orgaea4916">索引</h3>
 </div>
 
 
 
-<div id="outline-container-org334e1ec" class="outline-3">
-<h3 id="org334e1ec">锁</h3>
+<div id="outline-container-orgf5cada1" class="outline-3">
+<h3 id="orgf5cada1">锁</h3>
 </div>
 
 
 
-<div id="outline-container-org79b74dd" class="outline-3">
-<h3 id="org79b74dd">事务</h3>
+<div id="outline-container-org0dffda9" class="outline-3">
+<h3 id="org0dffda9">事务</h3>
 </div>
 
 
-<div id="outline-container-org5b70e39" class="outline-3">
-<h3 id="org5b70e39">规范</h3>
-<div class="outline-text-3" id="text-org5b70e39">
+<div id="outline-container-orgc0ce11d" class="outline-3">
+<h3 id="orgc0ce11d">规范</h3>
+<div class="outline-text-3" id="text-orgc0ce11d">
 <p>
 以mysql举例说明, 参考了阿里云和腾讯云社区的文章
 </p>
 </div>
 
-<div id="outline-container-orgfae3196" class="outline-4">
-<h4 id="orgfae3196">命名</h4>
-<div class="outline-text-4" id="text-orgfae3196">
+<div id="outline-container-org745c44e" class="outline-4">
+<h4 id="org745c44e">命名</h4>
+<div class="outline-text-4" id="text-org745c44e">
 <p>
 主要包括字段和表的命名, 未作特殊说明的表示对于表和字段都适用
 </p>
@@ -1231,9 +1365,9 @@ elasticsearch是一个java开发的企业级的实时的分布式全文搜索和
 </div>
 
 
-<div id="outline-container-orgcd74663" class="outline-4">
-<h4 id="orgcd74663">类型</h4>
-<div class="outline-text-4" id="text-orgcd74663">
+<div id="outline-container-org30ba051" class="outline-4">
+<h4 id="org30ba051">类型</h4>
+<div class="outline-text-4" id="text-org30ba051">
 <ul class="org-ul">
 <li>字段最好都要有默认值, 不要为null, null字段查询难以优化, null字段的复合索引无效</li>
 <li>用尽量少的存储空间来存储, 优先级int&gt; varchar, char, varchar(10) &gt; varchar(100)</li>
@@ -1244,9 +1378,9 @@ elasticsearch是一个java开发的企业级的实时的分布式全文搜索和
 </div>
 
 
-<div id="outline-container-org8251161" class="outline-4">
-<h4 id="org8251161">编码</h4>
-<div class="outline-text-4" id="text-org8251161">
+<div id="outline-container-org7b1b9a7" class="outline-4">
+<h4 id="org7b1b9a7">编码</h4>
+<div class="outline-text-4" id="text-org7b1b9a7">
 <ul class="org-ul">
 <li>使用utf8字符集同时考虑是否大小写敏感</li>
 </ul>
@@ -1256,9 +1390,9 @@ elasticsearch是一个java开发的企业级的实时的分布式全文搜索和
 </div>
 
 
-<div id="outline-container-orgc4a459e" class="outline-2">
-<h2 id="orgc4a459e">参考资料</h2>
-<div class="outline-text-2" id="text-orgc4a459e">
+<div id="outline-container-orgd71fff6" class="outline-2">
+<h2 id="orgd71fff6">参考资料</h2>
+<div class="outline-text-2" id="text-orgd71fff6">
 <dl class="org-dl">
 <dt>函数依赖的定义</dt>
 <dd><a href="https://blog.csdn.net/rl529014/article/details/48391465">https://blog.csdn.net/rl529014/article/details/48391465</a></dd>
@@ -1328,7 +1462,7 @@ elasticsearch是一个java开发的企业级的实时的分布式全文搜索和
 
         
 
-                <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML" integrity="sha256-SDRP1VVYu+tgAGKhddBSl5+ezofHKZeI+OzxakbIe/Y=" crossorigin="anonymous"></script><script type="text/x-mathjax-config">
+                <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-AMS-MML_HTMLorMML" integrity="sha384-3lJUsx1TJHt7BA4udB5KPnDrlkO8T6J6v/op7ui0BbCjvZ9WqV4Xm6DTP6kQ/iBH" crossorigin="anonymous"></script><script type="text/x-mathjax-config">
         MathJax.Hub.Config({tex2jax: {inlineMath: [['$latex ','$'], ['\\(','\\)']]}});
         </script>
 </div>

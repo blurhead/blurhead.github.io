@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>教女朋友学点python-IO篇 | blurhead's site</title>
+<title>python中的文件IO之一 | blurhead's site</title>
 <script src="../../../assets/js/pace.min.js"></script><link href="../../../assets/css/pace.css" rel="stylesheet">
 <link href="../../../assets/css/all-nocdn.css" rel="stylesheet" type="text/css">
 <link rel="alternate" type="application/rss+xml" title="RSS (en)" href="../../rss.xml">
@@ -14,6 +14,7 @@
             <script src="../../../assets/js/respond.min.js"></script>
         <![endif]--><meta name="author" content="blurhead">
 <link rel="prev" href="../meta-programming-in-python/" title="Python元编程入门" type="text/html">
+<link rel="next" href="../zai-pycharmzhong-shi-yong-http-requestde-fang-shi-shang-chuan-wen-jian/" title="在pycharm中使用http request的方式上传文件" type="text/html">
 <link rel="alternate" hreflang="zh_cn" href="../../../posts/teach-girl-friend-a-little-python/">
 </head>
 <body>
@@ -52,7 +53,7 @@
                     
                 </ul></nav><div class="posts-material col-xs-12 col-sm-9">
                 <div class="col-xs-12 col-md-11 content-material">
-<article class="post-text h-entry hentry postpage" itemscope="itemscope" itemtype="http://schema.org/Article"><header><h1 class="p-name entry-title" itemprop="headline name"><a href="." class="u-url">教女朋友学点python-IO篇</a></h1>
+<article class="post-text h-entry hentry postpage" itemscope="itemscope" itemtype="http://schema.org/Article"><header><h1 class="p-name entry-title" itemprop="headline name"><a href="." class="u-url">python中的文件IO之一</a></h1>
 <hr>
 <div class="metadata">
             <span class="byline author vcard">
@@ -118,8 +119,8 @@ open函数的参数mode代表对文件操作的类型, 按照文件内容有二�
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="o">%%writefile</span> myfile.txt
-<span class="n">这是一个测试的文本文件</span>
-<span class="n">hello</span> <span class="n">can</span> <span class="n">you</span> <span class="n">hear</span> <span class="n">me</span>
+<span class="s2">"这是一个测试的文本文件"</span>
+<span class="s2">"hello can you hear me"</span>
 </pre></div>
 
     </div>
@@ -185,7 +186,7 @@ size为负数或None或者读取一行全部内容, 如果已经在文件末尾,
 </li>
 <li>
 <p>seek(offset, whence=SEEK_SET)<br>
-改变文件指针的位置, 默认从0开始移动, offset是移动的偏移量, offest是指字节的大小, 一个中文字符是三个字节.<br>
+改变文件指针的位置, 默认从0开始移动, offset是移动的偏移量, offset是指字节的大小, 一个中文字符是三个字节.<br>
 whence可以是0, 1, 2代表从开始位置, 当前位置, 结束位置, 只有whence=0的时候, offset才可以有0以外的值</p>
 </li>
 <li>
@@ -350,13 +351,22 @@ hel'
 </div>
 </div>
     </div>
-    <aside class="postpromonav"><nav><ul class="pager">
+    <aside class="postpromonav"><nav><div itemprop="keywords" class="tags">
+            <a class="tag p-category btn btn-success btn-raised btn-sm" href="../../categories/io/" rel="tag">IO</a>
+            <a class="tag p-category btn btn-success btn-raised btn-sm" href="../../categories/python/" rel="tag">Python</a>
+            <a class="tag p-category btn btn-success btn-raised btn-sm" href="../../categories/bian-cheng/" rel="tag">编程</a>
+        </div>
+
+            <ul class="pager">
 <li class="previous">
                 <a href="../meta-programming-in-python/" rel="prev" title="Python元编程入门">Previous post</a>
             </li>
+            <li class="next">
+                <a href="../zai-pycharmzhong-shi-yong-http-requestde-fang-shi-shang-chuan-wen-jian/" rel="next" title="在pycharm中使用http request的方式上传文件">Next post</a>
+            </li>
         </ul></nav></aside><section class="comments"><h2>
 <i class="mdi-communication-forum"></i>Comments</h2>
-        <hr></section><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML" integrity="sha256-SDRP1VVYu+tgAGKhddBSl5+ezofHKZeI+OzxakbIe/Y=" crossorigin="anonymous"></script><script type="text/x-mathjax-config">
+        <hr></section><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-AMS-MML_HTMLorMML" integrity="sha384-3lJUsx1TJHt7BA4udB5KPnDrlkO8T6J6v/op7ui0BbCjvZ9WqV4Xm6DTP6kQ/iBH" crossorigin="anonymous"></script><script type="text/x-mathjax-config">
         MathJax.Hub.Config({tex2jax: {inlineMath: [['$latex ','$'], ['\\(','\\)']]}});
         </script></article>
 </div>
