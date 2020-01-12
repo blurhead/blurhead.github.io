@@ -19,7 +19,7 @@
  </url>
  <url>
   <loc>https://blurhead.github.io/archive.html</loc>
-  <lastmod>2020-01-07T12:31:00Z</lastmod>
+  <lastmod>2020-01-12T14:48:00Z</lastmod>
  </url>
  <url>
   <loc>https://blurhead.github.io/categories/</loc>
@@ -55,7 +55,7 @@
  </url>
  <url>
   <loc>https://blurhead.github.io/en/archive.html</loc>
-  <lastmod>2020-01-07T12:31:00Z</lastmod>
+  <lastmod>2020-01-12T14:48:00Z</lastmod>
  </url>
  <url>
   <loc>https://blurhead.github.io/en/categories/</loc>
@@ -98,6 +98,11 @@
   <xhtml:link rel="alternate" hreflang="zh_cn" href="https://blurhead.github.io/posts/meta-programming-in-python/" />
  </url>
  <url>
+  <loc>https://blurhead.github.io/en/posts/relationship-loading-technology-in-sqlalchemy/</loc>
+  <lastmod>2020-01-12T14:48:00Z</lastmod>
+  <xhtml:link rel="alternate" hreflang="zh_cn" href="https://blurhead.github.io/posts/relationship-loading-technology-in-sqlalchemy/" />
+ </url>
+ <url>
   <loc>https://blurhead.github.io/en/posts/shujushu-ju-ku-ru-men-zhi-nan/</loc>
   <lastmod>2019-12-22T10:13:00Z</lastmod>
   <xhtml:link rel="alternate" hreflang="zh_cn" href="https://blurhead.github.io/posts/shujushu-ju-ku-ru-men-zhi-nan/" />
@@ -127,6 +132,10 @@
  <url>
   <loc>https://blurhead.github.io/posts/meta-programming-in-python/</loc>
   <lastmod>2019-12-22T10:13:00Z</lastmod>
+ </url>
+ <url>
+  <loc>https://blurhead.github.io/posts/relationship-loading-technology-in-sqlalchemy/</loc>
+  <lastmod>2020-01-12T14:48:00Z</lastmod>
  </url>
  <url>
   <loc>https://blurhead.github.io/posts/shujushu-ju-ku-ru-men-zhi-nan/</loc>
