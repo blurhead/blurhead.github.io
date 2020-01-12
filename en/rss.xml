@@ -1,5 +1,131 @@
 <?xml version="1.0" encoding="utf-8"?>
-<?xml-stylesheet type="text/xsl" href="../assets/xml/rss.xsl" media="all"?><rss version="2.0" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>blurhead's site</title><link>https://blurhead.github.io/</link><description>programming, data science</description><atom:link href="https://blurhead.github.io/en/rss.xml" rel="self" type="application/rss+xml"></atom:link><language>en</language><copyright>Contents © 2019 &lt;a href="mailto:blurflask@gmail.com"&gt;blurhead&lt;/a&gt; </copyright><lastBuildDate>Sat, 28 Dec 2019 07:56:10 GMT</lastBuildDate><generator>Nikola (getnikola.com)</generator><docs>http://blogs.law.harvard.edu/tech/rss</docs><item><title>在pycharm中使用http request的方式上传文件</title><link>https://blurhead.github.io/en/posts/zai-pycharmzhong-shi-yong-http-requestde-fang-shi-shang-chuan-wen-jian/</link><dc:creator>blurhead</dc:creator><description>&lt;div id="outline-container-orgc10a096" class="outline-2"&gt;
+<?xml-stylesheet type="text/xsl" href="../assets/xml/rss.xsl" media="all"?><rss version="2.0" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>blurhead's site</title><link>https://blurhead.github.io/</link><description>programming, data science</description><atom:link href="https://blurhead.github.io/en/rss.xml" rel="self" type="application/rss+xml"></atom:link><language>en</language><copyright>Contents © 2020 &lt;a href="mailto:blurflask@gmail.com"&gt;blurhead&lt;/a&gt; </copyright><lastBuildDate>Sun, 12 Jan 2020 08:26:50 GMT</lastBuildDate><generator>Nikola (getnikola.com)</generator><docs>http://blogs.law.harvard.edu/tech/rss</docs><item><title>Elasticsearch analysis总结</title><link>https://blurhead.github.io/en/posts/elasticsearch-analysiszong-jie/</link><dc:creator>blurhead</dc:creator><description>&lt;div id="outline-container-org0928649" class="outline-2"&gt;
+&lt;h2 id="org0928649"&gt;Analysis&lt;/h2&gt;
+&lt;div class="outline-text-2" id="text-org0928649"&gt;
+&lt;p&gt;
+Analysis是es中来对文本作处理的过程, 简单地说就是把句子分成一个个token, 具体由analyzer来执行这一过程. 
+&lt;/p&gt;
+&lt;/div&gt;
+
+&lt;div id="outline-container-orge210c73" class="outline-3"&gt;
+&lt;h3 id="orge210c73"&gt;Index time analysis&lt;/h3&gt;
+&lt;div class="outline-text-3" id="text-orge210c73"&gt;
+&lt;p&gt;
+为了能高效地检索数据, ES会在数据存储前预先对文本做分词, 对每个token建立一个倒排索引. 
+&lt;/p&gt;
+
+&lt;p&gt;
+对应的analyzer是 Index time analyzer
+&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;div id="outline-container-orgfef755b" class="outline-3"&gt;
+&lt;h3 id="orgfef755b"&gt;Search time analysis&lt;/h3&gt;
+&lt;div class="outline-text-3" id="text-orgfef755b"&gt;
+&lt;p&gt;
+查询ES中匹配关键字的文档时, 也要对搜索的关键字做处理, 将其转化成更小的单元token. 
+&lt;/p&gt;
+
+&lt;p&gt;
+对应的analyzer是 Search time analyzer
+&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;div id="outline-container-org67d9e68" class="outline-2"&gt;
+&lt;h2 id="org67d9e68"&gt;Analyzer&lt;/h2&gt;
+&lt;div class="outline-text-2" id="text-org67d9e68"&gt;
+&lt;p&gt;
+analyzer由以下三部分组成
+&lt;/p&gt;
+&lt;ul class="org-ul"&gt;
+&lt;li&gt;Tokenizer 对文本作分词, 将句子切分成更小的单元token&lt;/li&gt;
+&lt;li&gt;Character Filter 分词前对文本作预处理, 可以用来过滤掉无效字符等等&lt;/li&gt;
+&lt;li&gt;Token Filter 分词完成后, 对切分好的token做进一步的处理&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;
+一个analyzer有且只能有一个tokenizer, 可以有多个CharFilter和TokenFilter
+&lt;/p&gt;
+&lt;/div&gt;
+
+&lt;div id="outline-container-orgfdaaae0" class="outline-3"&gt;
+&lt;h3 id="orgfdaaae0"&gt;文本处理的顺序&lt;/h3&gt;
+&lt;div class="outline-text-3" id="text-orgfdaaae0"&gt;
+&lt;p&gt;
+先由Character Filter对文本做预处理, 然后把结果传给Tokenizer分词, 最后Token Filter对token做进一步的处理
+&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;div id="outline-container-orgdfea59d" class="outline-3"&gt;
+&lt;h3 id="orgdfea59d"&gt;analyzer的优先级&lt;/h3&gt;
+&lt;div class="outline-text-3" id="text-orgdfea59d"&gt;
+&lt;/div&gt;
+&lt;div id="outline-container-orga3cc90f" class="outline-4"&gt;
+&lt;h4 id="orga3cc90f"&gt;Index time analyzer&lt;/h4&gt;
+&lt;div class="outline-text-4" id="text-orga3cc90f"&gt;
+&lt;ol class="org-ol"&gt;
+&lt;li&gt;优先使用 field 中定义的analyzer&lt;/li&gt;
+&lt;li&gt;其次使用 index 中定义的名为 &lt;b&gt;default&lt;/b&gt; 的analyzer&lt;/li&gt;
+&lt;li&gt;最后使用全局默认的 &lt;b&gt;standard&lt;/b&gt; analyazer&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;div id="outline-container-org029978d" class="outline-4"&gt;
+&lt;h4 id="org029978d"&gt;Search time analyzer&lt;/h4&gt;
+&lt;div class="outline-text-4" id="text-org029978d"&gt;
+&lt;ol class="org-ol"&gt;
+&lt;li&gt;优先使用query中定义的analyzer&lt;/li&gt;
+&lt;li&gt;field 中定义的search_analyzer&lt;/li&gt;
+&lt;li&gt;field 定义的analyzer&lt;/li&gt;
+&lt;li&gt;index 中定义的 &lt;b&gt;default_search&lt;/b&gt; analyzer&lt;/li&gt;
+&lt;li&gt;index 中定义的 &lt;b&gt;default&lt;/b&gt; analyzer&lt;/li&gt;
+&lt;li&gt;&lt;b&gt;standard&lt;/b&gt; analyzer&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;div id="outline-container-org686c92c" class="outline-2"&gt;
+&lt;h2 id="org686c92c"&gt;Tokenizer&lt;/h2&gt;
+&lt;div class="outline-text-2" id="text-org686c92c"&gt;
+&lt;p&gt;
+将一段文字切分成许多token并输出
+&lt;/p&gt;
+
+&lt;p&gt;
+同时还做了以下几件事情
+&lt;/p&gt;
+&lt;ul class="org-ul"&gt;
+&lt;li&gt;记录切分出来的token的位置或者顺序 (用于短语和临近搜索)&lt;/li&gt;
+&lt;li&gt;记录每个token的起始和终止位置 (用于对匹配的文字做高亮)&lt;/li&gt;
+&lt;li&gt;记录每个token的类型, 比如 &amp;lt;ALPHANUM&amp;gt;, &amp;lt;HANGUL&amp;gt;, &amp;lt;NUM&amp;gt;, 不区分的话返回&amp;lt;word&amp;gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;div id="outline-container-org416f689" class="outline-2"&gt;
+&lt;h2 id="org416f689"&gt;Character Filter&lt;/h2&gt;
+&lt;div class="outline-text-2" id="text-org416f689"&gt;
+&lt;p&gt;
+对文本做预处理, 可以增加, 删除, 替换文本中的字符
+&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;div id="outline-container-org0898dca" class="outline-2"&gt;
+&lt;h2 id="org0898dca"&gt;Token Filter&lt;/h2&gt;
+&lt;div class="outline-text-2" id="text-org0898dca"&gt;
+&lt;p&gt;
+对分词的结果做进一步处理, 包括修改token(更改大小写), 删除token(去掉停止词), 添加token(添加同义词)
+&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;</description><guid>https://blurhead.github.io/en/posts/elasticsearch-analysiszong-jie/</guid><pubDate>Tue, 07 Jan 2020 11:56:17 GMT</pubDate></item><item><title>在pycharm中使用http request的方式上传文件</title><link>https://blurhead.github.io/en/posts/zai-pycharmzhong-shi-yong-http-requestde-fang-shi-shang-chuan-wen-jian/</link><dc:creator>blurhead</dc:creator><description>&lt;div id="outline-container-orgc10a096" class="outline-2"&gt;
 &lt;h2 id="orgc10a096"&gt;基础知识&lt;/h2&gt;
 &lt;div class="outline-text-2" id="text-orgc10a096"&gt;
 &lt;p&gt;

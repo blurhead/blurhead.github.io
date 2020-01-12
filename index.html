@@ -13,7 +13,7 @@
 <!--[if lt IE 9]>
             <script src="assets/js/html5shiv.min.js"></script>
             <script src="assets/js/respond.min.js"></script>
-        <![endif]--><link rel="prefetch" href="posts/zai-pycharmzhong-shi-yong-http-requestde-fang-shi-shang-chuan-wen-jian/" type="text/html">
+        <![endif]--><link rel="prefetch" href="posts/elasticsearch-analysiszong-jie/" type="text/html">
 </head>
 <body>
 <a href="#content" class="sr-only sr-only-focusable">跳到主内容</a>
@@ -54,7 +54,147 @@
 
     <div class="postindex well post-material ">
     
-        <article class="h-entry post-text"><header><h1 class="p-name entry-title header"><a href="posts/zai-pycharmzhong-shi-yong-http-requestde-fang-shi-shang-chuan-wen-jian/" class="u-url">在pycharm中使用http request的方式上传文件</a></h1>
+        <article class="h-entry post-text"><header><h1 class="p-name entry-title header"><a href="posts/elasticsearch-analysiszong-jie/" class="u-url">Elasticsearch analysis总结</a></h1>
+            <div class="metadata">
+                <span class="byline author vcard">
+                        <img class="img-circle" src="images/MrOK.jpg" alt="icon">
+                    blurhead
+                </span>
+                <span class="dateline"><a href="posts/elasticsearch-analysiszong-jie/" rel="bookmark">
+                    <i class="mdi-device-access-time"></i><time class="published dt-published" datetime="2020-01-07T19:56:17+08:00" title="2020-01-07 19:56">2020-01-07 19:56</time></a></span>
+                    <span class="commentline">        
+</span>
+            </div>
+            <hr></header><div class="e-content entry-content">
+        <div id="outline-container-org0928649" class="outline-2">
+<h2 id="org0928649">Analysis</h2>
+<div class="outline-text-2" id="text-org0928649">
+<p>
+Analysis是es中来对文本作处理的过程, 简单地说就是把句子分成一个个token, 具体由analyzer来执行这一过程. 
+</p>
+</div>
+
+<div id="outline-container-orge210c73" class="outline-3">
+<h3 id="orge210c73">Index time analysis</h3>
+<div class="outline-text-3" id="text-orge210c73">
+<p>
+为了能高效地检索数据, ES会在数据存储前预先对文本做分词, 对每个token建立一个倒排索引. 
+</p>
+
+<p>
+对应的analyzer是 Index time analyzer
+</p>
+</div>
+</div>
+
+<div id="outline-container-orgfef755b" class="outline-3">
+<h3 id="orgfef755b">Search time analysis</h3>
+<div class="outline-text-3" id="text-orgfef755b">
+<p>
+查询ES中匹配关键字的文档时, 也要对搜索的关键字做处理, 将其转化成更小的单元token. 
+</p>
+
+<p>
+对应的analyzer是 Search time analyzer
+</p>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org67d9e68" class="outline-2">
+<h2 id="org67d9e68">Analyzer</h2>
+<div class="outline-text-2" id="text-org67d9e68">
+<p>
+analyzer由以下三部分组成
+</p>
+<ul class="org-ul">
+<li>Tokenizer 对文本作分词, 将句子切分成更小的单元token</li>
+<li>Character Filter 分词前对文本作预处理, 可以用来过滤掉无效字符等等</li>
+<li>Token Filter 分词完成后, 对切分好的token做进一步的处理</li>
+</ul>
+<p>
+一个analyzer有且只能有一个tokenizer, 可以有多个CharFilter和TokenFilter
+</p>
+</div>
+
+<div id="outline-container-orgfdaaae0" class="outline-3">
+<h3 id="orgfdaaae0">文本处理的顺序</h3>
+<div class="outline-text-3" id="text-orgfdaaae0">
+<p>
+先由Character Filter对文本做预处理, 然后把结果传给Tokenizer分词, 最后Token Filter对token做进一步的处理
+</p>
+</div>
+</div>
+
+<div id="outline-container-orgdfea59d" class="outline-3">
+<h3 id="orgdfea59d">analyzer的优先级</h3>
+<div class="outline-text-3" id="text-orgdfea59d">
+</div>
+<div id="outline-container-orga3cc90f" class="outline-4">
+<h4 id="orga3cc90f">Index time analyzer</h4>
+<div class="outline-text-4" id="text-orga3cc90f">
+<ol class="org-ol">
+<li>优先使用 field 中定义的analyzer</li>
+<li>其次使用 index 中定义的名为 <b>default</b> 的analyzer</li>
+<li>最后使用全局默认的 <b>standard</b> analyazer</li>
+</ol>
+</div>
+</div>
+
+<div id="outline-container-org029978d" class="outline-4">
+<h4 id="org029978d">Search time analyzer</h4>
+<div class="outline-text-4" id="text-org029978d">
+<ol class="org-ol">
+<li>优先使用query中定义的analyzer</li>
+<li>field 中定义的search_analyzer</li>
+<li>field 定义的analyzer</li>
+<li>index 中定义的 <b>default_search</b> analyzer</li>
+<li>index 中定义的 <b>default</b> analyzer</li>
+<li>
+<b>standard</b> analyzer</li>
+</ol>
+</div>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org686c92c" class="outline-2">
+<h2 id="org686c92c">Tokenizer</h2>
+<div class="outline-text-2" id="text-org686c92c">
+<p>
+将一段文字切分成许多token并输出
+</p>
+
+<p>
+同时还做了以下几件事情
+</p>
+<ul class="org-ul">
+<li>记录切分出来的token的位置或者顺序 (用于短语和临近搜索)</li>
+<li>记录每个token的起始和终止位置 (用于对匹配的文字做高亮)</li>
+<li>记录每个token的类型, 比如 &lt;ALPHANUM&gt;, &lt;HANGUL&gt;, &lt;NUM&gt;, 不区分的话返回&lt;word&gt;</li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-org416f689" class="outline-2">
+<h2 id="org416f689">Character Filter</h2>
+<div class="outline-text-2" id="text-org416f689">
+<p>
+对文本做预处理, 可以增加, 删除, 替换文本中的字符
+</p>
+</div>
+</div>
+
+<div id="outline-container-org0898dca" class="outline-2">
+<h2 id="org0898dca">Token Filter</h2>
+<div class="outline-text-2" id="text-org0898dca">
+<p>
+对分词的结果做进一步处理, 包括修改token(更改大小写), 删除token(去掉停止词), 添加token(添加同义词)
+</p>
+</div>
+</div>
+        </div>
+        </article><article class="h-entry post-text"><header><h1 class="p-name entry-title header"><a href="posts/zai-pycharmzhong-shi-yong-http-requestde-fang-shi-shang-chuan-wen-jian/" class="u-url">在pycharm中使用http request的方式上传文件</a></h1>
             <div class="metadata">
                 <span class="byline author vcard">
                         <img class="img-circle" src="images/MrOK.jpg" alt="icon">
@@ -1495,7 +1635,7 @@ elasticsearch是一个java开发的企业级的实时的分布式全文搜索和
                 <hr>
 </div>
               <div class="modal-body">
-                    Contents © 2019         <a href="mailto:blurflask@gmail.com">blurhead</a> - Powered by         <a href="https://getnikola.com" rel="nofollow">Nikola</a>         
+                    Contents © 2020         <a href="mailto:blurflask@gmail.com">blurhead</a> - Powered by         <a href="https://getnikola.com" rel="nofollow">Nikola</a>         
                     
               </div>
               <div class="modal-footer">

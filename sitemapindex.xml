@@ -7,38 +7,46 @@
                         http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">
  <sitemap>
   <loc>https://blurhead.github.io/categories/bian-cheng.xml</loc>
-  <lastmod>2019-12-22T10:58:00Z</lastmod>
+  <lastmod>2019-12-28T06:43:00Z</lastmod>
+ </sitemap>
+ <sitemap>
+  <loc>https://blurhead.github.io/categories/elasticsearch.xml</loc>
+  <lastmod>2020-01-07T12:31:00Z</lastmod>
  </sitemap>
  <sitemap>
   <loc>https://blurhead.github.io/categories/io.xml</loc>
-  <lastmod>2019-12-22T10:58:00Z</lastmod>
+  <lastmod>2019-12-28T06:43:00Z</lastmod>
  </sitemap>
  <sitemap>
   <loc>https://blurhead.github.io/categories/python.xml</loc>
-  <lastmod>2019-12-22T10:58:00Z</lastmod>
+  <lastmod>2019-12-28T06:43:00Z</lastmod>
  </sitemap>
  <sitemap>
   <loc>https://blurhead.github.io/en/categories/bian-cheng.xml</loc>
-  <lastmod>2019-12-22T10:58:00Z</lastmod>
+  <lastmod>2019-12-28T06:43:00Z</lastmod>
+ </sitemap>
+ <sitemap>
+  <loc>https://blurhead.github.io/en/categories/elasticsearch.xml</loc>
+  <lastmod>2020-01-07T12:31:00Z</lastmod>
  </sitemap>
  <sitemap>
   <loc>https://blurhead.github.io/en/categories/io.xml</loc>
-  <lastmod>2019-12-22T10:58:00Z</lastmod>
+  <lastmod>2019-12-28T06:43:00Z</lastmod>
  </sitemap>
  <sitemap>
   <loc>https://blurhead.github.io/en/categories/python.xml</loc>
-  <lastmod>2019-12-22T10:58:00Z</lastmod>
+  <lastmod>2019-12-28T06:43:00Z</lastmod>
  </sitemap>
  <sitemap>
   <loc>https://blurhead.github.io/en/rss.xml</loc>
-  <lastmod>2019-12-22T10:58:00Z</lastmod>
+  <lastmod>2020-01-07T12:31:00Z</lastmod>
  </sitemap>
  <sitemap>
   <loc>https://blurhead.github.io/rss.xml</loc>
-  <lastmod>2019-12-22T10:58:00Z</lastmod>
+  <lastmod>2020-01-07T12:31:00Z</lastmod>
  </sitemap>
  <sitemap>
   <loc>https://blurhead.github.io/sitemap.xml</loc>
-  <lastmod>2019-12-22T10:58:00Z</lastmod>
+  <lastmod>2020-01-07T12:31:00Z</lastmod>
  </sitemap>
 </sitemapindex>

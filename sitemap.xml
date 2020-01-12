@@ -7,23 +7,31 @@
                         http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">
  <url>
   <loc>https://blurhead.github.io/</loc>
-  <lastmod>2019-12-22T10:13:00Z</lastmod>
+  <lastmod>2020-01-07T12:31:00Z</lastmod>
  </url>
  <url>
   <loc>https://blurhead.github.io/2019/</loc>
   <lastmod>2019-12-22T10:13:00Z</lastmod>
  </url>
  <url>
+  <loc>https://blurhead.github.io/2020/</loc>
+  <lastmod>2020-01-07T12:31:00Z</lastmod>
+ </url>
+ <url>
   <loc>https://blurhead.github.io/archive.html</loc>
-  <lastmod>2019-12-22T10:13:00Z</lastmod>
+  <lastmod>2020-01-07T12:31:00Z</lastmod>
  </url>
  <url>
   <loc>https://blurhead.github.io/categories/</loc>
-  <lastmod>2019-12-22T10:58:00Z</lastmod>
+  <lastmod>2020-01-07T12:31:00Z</lastmod>
  </url>
  <url>
   <loc>https://blurhead.github.io/categories/bian-cheng/</loc>
   <lastmod>2019-12-22T10:58:00Z</lastmod>
+ </url>
+ <url>
+  <loc>https://blurhead.github.io/categories/elasticsearch/</loc>
+  <lastmod>2020-01-07T12:31:00Z</lastmod>
  </url>
  <url>
   <loc>https://blurhead.github.io/categories/io/</loc>
@@ -35,23 +43,31 @@
  </url>
  <url>
   <loc>https://blurhead.github.io/en/</loc>
-  <lastmod>2019-12-22T10:13:00Z</lastmod>
+  <lastmod>2020-01-07T12:31:00Z</lastmod>
  </url>
  <url>
   <loc>https://blurhead.github.io/en/2019/</loc>
   <lastmod>2019-12-22T10:13:00Z</lastmod>
  </url>
  <url>
+  <loc>https://blurhead.github.io/en/2020/</loc>
+  <lastmod>2020-01-07T12:31:00Z</lastmod>
+ </url>
+ <url>
   <loc>https://blurhead.github.io/en/archive.html</loc>
-  <lastmod>2019-12-22T10:13:00Z</lastmod>
+  <lastmod>2020-01-07T12:31:00Z</lastmod>
  </url>
  <url>
   <loc>https://blurhead.github.io/en/categories/</loc>
-  <lastmod>2019-12-22T10:58:00Z</lastmod>
+  <lastmod>2020-01-07T12:31:00Z</lastmod>
  </url>
  <url>
   <loc>https://blurhead.github.io/en/categories/bian-cheng/</loc>
   <lastmod>2019-12-22T10:58:00Z</lastmod>
+ </url>
+ <url>
+  <loc>https://blurhead.github.io/en/categories/elasticsearch/</loc>
+  <lastmod>2020-01-07T12:31:00Z</lastmod>
  </url>
  <url>
   <loc>https://blurhead.github.io/en/categories/io/</loc>
@@ -60,6 +76,11 @@
  <url>
   <loc>https://blurhead.github.io/en/categories/python/</loc>
   <lastmod>2019-12-22T10:58:00Z</lastmod>
+ </url>
+ <url>
+  <loc>https://blurhead.github.io/en/posts/elasticsearch-analysiszong-jie/</loc>
+  <lastmod>2020-01-07T12:31:00Z</lastmod>
+  <xhtml:link rel="alternate" hreflang="zh_cn" href="https://blurhead.github.io/posts/elasticsearch-analysiszong-jie/" />
  </url>
  <url>
   <loc>https://blurhead.github.io/en/posts/elasticsearch-guide/</loc>
@@ -90,6 +111,10 @@
   <loc>https://blurhead.github.io/en/posts/zai-pycharmzhong-shi-yong-http-requestde-fang-shi-shang-chuan-wen-jian/</loc>
   <lastmod>2019-12-22T10:13:00Z</lastmod>
   <xhtml:link rel="alternate" hreflang="zh_cn" href="https://blurhead.github.io/posts/zai-pycharmzhong-shi-yong-http-requestde-fang-shi-shang-chuan-wen-jian/" />
+ </url>
+ <url>
+  <loc>https://blurhead.github.io/posts/elasticsearch-analysiszong-jie/</loc>
+  <lastmod>2020-01-07T12:31:00Z</lastmod>
  </url>
  <url>
   <loc>https://blurhead.github.io/posts/elasticsearch-guide/</loc>

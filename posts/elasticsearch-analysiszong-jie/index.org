@@ -1,0 +1,55 @@
+#+OPTIONS: ^:nil
+
+* Analysis
+  Analysis是es中来对文本作处理的过程, 简单地说就是把句子分成一个个token, 具体由analyzer来执行这一过程. 
+
+** Index time analysis
+   为了能高效地检索数据, ES会在数据存储前预先对文本做分词, 对每个token建立一个倒排索引. 
+
+   对应的analyzer是 Index time analyzer
+
+** Search time analysis
+   查询ES中匹配关键字的文档时, 也要对搜索的关键字做处理, 将其转化成更小的单元token. 
+
+   对应的analyzer是 Search time analyzer
+   
+* Analyzer
+  analyzer由以下三部分组成
+  - Tokenizer 对文本作分词, 将句子切分成更小的单元token
+  - Character Filter 分词前对文本作预处理, 可以用来过滤掉无效字符等等
+  - Token Filter 分词完成后, 对切分好的token做进一步的处理
+
+  一个analyzer有且只能有一个tokenizer, 可以有多个CharFilter和TokenFilter
+  
+** 文本处理的顺序 
+   先由Character Filter对文本做预处理, 然后把结果传给Tokenizer分词, 最后Token Filter对token做进一步的处理
+
+** analyzer的优先级
+*** Index time analyzer
+    1. 优先使用 field 中定义的analyzer
+    2. 其次使用 index 中定义的名为 *default* 的analyzer
+    3. 最后使用全局默认的 *standard* analyazer
+       
+*** Search time analyzer
+    1. 优先使用query中定义的analyzer
+    2. field 中定义的search_analyzer
+    3. field 定义的analyzer
+    4. index 中定义的 *default_search* analyzer
+    5. index 中定义的 *default* analyzer
+    6. *standard* analyzer
+
+* Tokenizer
+  将一段文字切分成许多token并输出
+
+  同时还做了以下几件事情
+  - 记录切分出来的token的位置或者顺序 (用于短语和临近搜索)
+  - 记录每个token的起始和终止位置 (用于对匹配的文字做高亮)
+  - 记录每个token的类型, 比如 <ALPHANUM>, <HANGUL>, <NUM>, 不区分的话返回<word>
+
+* Character Filter 
+  对文本做预处理, 可以增加, 删除, 替换文本中的字符
+
+* Token Filter
+  对分词的结果做进一步处理, 包括修改token(更改大小写), 删除token(去掉停止词), 添加token(添加同义词)
+  
+  
